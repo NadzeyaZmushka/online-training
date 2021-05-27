@@ -34,9 +34,11 @@ public final class PropertiesReader {
             LOGGER.error("Error reading file");
         }
         return ApplicationProperties.getInstance(properties.getProperty("url"),
-                properties.getProperty("driver"),
                 properties.getProperty("userName"),
-                properties.getProperty("password"));
+                properties.getProperty("password"),
+                Integer.parseInt(properties.getProperty("connectionPoolSize")),
+                Integer.parseInt(properties.getProperty("maxConnectionPoolSize"))
+        );
     }
 
 }

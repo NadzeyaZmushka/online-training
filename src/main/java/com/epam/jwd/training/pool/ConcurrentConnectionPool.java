@@ -21,14 +21,15 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class ConcurrentConnectionPool implements ConnectionPool {
 
+    private static ConcurrentConnectionPool instance;
+
     private static final Logger LOGGER = LogManager.getLogger(ConcurrentConnectionPool.class);
 
-    private static ConcurrentConnectionPool instance;
     private static final Lock lock = new ReentrantLock();
 
-    private static final int INIT_CONNECTIONS_AMOUNT = 8;
-//    private static final int MAX_CONNECTIONS_AMOUNT = 32;
-//    private static final int CONNECTIONS_GROW_FACTOR = 4;
+    private final int connectionPoolSize;
+//    private final int MAX_CONNECTIONS_AMOUNT = 32;
+//    private final int CONNECTIONS_GROW_FACTOR = 4;
 
     private final ApplicationProperties applicationProperties;
     private final AtomicBoolean initialized;
@@ -39,7 +40,8 @@ public class ConcurrentConnectionPool implements ConnectionPool {
     private ConcurrentConnectionPool() {
         initialized = new AtomicBoolean(false);
         applicationProperties = PropertiesReader.getInstance().loadProperties();
-        availableConnections = new LinkedBlockingDeque<>(INIT_CONNECTIONS_AMOUNT);
+        connectionPoolSize = applicationProperties.getPoolSize();
+        availableConnections = new LinkedBlockingDeque<>(connectionPoolSize);
         takenConnections = new ArrayDeque<>();
     }
 
@@ -75,7 +77,7 @@ public class ConcurrentConnectionPool implements ConnectionPool {
         if (initialized.compareAndSet(false, true)) {
             registerDrivers();
             try {
-                for (int i = 0; i < INIT_CONNECTIONS_AMOUNT; i++) {
+                for (int i = 0; i < connectionPoolSize; i++) {
                     Connection connection = DriverManager.getConnection(applicationProperties.getUrl(), applicationProperties.getUsername(),
                             applicationProperties.getPassword());
                     availableConnections.offer(new ProxyConnection(connection));
