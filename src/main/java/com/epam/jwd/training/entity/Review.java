@@ -7,18 +7,18 @@ public class Review extends BaseEntity {
     private int mark;
     private String description;
     private Teacher teacher;
-    private Student student;
+    private User user;
     private Task task;
 
     public Review() {
     }
 
-    public Review(Long id, int mark, String description, Teacher teacher, Student student, Task task) {
+    public Review(Long id, int mark, String description, Teacher teacher, User user, Task task) {
         super(id);
         this.mark = mark;
         this.description = description;
         this.teacher = teacher;
-        this.student = student;
+        this.user = user;
         this.task = task;
     }
 
@@ -34,8 +34,8 @@ public class Review extends BaseEntity {
         return teacher;
     }
 
-    public Student getStudent() {
-        return student;
+    public User getUser() {
+        return user;
     }
 
     public Task getTask() {
@@ -54,8 +54,8 @@ public class Review extends BaseEntity {
         this.teacher = teacher;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setTask(Task task) {
@@ -71,13 +71,13 @@ public class Review extends BaseEntity {
         return mark == review.mark &&
                 Objects.equals(description, review.description) &&
                 Objects.equals(teacher, review.teacher) &&
-                Objects.equals(student, review.student) &&
+                Objects.equals(user, review.user) &&
                 Objects.equals(task, review.task);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), mark, description, teacher, student, task);
+        return Objects.hash(super.hashCode(), mark, description, teacher, user, task);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class Review extends BaseEntity {
                 "mark=" + mark +
                 ", description='" + description + '\'' +
                 ", teacher=" + teacher +
-                ", student=" + student +
+                ", student=" + user +
                 ", task=" + task +
                 "} " + super.toString();
     }

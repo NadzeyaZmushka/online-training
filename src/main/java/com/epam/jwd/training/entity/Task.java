@@ -54,4 +54,5 @@ public class Task extends BaseEntity {
                 ", course=" + course +
                 '}';
     }
+
 }

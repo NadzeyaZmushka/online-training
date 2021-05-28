@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ReviewDao extends BaseDao<Review> {
 
-    List<Review> findAllReviewsByStudentId(long id);
+    List<Review> findAllReviewsByUserId(long id);
 
     List<Review> findAllReviewsByTeacherId(long id);
 
