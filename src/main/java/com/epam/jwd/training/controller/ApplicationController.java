@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-@WebServlet(urlPatterns = "/hello")
-public class MainServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/controller")
+public class ApplicationController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

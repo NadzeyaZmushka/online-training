@@ -6,8 +6,14 @@ import java.util.List;
 
 public interface CourseDao extends BaseDao<Course> {
 
-    List<Course> findAllCoursesByUserId(long id);
+//    List<Course> findAllCoursesByTeacherId(long id);
 
-    List<Course> findAllCoursesByTeacherId(long id);
+//    Course updateCourseName(Course course);
+//
+//    Course updateDescription(Course course);
+//
+//    Course updateCost(Course course);
+//
+//    Course updateTeacher(Course course);
 
 }

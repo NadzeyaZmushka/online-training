@@ -6,46 +6,54 @@ public class Teacher extends BaseEntity {
 
     private String name;
     private String surname;
-    private Course course;
 
     public Teacher() {
     }
 
-    public Teacher(String name, String surname, Course course) {
-        this.name = name;
-        this.surname = surname;
-        this.course = course;
-    }
-
-    public Teacher(Long id, String name, String surname, Course course) {
+    public Teacher(Long id, String name, String surname) {
         super(id);
         this.name = name;
         this.surname = surname;
-        this.course = course;
+    }
+
+    public static TeacherBuilder builder() {
+        return new TeacherBuilder();
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
+    public static class TeacherBuilder {
 
-    public Course getCourse() {
-        return course;
-    }
+        private Long id;
+        private String name;
+        private String surname;
 
-    public void setCourse(Course course) {
-        this.course = course;
+        public TeacherBuilder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public TeacherBuilder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public TeacherBuilder setSurname(String surname) {
+            this.surname = surname;
+            return this;
+        }
+
+
+        public Teacher build() {
+            return new Teacher(id, name, surname);
+        }
+
     }
 
     @Override
@@ -55,21 +63,19 @@ public class Teacher extends BaseEntity {
         if (!super.equals(o)) return false;
         Teacher teacher = (Teacher) o;
         return Objects.equals(name, teacher.name) &&
-                Objects.equals(surname, teacher.surname) &&
-                Objects.equals(course, teacher.course);
+                Objects.equals(surname, teacher.surname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, surname, course);
+        return Objects.hash(super.hashCode(), name, surname);
     }
 
     @Override
     public String toString() {
         return "Teacher{" +
                 "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", course=" + course +
+                ", surname='" + surname +
                 "} " + super.toString();
     }
 

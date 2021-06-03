@@ -8,4 +8,6 @@ public interface TaskDao extends BaseDao<Task> {
 
     List<Task> findAllTasksByCourseId(long id);
 
+    Task update(Task task);
+
 }

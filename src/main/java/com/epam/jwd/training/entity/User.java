@@ -6,8 +6,7 @@ public class User extends BaseEntity {
 
     private String name;
     private String surname;
-    private String login;
-    private String password;
+    private String email;
     private RoleType role;
     private Course course;
 
@@ -15,74 +14,93 @@ public class User extends BaseEntity {
     }
 
     public User(String name, String surname,
-                String login, String password,
-                RoleType role, Course course) {
+                String email,
+                RoleType role) {
         this.name = name;
         this.surname = surname;
-        this.login = login;
-        this.password = password;
+        this.email = email;
         this.role = role;
-        this.course = course;
+
     }
 
     public User(Long id, String name, String surname,
-                String login, String password,
+                String email,
                 RoleType role, Course course) {
         super(id);
         this.name = name;
         this.surname = surname;
-        this.login = login;
-        this.password = password;
+        this.email = email;
         this.role = role;
         this.course = course;
+    }
+
+    public static UserBuilder builder() {
+        return new UserBuilder();
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public String getEmail() {
+        return email;
     }
 
     public RoleType getRole() {
         return role;
     }
 
-    public void setRole(RoleType role) {
-        this.role = role;
-    }
-
     public Course getCourse() {
         return course;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public static class UserBuilder {
+
+        private Long id;
+        private String name;
+        private String surname;
+        private String email;
+        private RoleType role;
+        private Course course;
+
+        public UserBuilder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public UserBuilder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public UserBuilder setSurname(String surname) {
+            this.surname = surname;
+            return this;
+        }
+
+        public UserBuilder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UserBuilder setRole(RoleType role) {
+            this.role = role;
+            return this;
+        }
+
+        public UserBuilder setCourse(Course course) {
+            this.course = course;
+            return this;
+        }
+
+        public User build() {
+            return new User(id, name, surname, email, role, course);
+        }
+        
     }
 
     @Override
@@ -93,15 +111,14 @@ public class User extends BaseEntity {
         User user = (User) o;
         return Objects.equals(name, user.name) &&
                 Objects.equals(surname, user.surname) &&
-                Objects.equals(login, user.login) &&
-                Objects.equals(password, user.password) &&
+                Objects.equals(email, user.email) &&
                 role == user.role &&
                 Objects.equals(course, user.course);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, surname, login, password, role, course);
+        return Objects.hash(super.hashCode(), name, surname, email, role, course);
     }
 
     @Override
@@ -109,10 +126,9 @@ public class User extends BaseEntity {
         return "Account{" + "id='" + getId() + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
                 ", role='" + role + '\'' +
-                ", course='" + course +'\'' +
+                ", course='" + course + '\'' +
                 '}';
     }
 

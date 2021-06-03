@@ -16,20 +16,42 @@ public class Task extends BaseEntity {
         this.course = course;
     }
 
-    public String getDescription() {
-        return description;
+    public static TaskBuilder builder() {
+        return new TaskBuilder();
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getDescription() {
+        return description;
     }
 
     public Course getCourse() {
         return course;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public static class TaskBuilder {
+        private Long id;
+        private String description;
+        private Course course;
+
+        public TaskBuilder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public TaskBuilder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public TaskBuilder setCourse(Course course) {
+            this.course = course;
+            return this;
+        }
+
+        public Task build() {
+            return new Task(id, description, course);
+        }
+
     }
 
     @Override

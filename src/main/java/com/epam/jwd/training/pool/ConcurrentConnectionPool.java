@@ -25,11 +25,11 @@ public class ConcurrentConnectionPool implements ConnectionPool {
 
     private static final Logger LOGGER = LogManager.getLogger(ConcurrentConnectionPool.class);
 
+    private static final Integer DEFAULT_POOL_SIZE = 10;
+
     private static final Lock lock = new ReentrantLock();
 
-    private final int connectionPoolSize;
-//    private final int MAX_CONNECTIONS_AMOUNT = 32;
-//    private final int CONNECTIONS_GROW_FACTOR = 4;
+    private final Integer connectionPoolSize;
 
     private final ApplicationProperties applicationProperties;
     private final AtomicBoolean initialized;
@@ -41,8 +41,9 @@ public class ConcurrentConnectionPool implements ConnectionPool {
         initialized = new AtomicBoolean(false);
         applicationProperties = PropertiesReader.getInstance().loadProperties();
         connectionPoolSize = applicationProperties.getPoolSize();
-        availableConnections = new LinkedBlockingDeque<>(connectionPoolSize);
+        availableConnections = new LinkedBlockingDeque<>();
         takenConnections = new ArrayDeque<>();
+        init();
     }
 
 
@@ -58,34 +59,47 @@ public class ConcurrentConnectionPool implements ConnectionPool {
     }
 
     public Connection takeConnection() {
-        ProxyConnection proxyConnection;
-        proxyConnection = availableConnections.poll();
-        takenConnections.add(proxyConnection);
-        return proxyConnection;
+        ProxyConnection connection = null;
+        try {
+            connection = availableConnections.take();
+            takenConnections.add(connection);
+        } catch (InterruptedException e) {
+            LOGGER.error("Interrupted exception in method takeConnection " + e.getMessage());
+            Thread.currentThread().interrupt();
+        }
+        return connection;
     }
 
     public void releaseConnection(Connection connection) {
         if (connection != null) {
             if (connection instanceof ProxyConnection) {
                 takenConnections.remove(connection);
-                availableConnections.offer((ProxyConnection) connection);
+                try {
+                    availableConnections.put((ProxyConnection) connection);
+                } catch (InterruptedException e) {
+                    LOGGER.error("Interrupted exception in method releaseConnection " + e.getMessage());
+                    Thread.currentThread().interrupt();
+                }
             }
         }
     }
 
-    public void init() throws CouldNotInitializeConnectionPoolException {
+    public void init() {
         if (initialized.compareAndSet(false, true)) {
-            registerDrivers();
             try {
-                for (int i = 0; i < connectionPoolSize; i++) {
-                    Connection connection = DriverManager.getConnection(applicationProperties.getUrl(), applicationProperties.getUsername(),
-                            applicationProperties.getPassword());
-                    availableConnections.offer(new ProxyConnection(connection));
+                registerDrivers();
+                Integer size = connectionPoolSize == null ? DEFAULT_POOL_SIZE : connectionPoolSize;
+                for (int i = 0; i < size; i++) {
+                    Connection connection = DriverManager.getConnection(applicationProperties.getUrl(),
+                            applicationProperties.getUsername(),
+                            applicationProperties.getPassword()
+                    );
+                    availableConnections.add(new ProxyConnection(connection));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.fatal(e.getMessage());
                 initialized.set(false);
-                throw new CouldNotInitializeConnectionPoolException("failed to open connection", e);
+                throw new CouldNotInitializeConnectionPoolException("Connection failed...", e);
             }
         }
     }
@@ -96,7 +110,7 @@ public class ConcurrentConnectionPool implements ConnectionPool {
                 try {
                     conn.realClose();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error("SQLException in method destroy " + e.getMessage());
                 }
             }
             deregisterDrivers();
@@ -107,7 +121,7 @@ public class ConcurrentConnectionPool implements ConnectionPool {
         try {
             DriverManager.registerDriver(DriverManager.getDriver(applicationProperties.getUrl()));
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("registration drivers failed " + e.getMessage());
             initialized.set(false);
             throw new CouldNotInitializeConnectionPoolException("driver registration failed", e);
         }
@@ -119,7 +133,7 @@ public class ConcurrentConnectionPool implements ConnectionPool {
             try {
                 DriverManager.deregisterDriver(drivers.nextElement());
             } catch (SQLException e) {
-                LOGGER.error("unregistering drivers failed");
+                LOGGER.error("unregistering drivers failed " + e.getMessage());
             }
         }
     }

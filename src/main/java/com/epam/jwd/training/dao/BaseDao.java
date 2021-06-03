@@ -11,10 +11,8 @@ public interface BaseDao<T extends BaseEntity> {
 
     Optional<T> findById(long id);
 
-    T create(T entity);
+    T save(T entity);
 
-    T update(T entity);
-
-    void delete(long id);
+    boolean delete(long id);
 
 }

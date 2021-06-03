@@ -1,6 +1,7 @@
 package com.epam.jwd.training.entity;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -8,24 +9,16 @@ public class Course extends BaseEntity {
 
     private String name;
     private String description;
-    private LocalDate startCourse;
-    private LocalDate endCourse;
+    private Date startCourse;
+    private Date endCourse;
     private BigDecimal cost;
     private Teacher teacher;
 
     public Course() {
     }
 
-    public Course(Long id, String name, String description, BigDecimal cost, Teacher teacher) {
-        super(id);
-        this.name = name;
-        this.description = description;
-        this.cost = cost;
-        this.teacher = teacher;
-    }
-
     public Course(Long id, String name, String description,
-                  LocalDate startCourse, LocalDate endCourse,
+                  Date startCourse, Date endCourse,
                   BigDecimal cost, Teacher teacher) {
         super(id);
         this.name = name;
@@ -36,6 +29,10 @@ public class Course extends BaseEntity {
         this.teacher = teacher;
     }
 
+    public static CourseBuilder builder() {
+        return new CourseBuilder();
+    }
+
     public String getName() {
         return name;
     }
@@ -44,11 +41,11 @@ public class Course extends BaseEntity {
         return description;
     }
 
-    public LocalDate getStartCourse() {
+    public Date getStartCourse() {
         return startCourse;
     }
 
-    public LocalDate getEndCourse() {
+    public Date getEndCourse() {
         return endCourse;
     }
 
@@ -60,28 +57,55 @@ public class Course extends BaseEntity {
         return teacher;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public static class CourseBuilder {
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+        private Long id;
+        private String name;
+        private String description;
+        private Date startCourse;
+        private Date endCourse;
+        private BigDecimal cost;
+        private Teacher teacher;
 
-    public void setStartCourse(LocalDate startCourse) {
-        this.startCourse = startCourse;
-    }
+        public CourseBuilder setId(Long id) {
+            this.id = id;
+            return this;
+        }
 
-    public void setEndCourse(LocalDate endCourse) {
-        this.endCourse = endCourse;
-    }
+        public CourseBuilder setName(String name) {
+            this.name = name;
+            return this;
+        }
 
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
-    }
+        public CourseBuilder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+        public CourseBuilder setStartCourse(Date startCourse) {
+            this.startCourse = startCourse;
+            return this;
+        }
+
+        public CourseBuilder setEndCourse(Date endCourse) {
+            this.endCourse = endCourse;
+            return this;
+        }
+
+        public CourseBuilder setCost(BigDecimal cost) {
+            this.cost = cost;
+            return this;
+        }
+
+        public CourseBuilder setTeacher(Teacher teacher) {
+            this.teacher = teacher;
+            return this;
+        }
+
+        public Course build() {
+            return new Course(id, name, description, startCourse, endCourse, cost, teacher);
+        }
+
     }
 
     @Override
