@@ -64,7 +64,7 @@ public class ConcurrentConnectionPool implements ConnectionPool {
             connection = availableConnections.take();
             takenConnections.add(connection);
         } catch (InterruptedException e) {
-            LOGGER.error("Interrupted exception in method takeConnection " + e.getMessage());
+            LOGGER.error("The connection is not received " + e);
             Thread.currentThread().interrupt();
         }
         return connection;
@@ -77,8 +77,8 @@ public class ConcurrentConnectionPool implements ConnectionPool {
                 try {
                     availableConnections.put((ProxyConnection) connection);
                 } catch (InterruptedException e) {
-                    LOGGER.error("Interrupted exception in method releaseConnection " + e.getMessage());
-                    Thread.currentThread().interrupt();
+                    LOGGER.error(e);
+                    throw new CouldNotInitializeConnectionPoolException("Connection wasn't release", e);
                 }
             }
         }
@@ -110,7 +110,7 @@ public class ConcurrentConnectionPool implements ConnectionPool {
                 try {
                     conn.realClose();
                 } catch (SQLException e) {
-                    LOGGER.error("SQLException in method destroy " + e.getMessage());
+                    LOGGER.error("The pool was not destroyed " + e.getMessage());
                 }
             }
             deregisterDrivers();
@@ -121,7 +121,7 @@ public class ConcurrentConnectionPool implements ConnectionPool {
         try {
             DriverManager.registerDriver(DriverManager.getDriver(applicationProperties.getUrl()));
         } catch (SQLException e) {
-            LOGGER.error("registration drivers failed " + e.getMessage());
+            LOGGER.error(e);
             initialized.set(false);
             throw new CouldNotInitializeConnectionPoolException("driver registration failed", e);
         }
