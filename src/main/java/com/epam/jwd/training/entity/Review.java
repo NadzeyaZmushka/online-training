@@ -6,19 +6,21 @@ public class Review extends BaseEntity {
 
     private int mark;
     private String description;
-    private Task task;
-    private Teacher teacher;
     private User user;
 
     public Review() {
     }
 
-    public Review(Long id, int mark, String description, Task task, Teacher teacher, User user) {
+    public Review(int mark, String description, User user) {
+        this.mark = mark;
+        this.description = description;
+        this.user = user;
+    }
+
+    public Review(Long id, int mark, String description, User user) {
         super(id);
         this.mark = mark;
         this.description = description;
-        this.task = task;
-        this.teacher = teacher;
         this.user = user;
     }
 
@@ -34,14 +36,6 @@ public class Review extends BaseEntity {
         return description;
     }
 
-    public Task getTask() {
-        return task;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
     public User getUser() {
         return user;
     }
@@ -51,8 +45,6 @@ public class Review extends BaseEntity {
         private Long id;
         private int mark;
         private String description;
-        private Task task;
-        private Teacher teacher;
         private User user;
 
         public ReviewBuilder setId(Long id) {
@@ -70,15 +62,6 @@ public class Review extends BaseEntity {
             return this;
         }
 
-        public ReviewBuilder setTask(Task task) {
-            this.task = task;
-            return this;
-        }
-
-        public ReviewBuilder setTeacher(Teacher teacher) {
-            this.teacher = teacher;
-            return this;
-        }
 
         public ReviewBuilder setUser(User user) {
             this.user = user;
@@ -86,7 +69,7 @@ public class Review extends BaseEntity {
         }
 
         public Review build() {
-            return new Review(id, mark, description, task, teacher, user);
+            return new Review(id, mark, description, user);
         }
 
     }
@@ -99,25 +82,20 @@ public class Review extends BaseEntity {
         Review review = (Review) o;
         return mark == review.mark &&
                 Objects.equals(description, review.description) &&
-                Objects.equals(teacher, review.teacher) &&
-                Objects.equals(user, review.user) &&
-                Objects.equals(task, review.task);
+                Objects.equals(user, review.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), mark, description, task, teacher, user);
+        return Objects.hash(super.hashCode(), mark, description, user);
     }
 
     @Override
     public String toString() {
-        return "Review{" +
+        return  " Review{" + super.toString() +
                 "mark=" + mark +
                 ", description='" + description + '\'' +
-                ", task=" + task +
-                ", teacher=" + teacher +
-                ", student=" + user +
-                "} " + super.toString();
+                ", user=" + user +
+                '}';
     }
-
 }

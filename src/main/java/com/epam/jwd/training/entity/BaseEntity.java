@@ -36,8 +36,7 @@ public abstract class BaseEntity {
 
     @Override
     public String toString() {
-        return "BaseEntity{" +
-                "id=" + id +
+        return "id=" + id +
                 '}';
     }
 

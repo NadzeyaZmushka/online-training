@@ -123,7 +123,7 @@ public class User extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Account{" + "id='" + getId() + '\'' +
+        return "User{" + super.toString() + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +

@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class ConcurrentConnectionPool implements ConnectionPool {
+public final class ConcurrentConnectionPool implements ConnectionPool {
 
     private static ConcurrentConnectionPool instance;
 
@@ -64,8 +64,8 @@ public class ConcurrentConnectionPool implements ConnectionPool {
             connection = availableConnections.take();
             takenConnections.add(connection);
         } catch (InterruptedException e) {
-            LOGGER.error("The connection is not received " + e);
-            Thread.currentThread().interrupt();
+            LOGGER.error(e);
+            throw new CouldNotInitializeConnectionPoolException("The connection is not received ", e);
         }
         return connection;
     }
@@ -88,7 +88,8 @@ public class ConcurrentConnectionPool implements ConnectionPool {
         if (initialized.compareAndSet(false, true)) {
             try {
                 registerDrivers();
-                Integer size = connectionPoolSize == null ? DEFAULT_POOL_SIZE : connectionPoolSize;
+                int size = connectionPoolSize == null ? DEFAULT_POOL_SIZE : connectionPoolSize;
+//                LOGGER.info(size);
                 for (int i = 0; i < size; i++) {
                     Connection connection = DriverManager.getConnection(applicationProperties.getUrl(),
                             applicationProperties.getUsername(),
@@ -119,6 +120,7 @@ public class ConcurrentConnectionPool implements ConnectionPool {
 
     private void registerDrivers() throws CouldNotInitializeConnectionPoolException {
         try {
+//            LOGGER.info(applicationProperties.getUrl());
             DriverManager.registerDriver(DriverManager.getDriver(applicationProperties.getUrl()));
         } catch (SQLException e) {
             LOGGER.error(e);

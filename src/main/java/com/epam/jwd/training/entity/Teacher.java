@@ -10,6 +10,11 @@ public class Teacher extends BaseEntity {
     public Teacher() {
     }
 
+    public Teacher(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
     public Teacher(Long id, String name, String surname) {
         super(id);
         this.name = name;
@@ -73,10 +78,10 @@ public class Teacher extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Teacher{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname +
-                "} " + super.toString();
+        return  "Teacher{" +super.toString() +
+                "name = '" + name + '\'' +
+                ", surname = '" + surname + '\'' +
+                "} ";
     }
 
 }

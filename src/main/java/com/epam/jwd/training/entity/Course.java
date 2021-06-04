@@ -53,6 +53,10 @@ public class Course extends BaseEntity {
         return cost;
     }
 
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
+    }
+
     public Teacher getTeacher() {
         return teacher;
     }
@@ -128,14 +132,14 @@ public class Course extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Course{" +
+        return "Course{" + super.toString() +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", startCourse=" + startCourse +
                 ", endCourse=" + endCourse +
                 ", cost=" + cost +
                 ", teacher=" + teacher +
-                "}" + super.toString();
+                "}";
     }
 
 }

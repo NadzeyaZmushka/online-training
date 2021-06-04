@@ -21,14 +21,10 @@ public final class ColumnName {
     public static final String COURSE_ID = "course_id";
     public static final String TASK_ID = "task_id";
     public static final String TASK_DESCRIPTION = "task_description";
-//    public static final String COURSE_ID = "course_id";
     public static final String REVIEW_ID = "r_id";
     public static final String MARK = "mark";
-    public static final String REVIEW_DESCRIPTION = "review_description";
-//    public static final String TEACHER_ID = "teacher_id";
+    public static final String REVIEW_DESCRIPTION = "r_description";
     public static final String USER_ID = "user_id";
-//    public static final String TASK_ID = "task_id";
-
 
     private ColumnName() {
     }

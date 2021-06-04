@@ -10,6 +10,11 @@ public class Task extends BaseEntity {
     public Task() {
     }
 
+    public Task(String description, Course course) {
+        this.description = description;
+        this.course = course;
+    }
+
     public Task(Long id, String description, Course course) {
         super(id);
         this.description = description;
