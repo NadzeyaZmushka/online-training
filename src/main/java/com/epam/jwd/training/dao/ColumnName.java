@@ -16,7 +16,7 @@ public final class ColumnName {
     public static final String USER_NAME = "user_name";
     public static final String USER_SURNAME = "user_surname";
     public static final String USER_EMAIL = "user_email";
-    public static final String USER_PASSWORD = "password";
+//    public static final String USER_PASSWORD = "password";
     public static final String ROLE = "user_role";
     public static final String COURSE_ID = "course_id";
     public static final String TASK_ID = "task_id";
@@ -28,4 +28,5 @@ public final class ColumnName {
 
     private ColumnName() {
     }
+
 }

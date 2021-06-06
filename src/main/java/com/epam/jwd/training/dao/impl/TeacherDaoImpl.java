@@ -18,6 +18,8 @@ import java.util.Optional;
 
 public class TeacherDaoImpl implements TeacherDao {
 
+    public static final TeacherDaoImpl INSTANCE = new TeacherDaoImpl();
+
     private static final Logger LOGGER = LogManager.getLogger(TeacherDaoImpl.class);
 
     private static final String FIND_ALL_TEACHERS_SQL = "SELECT t_id, teacher_name, teacher_surname " +
@@ -32,6 +34,9 @@ public class TeacherDaoImpl implements TeacherDao {
             "VALUES (?,?)";
     private static final String DELETE_TEACHER_SQL = "DELETE FROM teachers " +
             "WHERE t_id = ?";
+
+    private TeacherDaoImpl() {
+    }
 
     @Override
     public Optional<Teacher> findBySurname(String surname) throws DaoException {
@@ -102,29 +107,35 @@ public class TeacherDaoImpl implements TeacherDao {
 
     @Override
     public boolean save(Teacher teacher) throws DaoException {
+        boolean isSaved;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_TEACHER_SQL)) {
             preparedStatement.setString(1, teacher.getName());
             preparedStatement.setString(2, teacher.getSurname());
 
-            return preparedStatement.executeUpdate() > 0;
+            isSaved = preparedStatement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
+        return isSaved;
     }
 
     @Override
     public boolean delete(long id) throws DaoException {
+        boolean isDeleted;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_TEACHER_SQL)) {
             preparedStatement.setLong(1, id);
-            return preparedStatement.executeUpdate() > 0;
+
+            isDeleted = preparedStatement.executeUpdate() > 0;
+
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
+        return isDeleted;
     }
 
 }

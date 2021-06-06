@@ -19,6 +19,8 @@ import java.util.Optional;
 
 public class TaskDaoImpl implements TaskDao {
 
+    public static final TaskDaoImpl INSTANCE = new TaskDaoImpl();
+
     private static final Logger LOGGER = LogManager.getLogger(TaskDaoImpl.class);
 
     private static final String FIND_ALL_TASKS_SQL = "SELECT task_id, task_description, course_id, course_name  " +
@@ -36,6 +38,8 @@ public class TaskDaoImpl implements TaskDao {
     private static final String DELETE_TASK_SQL = "DELETE FROM training.tasks " +
             "WHERE task_id = ?";
 
+    private TaskDaoImpl() {
+    }
 
     @Override
     public List<Task> findAllTasksByCourseId(long id) throws DaoException {
@@ -57,33 +61,36 @@ public class TaskDaoImpl implements TaskDao {
 
     @Override
     public boolean update(Task task) throws DaoException {
+        boolean isUpdate;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_TASK_SQL)) {
             preparedStatement.setString(1, task.getDescription());
             preparedStatement.setLong(2, task.getId());
 
-            return preparedStatement.executeUpdate() > 0;
+            isUpdate = preparedStatement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
-
+        return isUpdate;
     }
 
     @Override
     public boolean save(Task task) throws DaoException {
+        boolean isSaved;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_TASK_SQL)) {
             preparedStatement.setString(1, task.getDescription());
             preparedStatement.setLong(2, task.getCourse().getId());
 
-            return preparedStatement.executeUpdate() > 0;
+            isSaved = preparedStatement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
+        return isSaved;
     }
 
     @Override
@@ -123,16 +130,18 @@ public class TaskDaoImpl implements TaskDao {
 
     @Override
     public boolean delete(long id) throws DaoException {
+        boolean isDeleted;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_TASK_SQL)) {
             preparedStatement.setLong(1, id);
 
-            return preparedStatement.executeUpdate() > 0;
+            isDeleted = preparedStatement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
+        return isDeleted;
     }
 
     private Task buildTask(ResultSet resultSet) throws SQLException {

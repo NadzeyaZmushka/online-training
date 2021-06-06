@@ -19,12 +19,13 @@ import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
 
-    // todo: singleton
+    public static final UserDaoImpl INSTANCE = new UserDaoImpl();
 
     private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
 
     private static final String FIND_ALL_USERS = "SELECT u_id, user_name, user_surname, user_email, user_role " +
             "FROM training.users";
+
     private static final String FIND_USER_BY_ID = "SELECT u_id, user_name, user_surname, user_email, user_role " +
             "FROM training.users " +
             "WHERE u_id = ?";
@@ -44,6 +45,9 @@ public class UserDaoImpl implements UserDao {
     private static final String FIND_USER_BY_EMAIL = "SELECT u_id, user_name, user_surname, user_email, user_role " +
             "FROM training.users " +
             "WHERE user_email = ?";
+
+    private UserDaoImpl() {
+    }
 
     @Override
     public List<User> findAllUsersOnCourse(long id) throws DaoException {
@@ -141,6 +145,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean addUser(User user, String password) throws DaoException {
+        boolean isAdded;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER_SQL)) {
             preparedStatement.setString(1, user.getName());
@@ -149,52 +154,64 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(4, password);
             preparedStatement.setString(5, user.getRole().toString());
 
-            return preparedStatement.executeUpdate() > 0;
+            isAdded = preparedStatement.executeUpdate() > 0;
+
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
+        return isAdded;
     }
 
     // ???
     @Override
     public boolean updateUserToAdmin(long userId) throws DaoException {
+        boolean isUpdate;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_ROLE)) {
             preparedStatement.setString(1, String.valueOf(RoleType.ADMIN));
             preparedStatement.setLong(2, userId);
 
-            return preparedStatement.executeUpdate() > 0;
+            isUpdate = preparedStatement.executeUpdate() > 0;
+
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
+        return isUpdate;
     }
 
     @Override
     public boolean updatePassword(String password, long userId) throws DaoException {
+        boolean isUpdate;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_PASSWORD)) {
             preparedStatement.setString(1, password);
             preparedStatement.setLong(2, userId);
 
-            return preparedStatement.executeUpdate() > 0;
+            isUpdate = preparedStatement.executeUpdate() > 0;
+
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
+        return isUpdate;
     }
 
     @Override
     public boolean delete(long id) throws DaoException {
+        boolean isDeleted;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_SQL)) {
             preparedStatement.setLong(1, id);
-            return preparedStatement.executeUpdate() > 0;
+
+            isDeleted = preparedStatement.executeUpdate() > 0;
+
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
+        return isDeleted;
     }
 
 }

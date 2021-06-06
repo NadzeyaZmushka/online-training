@@ -20,6 +20,8 @@ import java.util.Optional;
 
 public class ReviewDaoImpl implements ReviewDao {
 
+    public static final ReviewDaoImpl INSTANCE = new ReviewDaoImpl();
+
     private static final Logger LOGGER = LogManager.getLogger(ReviewDaoImpl.class);
 
     private static final String FIND_ALL_REVIEWS_SQL = "SELECT r_id, mark, r_description, user_id, user_name, user_surname, user_email, user_role " +
@@ -35,20 +37,25 @@ public class ReviewDaoImpl implements ReviewDao {
             "FROM training.reviews " +
             "WHERE user_id = ?";
 
+    private ReviewDaoImpl() {
+    }
+
     @Override
     public boolean save(Review review) throws DaoException {
+        boolean isSaved;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_REVIEW_SQL)) {
             preparedStatement.setInt(1, review.getMark());
             preparedStatement.setString(2, review.getDescription());
             preparedStatement.setLong(3, review.getUser().getId());
 
-            return preparedStatement.executeUpdate() > 0;
+            isSaved = preparedStatement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
+        return isSaved;
     }
 
     @Override
@@ -134,15 +141,17 @@ public class ReviewDaoImpl implements ReviewDao {
 
     @Override
     public boolean delete(long id) throws DaoException {
+        boolean isDeleted;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_REVIEW_SQL)) {
             preparedStatement.setLong(1, id);
 
-            return preparedStatement.executeUpdate() > 0;
+            isDeleted = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
+        return isDeleted;
     }
 
 }

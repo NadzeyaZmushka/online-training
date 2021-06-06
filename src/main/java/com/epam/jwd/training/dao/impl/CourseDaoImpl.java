@@ -18,7 +18,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class CourseDaoImpl implements CourseDao {
-    // todo: singleton
+
+    public static final CourseDaoImpl INSTANCE = new CourseDaoImpl();
+
     private static final Logger LOGGER = LogManager.getLogger(CourseDaoImpl.class);
 
     private static final String FIND_ALL_COURSES_SQL = "SELECT c_id, course_name, c_description, " +
@@ -47,6 +49,9 @@ public class CourseDaoImpl implements CourseDao {
             "SET start_course = ?, end_course = ? " +
             "WHERE c_id = ?";
 
+    private CourseDaoImpl() {
+    }
+
     @Override
     public List<Course> findAllCoursesByTeacherId(long id) throws DaoException {
         List<Course> courses = new ArrayList<>();
@@ -67,31 +72,36 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public boolean updateCost(Course course) throws DaoException {
+        boolean isUpdate;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_COURSE_COST_SQL)) {
             preparedStatement.setBigDecimal(1, course.getCost());
             preparedStatement.setLong(2, course.getId());
 
-            return preparedStatement.executeUpdate() > 0;
+            isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
+        return isUpdate;
     }
 
+    //???
     @Override
     public boolean updateDate(Course course, long id) throws DaoException {
+        boolean isUpdate;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_START_END_COURSE_SQL)) {
             preparedStatement.setDate(1, course.getStartCourse());
             preparedStatement.setDate(2, course.getEndCourse());
             preparedStatement.setLong(3, id);
 
-            return preparedStatement.executeUpdate() > 0;
+            isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
+        return isUpdate;
     }
 
     @Override
@@ -131,6 +141,7 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public boolean save(Course course) throws DaoException {
+        boolean isSaved;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_COURSE_SQL)) {
             preparedStatement.setString(1, course.getName());
@@ -139,24 +150,27 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.setDate(4, course.getEndCourse());
             preparedStatement.setBigDecimal(5, course.getCost());
 
-            return preparedStatement.executeUpdate() > 0;
+            isSaved = preparedStatement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
+        return isSaved;
     }
 
     @Override
     public boolean delete(long id) throws DaoException {
+        boolean isDeleted;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_COURSE_SQL)) {
             preparedStatement.setLong(1, id);
-            return preparedStatement.executeUpdate() > 0;
+            isDeleted = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
+        return isDeleted;
     }
 
     private Course buildCourse(ResultSet resultSet) throws SQLException {
