@@ -14,7 +14,12 @@ public interface UserDao extends BaseDao<User> {
 
     boolean addUser(User user, String password) throws DaoException;
 
-    boolean updateUserToAdmin(long userId) throws DaoException;
-
     boolean updatePassword(String password, long userId) throws DaoException;
+
+    boolean blockUser(long id) throws DaoException;
+
+    boolean unblockUser(long id) throws DaoException;
+
+    boolean updateUserToAdmin(User user) throws DaoException;
+
 }

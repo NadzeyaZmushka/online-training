@@ -23,25 +23,30 @@ public class CourseDaoImpl implements CourseDao {
 
     private static final Logger LOGGER = LogManager.getLogger(CourseDaoImpl.class);
 
-    private static final String FIND_ALL_COURSES_SQL = "SELECT c_id, course_name, c_description, " +
+    private static final String FIND_ALL_COURSES_SQL = "SELECT c_id, course_name, c_description, hours, " +
             "start_course, end_course, cost_course, teacher_id, teacher_name, teacher_surname " +
             "FROM training.courses " +
             "INNER JOIN training.teachers " +
             "ON teacher_id=t_id";
-    private static final String FIND_COURSES_BY_TEACHER_ID_SQL = "SELECT c_id, course_name, c_description, start_course, " +
-            "end_course, cost_course, teacher_id, teacher_name, teacher_surname " +
-            "FROM training.courses " +
-            "INNER JOIN training.teachers " +
-            "ON teacher_id=t_id " +
-            "WHERE t_id = ?";
-    private static final String FIND_COURSE_BY_ID_SQL = "SELECT c_id, course_name, c_description, start_course, end_course, cost_course, teacher_id, teacher_name, teacher_surname " +
-            "FROM training.courses " +
-            "INNER JOIN training.teachers " +
-            "ON teacher_id=t_id " +
+    private static final String FIND_COURSES_BY_TEACHER_ID_SQL = FIND_ALL_COURSES_SQL + " WHERE teacher_id = ?";
+    //    private static final String FIND_COURSES_BY_TEACHER_ID_SQL = "SELECT c_id, course_name, c_description, start_course, " +
+//            "end_course, cost_course, teacher_id, teacher_name, teacher_surname " +
+//            "FROM training.courses " +
+//            "INNER JOIN training.teachers " +
+//            "ON teacher_id=teachers.id " +
+//            "WHERE teacher_id = ?";
+    private static final String FIND_COURSE_BY_ID_SQL = FIND_ALL_COURSES_SQL +" WHERE c_id = ?";
+//    private static final String FIND_COURSE_BY_ID_SQL = "SELECT c_id, course_name, c_description, hours, start_course, end_course, cost_course, teacher_id, teacher_name, teacher_surname " +
+//            "FROM training.courses " +
+//            "INNER JOIN training.teachers " +
+//            "ON teacher_id=teachers.id " +
+//            "WHERE c_id = ?";
+    private static final String ADD_COURSE_SQL = "INSERT INTO courses (course_name, c_description, hours, start_course, end_course, cost_course, teacher_id) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?)"; //???
+    private static final String DELETE_COURSE_SQL = "DELETE FROM training.courses WHERE c_id = ?";
+    private static final String UPDATE_NUMBER_OF_HOURS_SQL = "UPDATE training.courses " +
+            "SET hours = ? " +
             "WHERE c_id = ?";
-    private static final String ADD_COURSE_SQL = "INSERT INTO courses (course_name, c_description, start_course, end_course, cost_course) " +
-            "VALUES (?, ?, ?, ?, ?)"; //???
-    private static final String DELETE_COURSE_SQL = "DELETE FROM courses WHERE c_id = ?";
     private static final String UPDATE_COURSE_COST_SQL = "UPDATE training.courses " +
             "SET cost_course = ? " +
             "WHERE c_id = ?";
@@ -71,6 +76,22 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
+    public boolean updateHours(Course course) throws DaoException {
+        boolean isUpdate;
+        try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NUMBER_OF_HOURS_SQL)) {
+            preparedStatement.setInt(1, course.getHours());
+            preparedStatement.setLong(2, course.getId());
+
+            isUpdate = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DaoException(e);
+        }
+        return isUpdate;
+    }
+
+    @Override
     public boolean updateCost(Course course) throws DaoException {
         boolean isUpdate;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
@@ -88,13 +109,13 @@ public class CourseDaoImpl implements CourseDao {
 
     //???
     @Override
-    public boolean updateDate(Course course, long id) throws DaoException {
+    public boolean updateDate(Course course) throws DaoException {
         boolean isUpdate;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_START_END_COURSE_SQL)) {
             preparedStatement.setDate(1, course.getStartCourse());
             preparedStatement.setDate(2, course.getEndCourse());
-            preparedStatement.setLong(3, id);
+            preparedStatement.setLong(3, course.getId());
 
             isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -146,9 +167,11 @@ public class CourseDaoImpl implements CourseDao {
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_COURSE_SQL)) {
             preparedStatement.setString(1, course.getName());
             preparedStatement.setString(2, course.getDescription());
-            preparedStatement.setDate(3, course.getStartCourse());
-            preparedStatement.setDate(4, course.getEndCourse());
-            preparedStatement.setBigDecimal(5, course.getCost());
+            preparedStatement.setInt(3, course.getHours());
+            preparedStatement.setDate(4, course.getStartCourse());
+            preparedStatement.setDate(5, course.getEndCourse());
+            preparedStatement.setBigDecimal(6, course.getCost());
+            preparedStatement.setLong(7, course.getTeacher().getId());
 
             isSaved = preparedStatement.executeUpdate() > 0;
 
@@ -179,9 +202,10 @@ public class CourseDaoImpl implements CourseDao {
                 .setName(resultSet.getString(ColumnName.TEACHER_NAME))
                 .setSurname(resultSet.getString(ColumnName.TEACHER_SURNAME))
                 .build();
-        return Course.builder().setId(resultSet.getLong(ColumnName.ID_COURSE))
+        return Course.builder().setId(resultSet.getLong(ColumnName.C_ID))
                 .setName(resultSet.getString(ColumnName.COURSE_NAME))
                 .setDescription(resultSet.getString(ColumnName.COURSE_DESCRIPTION))
+                .setHours(resultSet.getInt(ColumnName.HOURS))
                 .setStartCourse(resultSet.getDate(ColumnName.START_COURSE))
                 .setEndCourse(resultSet.getDate(ColumnName.END_COURSE))
                 .setCost(resultSet.getBigDecimal(ColumnName.COST_COURSE))

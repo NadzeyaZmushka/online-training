@@ -1,4 +1,4 @@
-package com.epam.jwd.training.entity;
+package com.epam.jwd.training.util;
 
 public final class ApplicationProperties {
 

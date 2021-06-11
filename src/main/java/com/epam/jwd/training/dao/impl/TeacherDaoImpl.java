@@ -23,16 +23,18 @@ public class TeacherDaoImpl implements TeacherDao {
     private static final Logger LOGGER = LogManager.getLogger(TeacherDaoImpl.class);
 
     private static final String FIND_ALL_TEACHERS_SQL = "SELECT t_id, teacher_name, teacher_surname " +
-            "FROM teachers";
-    private static final String FIND_TEACHER_BY_SURNAME_SQL = "SELECT t_id, teacher_name, teacher_surname " +
-            "FROM teachers " +
-            "WHERE teacher_surname = ?";
-    private static final String FIND_ALL_TEACHERS_BY_ID_SQL = "SELECT t_id, teacher_name, teacher_surname " +
-            "FROM teachers " +
-            "WHERE t_id = ?";
-    private static final String ADD_TEACHER_SQL = "INSERT INTO teachers (teacher_name, teacher_surname) " +
+            "FROM training.teachers";
+    private static final String FIND_TEACHER_BY_SURNAME_SQL = FIND_ALL_TEACHERS_SQL + " WHERE teacher_surname = ?";
+    //    private static final String FIND_TEACHER_BY_SURNAME_SQL = "SELECT t_id, teacher_name, teacher_surname " +
+//            "FROM teachers " +
+//            "WHERE teacher_surname = ?";
+    private static final String FIND_TEACHER_BY_ID_SQL = FIND_ALL_TEACHERS_SQL + " WHERE t_id = ?";
+    //    private static final String FIND_TEACHER_BY_ID_SQL = "SELECT id, teacher_name, teacher_surname " +
+//            "FROM teachers " +
+//            "WHERE id = ?";
+    private static final String ADD_TEACHER_SQL = "INSERT INTO training.teachers (teacher_name, teacher_surname) " +
             "VALUES (?,?)";
-    private static final String DELETE_TEACHER_SQL = "DELETE FROM teachers " +
+    private static final String DELETE_TEACHER_SQL = "DELETE FROM training.teachers " +
             "WHERE t_id = ?";
 
     private TeacherDaoImpl() {
@@ -47,7 +49,7 @@ public class TeacherDaoImpl implements TeacherDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Teacher teacher = Teacher.builder()
-                        .setId(resultSet.getLong(ColumnName.ID_TEACHER))
+                        .setId(resultSet.getLong(ColumnName.T_ID))
                         .setName(resultSet.getString(ColumnName.TEACHER_NAME))
                         .setSurname(resultSet.getString(ColumnName.TEACHER_SURNAME))
                         .build();
@@ -68,7 +70,7 @@ public class TeacherDaoImpl implements TeacherDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Teacher teacher = Teacher.builder()
-                        .setId(resultSet.getLong(ColumnName.ID_TEACHER))
+                        .setId(resultSet.getLong(ColumnName.T_ID))
                         .setName(resultSet.getString(ColumnName.TEACHER_NAME))
                         .setSurname(resultSet.getString(ColumnName.TEACHER_SURNAME))
                         .build();
@@ -86,12 +88,12 @@ public class TeacherDaoImpl implements TeacherDao {
     public Optional<Teacher> findById(long id) throws DaoException {
         Optional<Teacher> teacherOptional = Optional.empty();
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_TEACHERS_BY_ID_SQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_TEACHER_BY_ID_SQL)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Teacher teacher = Teacher.builder()
-                        .setId(resultSet.getLong(ColumnName.ID_TEACHER))
+                        .setId(resultSet.getLong(ColumnName.T_ID))
                         .setName(resultSet.getString(ColumnName.TEACHER_NAME))
                         .setSurname(resultSet.getString(ColumnName.TEACHER_SURNAME))
                         .build();

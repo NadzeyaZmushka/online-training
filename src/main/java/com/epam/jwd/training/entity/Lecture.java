@@ -2,22 +2,22 @@ package com.epam.jwd.training.entity;
 
 import java.util.Objects;
 
-public class Task extends BaseEntity {
+public class Lecture extends BaseEntity {
 
-    private String description;
+    private String name;
     private Course course;
 
-    public Task() {
+    public Lecture() {
     }
 
-    public Task(String description, Course course) {
-        this.description = description;
+    public Lecture(String name, Course course) {
+        this.name = name;
         this.course = course;
     }
 
-    public Task(Long id, String description, Course course) {
+    public Lecture(Long id, String name, Course course) {
         super(id);
-        this.description = description;
+        this.name = name;
         this.course = course;
     }
 
@@ -25,8 +25,8 @@ public class Task extends BaseEntity {
         return new TaskBuilder();
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
     public Course getCourse() {
@@ -43,7 +43,7 @@ public class Task extends BaseEntity {
             return this;
         }
 
-        public TaskBuilder setDescription(String description) {
+        public TaskBuilder setName(String description) {
             this.description = description;
             return this;
         }
@@ -53,8 +53,8 @@ public class Task extends BaseEntity {
             return this;
         }
 
-        public Task build() {
-            return new Task(id, description, course);
+        public Lecture build() {
+            return new Lecture(id, description, course);
         }
 
     }
@@ -64,20 +64,20 @@ public class Task extends BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        Task task = (Task) o;
-        return Objects.equals(description, task.description) &&
-                Objects.equals(course, task.course);
+        Lecture lecture = (Lecture) o;
+        return Objects.equals(name, lecture.name) &&
+                Objects.equals(course, lecture.course);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), description, course);
+        return Objects.hash(super.hashCode(), name, course);
     }
 
     @Override
     public String toString() {
-        return "Task{" + super.toString() +
-                ", description='" + description + '\'' +
+        return "Lecture{" + super.toString() +
+                ", name='" + name + '\'' +
                 ", course=" + course +
                 '}';
     }

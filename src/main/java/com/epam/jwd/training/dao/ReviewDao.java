@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ReviewDao extends BaseDao<Review> {
 
-    public boolean save(Review review) throws DaoException;
+    boolean save(Review review) throws DaoException;
 
     Optional<Review> findReviewByUserId(long id) throws DaoException;
 

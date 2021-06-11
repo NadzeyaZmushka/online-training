@@ -1,9 +1,9 @@
 package com.epam.jwd.training.dao.impl;
 
 import com.epam.jwd.training.dao.ColumnName;
-import com.epam.jwd.training.dao.TaskDao;
+import com.epam.jwd.training.dao.LectureDao;
 import com.epam.jwd.training.entity.Course;
-import com.epam.jwd.training.entity.Task;
+import com.epam.jwd.training.entity.Lecture;
 import com.epam.jwd.training.exception.DaoException;
 import com.epam.jwd.training.pool.ConcurrentConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -17,55 +17,57 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TaskDaoImpl implements TaskDao {
+public class LectureDaoImpl implements LectureDao {
 
-    public static final TaskDaoImpl INSTANCE = new TaskDaoImpl();
+    public static final LectureDaoImpl INSTANCE = new LectureDaoImpl();
 
-    private static final Logger LOGGER = LogManager.getLogger(TaskDaoImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(LectureDaoImpl.class);
 
-    private static final String FIND_ALL_TASKS_SQL = "SELECT task_id, task_description, course_id, course_name  " +
-            "FROM training.tasks " +
+    private static final String FIND_ALL_TASKS_SQL = "SELECT l_id, lecture_name, course_id, course_name  " +
+            "FROM training.lectures " +
             "INNER JOIN training.courses " +
             "ON course_id = c_id";
     private static final String FIND_TASK_BY_ID_SQL = FIND_ALL_TASKS_SQL +
-            " WHERE task_id = ?";
+            " WHERE l_id = ?";
     private static final String FIND_ALL_TASKS_BY_COURSE_ID_SQL = FIND_ALL_TASKS_SQL +
             " WHERE course_id = ?";
-    private static final String UPDATE_TASK_SQL = "UPDATE training.tasks SET task_description = ? " +
-            "WHERE task_id = ?";
-    private static final String ADD_TASK_SQL = "INSERT INTO training.tasks (task_description, course_id) " +
+    private static final String UPDATE_TASK_SQL = "UPDATE training.lectures SET lecture_name = ? " +
+            "WHERE l_id = ?";
+    private static final String ADD_TASK_SQL = "INSERT INTO training.lectures (lecture_name, course_id) " +
             "VALUES (?, ?)";
-    private static final String DELETE_TASK_SQL = "DELETE FROM training.tasks " +
-            "WHERE task_id = ?";
+    private static final String DELETE_TASK_SQL = "DELETE FROM training.lectures " +
+            "WHERE l_id = ?";
+    private static final String FIND_LECTURE_BY_ID_AND_COURSE_ID = "SELECT l_id, lecture_name, course_id, course_name FROM training.lectures INNER JOIN training.courses ON course_id = c_id WHERE l_id = ? AND course_id = ?";
 
-    private TaskDaoImpl() {
+
+    private LectureDaoImpl() {
     }
 
     @Override
-    public List<Task> findAllTasksByCourseId(long id) throws DaoException {
-        List<Task> tasks = new ArrayList<>();
+    public List<Lecture> findAllLecturesByCourseId(long id) throws DaoException {
+        List<Lecture> lectures = new ArrayList<>();
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_TASKS_BY_COURSE_ID_SQL)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Task task = buildTask(resultSet);
-                tasks.add(task);
+                Lecture lecture = buildLecture(resultSet);
+                lectures.add(lecture);
             }
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
-        return tasks;
+        return lectures;
     }
 
     @Override
-    public boolean update(Task task) throws DaoException {
+    public boolean update(Lecture lecture) throws DaoException {
         boolean isUpdate;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_TASK_SQL)) {
-            preparedStatement.setString(1, task.getDescription());
-            preparedStatement.setLong(2, task.getId());
+            preparedStatement.setString(1, lecture.getName());
+            preparedStatement.setLong(2, lecture.getId());
 
             isUpdate = preparedStatement.executeUpdate() > 0;
 
@@ -77,12 +79,12 @@ public class TaskDaoImpl implements TaskDao {
     }
 
     @Override
-    public boolean save(Task task) throws DaoException {
+    public boolean save(Lecture lecture) throws DaoException {
         boolean isSaved;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_TASK_SQL)) {
-            preparedStatement.setString(1, task.getDescription());
-            preparedStatement.setLong(2, task.getCourse().getId());
+            preparedStatement.setString(1, lecture.getName());
+            preparedStatement.setLong(2, lecture.getCourse().getId());
 
             isSaved = preparedStatement.executeUpdate() > 0;
 
@@ -94,32 +96,52 @@ public class TaskDaoImpl implements TaskDao {
     }
 
     @Override
-    public List<Task> findAll() throws DaoException {
-        List<Task> tasks = new ArrayList<>();
+    public Optional<Lecture> findLectureByIdAndCourseId(long id, long courseId) throws DaoException {
+        Optional<Lecture> lectureOptional = Optional.empty();
+
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_TASKS_SQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_LECTURE_BY_ID_AND_COURSE_ID)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(2, courseId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Task task = buildTask(resultSet);
-                tasks.add(task);
+                Lecture lecture = buildLecture(resultSet);
+                lectureOptional = Optional.of(lecture);
             }
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
-        return tasks;
+        return lectureOptional;
     }
 
     @Override
-    public Optional<Task> findById(long id) throws DaoException {
-        Optional<Task> taskOptional = Optional.empty();
+    public List<Lecture> findAll() throws DaoException {
+        List<Lecture> lectures = new ArrayList<>();
+        try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_TASKS_SQL)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Lecture lecture = buildLecture(resultSet);
+                lectures.add(lecture);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DaoException(e);
+        }
+        return lectures;
+    }
+
+    @Override
+    public Optional<Lecture> findById(long id) throws DaoException {
+        Optional<Lecture> taskOptional = Optional.empty();
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_TASK_BY_ID_SQL)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Task task = buildTask(resultSet);
-                taskOptional = Optional.of(task);
+                Lecture lecture = buildLecture(resultSet);
+                taskOptional = Optional.of(lecture);
             }
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -144,14 +166,14 @@ public class TaskDaoImpl implements TaskDao {
         return isDeleted;
     }
 
-    private Task buildTask(ResultSet resultSet) throws SQLException {
+    private Lecture buildLecture(ResultSet resultSet) throws SQLException {
         Course course = Course.builder()
                 .setId(resultSet.getLong(ColumnName.COURSE_ID))
                 .setName(resultSet.getString(ColumnName.COURSE_NAME))
                 .build();
-        return Task.builder()
-                .setId(resultSet.getLong(ColumnName.TASK_ID))
-                .setDescription(resultSet.getString(ColumnName.TASK_DESCRIPTION))
+        return Lecture.builder()
+                .setId(resultSet.getLong(ColumnName.L_ID))
+                .setName(resultSet.getString(ColumnName.LECTURE_NAME))
                 .setCourse(course)
                 .build();
     }

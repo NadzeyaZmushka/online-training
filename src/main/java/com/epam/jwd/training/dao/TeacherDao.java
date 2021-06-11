@@ -10,6 +10,6 @@ public interface TeacherDao extends BaseDao<Teacher> {
 
    Optional<Teacher> findBySurname(String surname) throws DaoException;
 
-   public boolean save(Teacher teacher) throws DaoException;
+   boolean save(Teacher teacher) throws DaoException;
 
 }

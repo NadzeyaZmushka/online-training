@@ -15,7 +15,7 @@ public interface ReviewService {
 
     boolean delete(long id) throws ServiceException;
 
-    public boolean save(Review review) throws ServiceException;
+    boolean save(Review review) throws ServiceException;
 
     Optional<Review> findReviewByUserId(long id) throws ServiceException;
 

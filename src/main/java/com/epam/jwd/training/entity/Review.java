@@ -1,26 +1,27 @@
 package com.epam.jwd.training.entity;
 
+import java.sql.Date;
 import java.util.Objects;
 
 public class Review extends BaseEntity {
 
-    private int mark;
     private String description;
+    private Date date;
     private User user;
 
     public Review() {
     }
 
-    public Review(int mark, String description, User user) {
-        this.mark = mark;
+    public Review(String description, Date date, User user) {
         this.description = description;
+        this.date = date;
         this.user = user;
     }
 
-    public Review(Long id, int mark, String description, User user) {
+    public Review(Long id, String description, Date date, User user) {
         super(id);
-        this.mark = mark;
         this.description = description;
+        this.date = date;
         this.user = user;
     }
 
@@ -28,12 +29,12 @@ public class Review extends BaseEntity {
         return new ReviewBuilder();
     }
 
-    public int getMark() {
-        return mark;
-    }
-
     public String getDescription() {
         return description;
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     public User getUser() {
@@ -43,8 +44,8 @@ public class Review extends BaseEntity {
     public static class ReviewBuilder {
 
         private Long id;
-        private int mark;
         private String description;
+        private Date date;
         private User user;
 
         public ReviewBuilder setId(Long id) {
@@ -52,13 +53,13 @@ public class Review extends BaseEntity {
             return this;
         }
 
-        public ReviewBuilder setMark(int mark) {
-            this.mark = mark;
+        public ReviewBuilder setDescription(String description) {
+            this.description = description;
             return this;
         }
 
-        public ReviewBuilder setDescription(String description) {
-            this.description = description;
+        public ReviewBuilder setDate(Date date) {
+            this.date = date;
             return this;
         }
 
@@ -69,7 +70,7 @@ public class Review extends BaseEntity {
         }
 
         public Review build() {
-            return new Review(id, mark, description, user);
+            return new Review(id, description, date, user);
         }
 
     }
@@ -80,22 +81,23 @@ public class Review extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Review review = (Review) o;
-        return mark == review.mark &&
-                Objects.equals(description, review.description) &&
+        return Objects.equals(description, review.description) &&
+                Objects.equals(date, review.date) &&
                 Objects.equals(user, review.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), mark, description, user);
+        return Objects.hash(super.hashCode(), description, date, user);
     }
 
     @Override
     public String toString() {
-        return  " Review{" + super.toString() +
-                "mark=" + mark +
+        return "Review{" + super.toString() +
                 ", description='" + description + '\'' +
+                ", date=" + date +
                 ", user=" + user +
                 '}';
     }
+
 }

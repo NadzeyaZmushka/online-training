@@ -14,9 +14,14 @@ import java.util.Optional;
 
 public class TeacherServiceImpl implements TeacherService {
 
+    public static final TeacherServiceImpl INSTANCE = new TeacherServiceImpl();
+
     private static final Logger LOGGER = LogManager.getLogger(TeacherServiceImpl.class);
 
     private final TeacherDao teacherDao = TeacherDaoImpl.INSTANCE;
+
+    private TeacherServiceImpl() {
+    }
 
     @Override
     public List<Teacher> findAll() throws ServiceException {

@@ -1,6 +1,6 @@
 package com.epam.jwd.training.pool;
 
-import com.epam.jwd.training.entity.ApplicationProperties;
+import com.epam.jwd.training.util.ApplicationProperties;
 import com.epam.jwd.training.exception.CouldNotInitializeConnectionPoolException;
 import com.epam.jwd.training.util.PropertiesReader;
 import org.apache.logging.log4j.LogManager;

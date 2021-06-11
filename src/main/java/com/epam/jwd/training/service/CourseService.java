@@ -17,10 +17,12 @@ public interface CourseService {
 
     List<Course> findAllCoursesByTeacherId(long id) throws ServiceException;
 
+    boolean updateHours(Course course) throws ServiceException;
+
     boolean updateCost(Course course) throws ServiceException;
 
-    boolean updateDate(Course course, long id) throws ServiceException;
+    boolean updateDate(Course course) throws ServiceException;
 
-    public boolean save(Course course) throws ServiceException;
+    boolean save(Course course) throws ServiceException;
 
 }

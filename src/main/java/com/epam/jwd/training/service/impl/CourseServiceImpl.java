@@ -14,9 +14,14 @@ import java.util.Optional;
 
 public class CourseServiceImpl implements CourseService {
 
+    public static final CourseServiceImpl INSTANCE = new CourseServiceImpl();
+
     private static final Logger LOGGER = LogManager.getLogger(CourseServiceImpl.class);
 
     private final CourseDao courseDao = CourseDaoImpl.INSTANCE;
+
+    private CourseServiceImpl() {
+    }
 
     @Override
     public List<Course> findAll() throws ServiceException {
@@ -67,6 +72,18 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public boolean updateHours(Course course) throws ServiceException {
+        boolean isUpdate;
+        try {
+            isUpdate = courseDao.updateHours(course);
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return isUpdate;
+    }
+
+    @Override
     public boolean updateCost(Course course) throws ServiceException {
         boolean isUpdate;
         try {
@@ -80,10 +97,10 @@ public class CourseServiceImpl implements CourseService {
 
     //???
     @Override
-    public boolean updateDate(Course course, long id) throws ServiceException {
+    public boolean updateDate(Course course) throws ServiceException {
         boolean isUpdate;
         try {
-            isUpdate = courseDao.updateDate(course, id);
+            isUpdate = courseDao.updateDate(course);
         } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

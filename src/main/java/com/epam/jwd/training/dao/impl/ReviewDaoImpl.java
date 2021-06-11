@@ -24,16 +24,15 @@ public class ReviewDaoImpl implements ReviewDao {
 
     private static final Logger LOGGER = LogManager.getLogger(ReviewDaoImpl.class);
 
-    private static final String FIND_ALL_REVIEWS_SQL = "SELECT r_id, mark, r_description, user_id, user_name, user_surname, user_email, user_role " +
+    private static final String FIND_ALL_REVIEWS_SQL = "SELECT r_id, r_description, date_review, user_id, user_name, user_surname, user_email, role, enabled " +
             "FROM training.reviews " +
-            "INNER JOIN users ON user_id = u_id";
-    private static final String FIND_REVIEWS_BY_ID_SQL = FIND_ALL_REVIEWS_SQL +
-            " WHERE r_id = ?";
-    private static final String ADD_REVIEW_SQL = "INSERT INTO training.reviews (mark, r_description, user_id) " +
+            "INNER JOIN users ON user_id = u_id " +
+            "ORDER BY date_review";
+    private static final String ADD_REVIEW_SQL = "INSERT INTO training.reviews (r_description, date_review, user_id) " +
             "VALUES (?, ?, ?)";
     private static final String DELETE_REVIEW_SQL = "DELETE FROM training.reviews " +
             "WHERE r_id = ?";
-    private static final String FIND_REVIEW_BY_USER_ID_SQL = "SELECT r_id, mark, r_description " +
+    private static final String FIND_REVIEW_BY_USER_ID_SQL = "SELECT r_id, r_description, date_review " +
             "FROM training.reviews " +
             "WHERE user_id = ?";
 
@@ -45,8 +44,8 @@ public class ReviewDaoImpl implements ReviewDao {
         boolean isSaved;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_REVIEW_SQL)) {
-            preparedStatement.setInt(1, review.getMark());
-            preparedStatement.setString(2, review.getDescription());
+            preparedStatement.setString(1, review.getDescription());
+            preparedStatement.setDate(2, review.getDate());
             preparedStatement.setLong(3, review.getUser().getId());
 
             isSaved = preparedStatement.executeUpdate() > 0;
@@ -68,8 +67,8 @@ public class ReviewDaoImpl implements ReviewDao {
             while (resultSet.next()) {
                 Review review = Review.builder()
                         .setId(resultSet.getLong(ColumnName.REVIEW_ID))
-                        .setMark(resultSet.getInt(ColumnName.MARK))
                         .setDescription(resultSet.getString(ColumnName.REVIEW_DESCRIPTION))
+                        .setDate(resultSet.getDate(ColumnName.DATE_REVIEW))
                         .build();
                 reviewOptional = Optional.of(review);
             }
@@ -92,12 +91,13 @@ public class ReviewDaoImpl implements ReviewDao {
                         .setName(resultSet.getString(ColumnName.USER_NAME))
                         .setSurname(resultSet.getString(ColumnName.USER_SURNAME))
                         .setEmail(resultSet.getString(ColumnName.USER_EMAIL))
-                        .setRole(RoleType.valueOf(resultSet.getString(ColumnName.ROLE).toUpperCase()))
+                        .setRole(RoleType.resolvedById(resultSet.getLong(ColumnName.ROLE)))
+                        .setEnabled(resultSet.getBoolean(ColumnName.USER_ENABLED))
                         .build();
                 Review review = Review.builder()
                         .setId(resultSet.getLong(ColumnName.REVIEW_ID))
-                        .setMark(resultSet.getInt(ColumnName.MARK))
                         .setDescription(resultSet.getString(ColumnName.REVIEW_DESCRIPTION))
+                        .setDate(resultSet.getDate(ColumnName.DATE_REVIEW))
                         .setUser(user)
                         .build();
                 reviews.add(review);
@@ -111,32 +111,7 @@ public class ReviewDaoImpl implements ReviewDao {
 
     @Override
     public Optional<Review> findById(long id) throws DaoException {
-        Optional<Review> reviewOptional = Optional.empty();
-        try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_REVIEWS_BY_ID_SQL)) {
-            preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                User user = User.builder()
-                        .setId(resultSet.getLong(ColumnName.USER_ID))
-                        .setName(resultSet.getString(ColumnName.USER_NAME))
-                        .setSurname(resultSet.getString(ColumnName.USER_SURNAME))
-                        .setEmail(resultSet.getString(ColumnName.USER_EMAIL))
-                        .setRole(RoleType.valueOf(resultSet.getString(ColumnName.ROLE).toUpperCase()))
-                        .build();
-                Review review = Review.builder()
-                        .setId(resultSet.getLong(ColumnName.REVIEW_ID))
-                        .setMark(resultSet.getInt(ColumnName.MARK))
-                        .setDescription(resultSet.getString(ColumnName.REVIEW_DESCRIPTION))
-                        .setUser(user)
-                        .build();
-                reviewOptional = Optional.of(review);
-            }
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DaoException(e);
-        }
-        return reviewOptional;
+        throw new UnsupportedOperationException();
     }
 
     @Override

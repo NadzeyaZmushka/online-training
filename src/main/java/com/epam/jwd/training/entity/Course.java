@@ -2,13 +2,13 @@ package com.epam.jwd.training.entity;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class Course extends BaseEntity {
 
     private String name;
     private String description;
+    private int hours;
     private Date startCourse;
     private Date endCourse;
     private BigDecimal cost;
@@ -17,12 +17,13 @@ public class Course extends BaseEntity {
     public Course() {
     }
 
-    public Course(Long id, String name, String description,
+    public Course(Long id, String name, String description, int hours,
                   Date startCourse, Date endCourse,
                   BigDecimal cost, Teacher teacher) {
         super(id);
         this.name = name;
         this.description = description;
+        this.hours = hours;
         this.startCourse = startCourse;
         this.endCourse = endCourse;
         this.cost = cost;
@@ -39,6 +40,10 @@ public class Course extends BaseEntity {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getHours() {
+        return hours;
     }
 
     public Date getStartCourse() {
@@ -66,6 +71,7 @@ public class Course extends BaseEntity {
         private Long id;
         private String name;
         private String description;
+        private int hours;
         private Date startCourse;
         private Date endCourse;
         private BigDecimal cost;
@@ -83,6 +89,11 @@ public class Course extends BaseEntity {
 
         public CourseBuilder setDescription(String description) {
             this.description = description;
+            return this;
+        }
+
+        public CourseBuilder setHours(int hours) {
+            this.hours = hours;
             return this;
         }
 
@@ -107,7 +118,7 @@ public class Course extends BaseEntity {
         }
 
         public Course build() {
-            return new Course(id, name, description, startCourse, endCourse, cost, teacher);
+            return new Course(id, name, description, hours, startCourse, endCourse, cost, teacher);
         }
 
     }
@@ -116,8 +127,10 @@ public class Course extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Course course = (Course) o;
-        return Objects.equals(name, course.name) &&
+        return hours == course.hours &&
+                Objects.equals(name, course.name) &&
                 Objects.equals(description, course.description) &&
                 Objects.equals(startCourse, course.startCourse) &&
                 Objects.equals(endCourse, course.endCourse) &&
@@ -127,19 +140,20 @@ public class Course extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, startCourse, endCourse, cost, teacher);
+        return Objects.hash(super.hashCode(), name, description, hours, startCourse, endCourse, cost, teacher);
     }
 
     @Override
     public String toString() {
         return "Course{" + super.toString() +
-                "name='" + name + '\'' +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", hours=" + hours +
                 ", startCourse=" + startCourse +
                 ", endCourse=" + endCourse +
                 ", cost=" + cost +
                 ", teacher=" + teacher +
-                "}";
+                '}';
     }
 
 }

@@ -14,9 +14,14 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
 
+    public static final UserServiceImpl INSTANCE = new UserServiceImpl();
+
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
 
     private final UserDao userDao = UserDaoImpl.INSTANCE;
+
+    private UserServiceImpl() {
+    }
 
     @Override
     public List<User> findAll() throws ServiceException {
@@ -86,10 +91,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUserToAdmin(long userId) throws ServiceException {
+    public boolean updateUserToAdmin(User user) throws ServiceException {
         boolean isUpdate;
         try {
-            isUpdate = userDao.updateUserToAdmin(userId);
+            isUpdate = userDao.updateUserToAdmin(user);
         } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

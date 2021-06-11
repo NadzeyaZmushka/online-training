@@ -1,6 +1,6 @@
 package com.epam.jwd.training.util;
 
-import com.epam.jwd.training.entity.ApplicationProperties;
+import com.epam.jwd.training.exception.CouldNotReadPropertiesException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,15 +30,16 @@ public final class PropertiesReader {
         String propertiesFileName = "database.properties";
         try (InputStream stream = this.getClass().getClassLoader().getResourceAsStream(propertiesFileName)) {
             properties.load(stream);
+            return ApplicationProperties.getInstance(properties.getProperty("url"),
+                    properties.getProperty("userName"),
+                    properties.getProperty("password"),
+                    Integer.parseInt(properties.getProperty("connectionPoolSize")),
+                    Integer.parseInt(properties.getProperty("maxConnectionPoolSize"))
+            );
         } catch (IOException e) {
-            LOGGER.error("Error reading file");
+            LOGGER.error(e);
+            throw new CouldNotReadPropertiesException("Error reading file");
         }
-        return ApplicationProperties.getInstance(properties.getProperty("url"),
-                properties.getProperty("userName"),
-                properties.getProperty("password"),
-                Integer.parseInt(properties.getProperty("connectionPoolSize")),
-                Integer.parseInt(properties.getProperty("maxConnectionPoolSize"))
-        );
     }
 
 }

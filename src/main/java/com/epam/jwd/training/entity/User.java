@@ -9,29 +9,32 @@ public class User extends BaseEntity {
     private String email;
     private RoleType role;
     private Course course;
+    private boolean enabled;
 
     public User() {
     }
 
     public User(String name, String surname,
                 String email,
-                RoleType role) {
+                RoleType role, boolean enabled) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.role = role;
+        this.enabled = enabled;
 
     }
 
     public User(Long id, String name, String surname,
                 String email,
-                RoleType role, Course course) {
+                RoleType role, Course course, boolean enabled) {
         super(id);
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.role = role;
         this.course = course;
+        this.enabled = enabled;
     }
 
     public static UserBuilder builder() {
@@ -58,6 +61,14 @@ public class User extends BaseEntity {
         return course;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public static class UserBuilder {
 
         private Long id;
@@ -66,6 +77,7 @@ public class User extends BaseEntity {
         private String email;
         private RoleType role;
         private Course course;
+        private boolean enabled;
 
         public UserBuilder setId(Long id) {
             this.id = id;
@@ -97,10 +109,15 @@ public class User extends BaseEntity {
             return this;
         }
 
-        public User build() {
-            return new User(id, name, surname, email, role, course);
+        public UserBuilder setEnabled(boolean enabled) {
+            this.enabled = enabled;
+            return this;
         }
-        
+
+        public User build() {
+            return new User(id, name, surname, email, role, course, enabled);
+        }
+
     }
 
     @Override
@@ -109,7 +126,8 @@ public class User extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         User user = (User) o;
-        return Objects.equals(name, user.name) &&
+        return enabled == user.enabled &&
+                Objects.equals(name, user.name) &&
                 Objects.equals(surname, user.surname) &&
                 Objects.equals(email, user.email) &&
                 role == user.role &&
@@ -118,7 +136,7 @@ public class User extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, surname, email, role, course);
+        return Objects.hash(super.hashCode(), name, surname, email, role, course, enabled);
     }
 
     @Override
@@ -129,6 +147,7 @@ public class User extends BaseEntity {
                 ", email='" + email + '\'' +
                 ", role='" + role + '\'' +
                 ", course='" + course + '\'' +
+                ", enabled='" + enabled + '\'' +
                 '}';
     }
 

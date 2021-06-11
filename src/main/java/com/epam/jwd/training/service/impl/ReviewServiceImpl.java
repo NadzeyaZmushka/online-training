@@ -14,9 +14,14 @@ import java.util.Optional;
 
 public class ReviewServiceImpl implements ReviewService {
 
+    public static final ReviewServiceImpl INSTANCE = new ReviewServiceImpl();
+
     private static final Logger LOGGER = LogManager.getLogger(ReviewServiceImpl.class);
 
     private final ReviewDao reviewDao = ReviewDaoImpl.INSTANCE;
+
+    private ReviewServiceImpl() {
+    }
 
     @Override
     public List<Review> findAll() throws ServiceException {
