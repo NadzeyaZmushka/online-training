@@ -21,7 +21,16 @@ public interface UserService {
 
     boolean addUser(User user, String password) throws ServiceException;
 
+    boolean enrollOnCourse(User user, Long courseId) throws ServiceException;
+
     boolean updateUserToAdmin(User user) throws ServiceException;
 
     boolean updatePassword(String password, long userId) throws ServiceException;
+
+    boolean updateNameAndSurname(String name, String surname, long id) throws ServiceException;
+
+    boolean blockUser(long id) throws ServiceException;
+
+    boolean unblockUser(long id) throws ServiceException;
+
 }

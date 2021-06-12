@@ -3,12 +3,15 @@ package com.epam.jwd.training.service.impl;
 import com.epam.jwd.training.dao.CourseDao;
 import com.epam.jwd.training.dao.impl.CourseDaoImpl;
 import com.epam.jwd.training.entity.Course;
+import com.epam.jwd.training.entity.Teacher;
 import com.epam.jwd.training.exception.DaoException;
 import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.service.CourseService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,6 +75,18 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<Course> findUserEnrolledByCourse(long userId) throws ServiceException {
+        List<Course> courses;
+        try {
+            courses = courseDao.findUserEnrolledByCourse(userId);
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return courses;
+    }
+
+    @Override
     public boolean updateHours(Course course) throws ServiceException {
         boolean isUpdate;
         try {
@@ -109,15 +124,24 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public boolean save(Course course) throws ServiceException {
-        boolean isSaved;
+    public boolean save(String name, String description, String hours, String start, String end, String cost, Teacher teacher) throws ServiceException {
+        boolean isSave;
+        Course course = Course.builder()
+                .setName(name)
+                .setDescription(description)
+                .setHours(Integer.parseInt(hours))
+                .setStartCourse(Date.valueOf(start))
+                .setEndCourse(Date.valueOf(end))
+                .setCost(BigDecimal.valueOf(Long.parseLong(cost)))
+                .setTeacher(teacher)
+                .build();
         try {
-            isSaved = courseDao.save(course);
+            isSave = courseDao.save(course);
         } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
-        return isSaved;
+        return isSave;
     }
 
 }

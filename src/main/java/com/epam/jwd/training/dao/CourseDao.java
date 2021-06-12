@@ -9,6 +9,8 @@ public interface CourseDao extends BaseDao<Course> {
 
     List<Course> findAllCoursesByTeacherId(long id) throws DaoException;
 
+    List<Course> findUserEnrolledByCourse(long userId) throws DaoException;
+
     boolean updateHours(Course course) throws DaoException;
 
     boolean updateCost(Course course) throws DaoException;

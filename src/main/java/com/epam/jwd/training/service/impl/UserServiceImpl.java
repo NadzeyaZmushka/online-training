@@ -91,6 +91,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean enrollOnCourse(User user, Long courseId) throws ServiceException {
+        boolean isEnrolled;
+        try {
+            isEnrolled = userDao.enrollCourse(user, courseId);
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return isEnrolled;
+    }
+
+    @Override
     public boolean updateUserToAdmin(User user) throws ServiceException {
         boolean isUpdate;
         try {
@@ -107,6 +119,47 @@ public class UserServiceImpl implements UserService {
         //todo:
 
         return false;
+    }
+
+    @Override
+    public boolean updateNameAndSurname(String name, String surname, long id) throws ServiceException {
+        boolean isUpdate;
+        try {
+            User user = User.builder()
+                    .setId(id)
+                    .setName(name)
+                    .setSurname(surname)
+                    .build();
+            isUpdate = userDao.updateNameAndSurname(user);
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return isUpdate;
+    }
+
+    @Override
+    public boolean blockUser(long id) throws ServiceException {
+        boolean isBlocked;
+        try {
+            isBlocked = userDao.blockUser(id);
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return isBlocked;
+    }
+
+    @Override
+    public boolean unblockUser(long id) throws ServiceException {
+        boolean isUnBlocked;
+        try {
+            isUnBlocked = userDao.unblockUser(id);
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return isUnBlocked;
     }
 
 }

@@ -35,12 +35,17 @@ public class CourseDaoImpl implements CourseDao {
 //            "INNER JOIN training.teachers " +
 //            "ON teacher_id=teachers.id " +
 //            "WHERE teacher_id = ?";
-    private static final String FIND_COURSE_BY_ID_SQL = FIND_ALL_COURSES_SQL +" WHERE c_id = ?";
-//    private static final String FIND_COURSE_BY_ID_SQL = "SELECT c_id, course_name, c_description, hours, start_course, end_course, cost_course, teacher_id, teacher_name, teacher_surname " +
+    private static final String FIND_COURSE_BY_ID_SQL = FIND_ALL_COURSES_SQL + " WHERE c_id = ?";
+    //    private static final String FIND_COURSE_BY_ID_SQL = "SELECT c_id, course_name, c_description, hours, start_course, end_course, cost_course, teacher_id, teacher_name, teacher_surname " +
 //            "FROM training.courses " +
 //            "INNER JOIN training.teachers " +
 //            "ON teacher_id=teachers.id " +
 //            "WHERE c_id = ?";
+    private static final String FIND_USER_ENROLLED_BY_COURSE_SQL = "SELECT c_id, course_name, c_description, hours, cost_course " +
+            "FROM training.courses " +
+            "INNER JOIN tarining.users_x_courses ON user_id = u_id " +
+            "INNER JOIN tarining.courses ON course_id = c_id " +
+            "WHERE user_id = ?";
     private static final String ADD_COURSE_SQL = "INSERT INTO courses (course_name, c_description, hours, start_course, end_course, cost_course, teacher_id) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?)"; //???
     private static final String DELETE_COURSE_SQL = "DELETE FROM training.courses WHERE c_id = ?";
@@ -76,10 +81,34 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
+    public List<Course> findUserEnrolledByCourse(long userId) throws DaoException {
+        List<Course> courses = new ArrayList<>();
+        try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_ENROLLED_BY_COURSE_SQL)) {
+            preparedStatement.setLong(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Course course = Course.builder()
+                        .setId(resultSet.getLong(ColumnName.C_ID))
+                        .setName(resultSet.getString(ColumnName.COURSE_NAME))
+                        .setDescription(resultSet.getString(ColumnName.COURSE_DESCRIPTION))
+                        .setHours(resultSet.getInt(ColumnName.HOURS))
+                        .setCost(resultSet.getBigDecimal(ColumnName.COST_COURSE))
+                        .build();
+                courses.add(course);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DaoException(e);
+        }
+        return courses;
+    }
+
+    @Override
     public boolean updateHours(Course course) throws DaoException {
         boolean isUpdate;
         try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NUMBER_OF_HOURS_SQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NUMBER_OF_HOURS_SQL)) {
             preparedStatement.setInt(1, course.getHours());
             preparedStatement.setLong(2, course.getId());
 

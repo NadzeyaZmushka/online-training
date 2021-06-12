@@ -17,6 +17,6 @@ public interface TeacherService {
 
     Optional<Teacher> findBySurname(String surname) throws ServiceException;
 
-    public boolean save(Teacher teacher) throws ServiceException;
+    public boolean save(String name, String surname) throws ServiceException;
 
 }

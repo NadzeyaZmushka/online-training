@@ -71,10 +71,13 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherOptional;
     }
 
-    //??
     @Override
-    public boolean save(Teacher teacher) throws ServiceException {
+    public boolean save(String name, String surname) throws ServiceException {
         boolean isSaved;
+        Teacher teacher = Teacher.builder()
+                .setName(name)
+                .setSurname(surname)
+                .build();
         try {
             isSaved = teacherDao.save(teacher);
         } catch (DaoException e) {

@@ -18,6 +18,10 @@ public enum RoleType {
         this.name = name;
     }
 
+    public static List<RoleType> valuesAsList() {
+        return ROLE_TYPE_LIST;
+    }
+
     public Long getId() {
         return id;
     }

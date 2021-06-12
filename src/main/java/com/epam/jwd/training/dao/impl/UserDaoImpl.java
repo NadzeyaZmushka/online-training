@@ -38,6 +38,11 @@ public class UserDaoImpl implements UserDao {
             "INNER JOIN training.users on user_id = u_id " +
             "INNER JOIN training.courses on course_id = c_id " +
             "WHERE course_id = ?";
+    private static final String ENROLL_USER_ON_COURSE_SQL = "INSERT INTO training.users_x_courses (user_id, course_id) " +
+            "VALUES (?, ?)";
+    private static final String UPDATE_NAME_AND_SURNAME_SQL = "UPDATE training.users " +
+            "SET user_name = ?, user_surnsme = ? " +
+            "WHERE u_id = ?";
     private static final String ADD_USER_SQL = "INSERT INTO training.users (user_name, user_surname, user_email, password, role, enabled) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
     private static final String DELETE_USER_SQL = "DELETE FROM training.users " +
@@ -146,6 +151,22 @@ public class UserDaoImpl implements UserDao {
         return isAdded;
     }
 
+    @Override
+    public boolean enrollCourse(User user, Long courseId) throws DaoException {
+        boolean isEnrolled;
+        try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(ENROLL_USER_ON_COURSE_SQL)) {
+            preparedStatement.setLong(1, user.getId());
+            preparedStatement.setLong(2, courseId);
+
+            isEnrolled = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DaoException(e);
+        }
+        return isEnrolled;
+    }
+
     // ???
 
     @Override
@@ -164,6 +185,7 @@ public class UserDaoImpl implements UserDao {
         }
         return isUpdate;
     }
+
     @Override
     public boolean updatePassword(String password, long userId) throws DaoException {
         boolean isUpdate;
@@ -174,6 +196,23 @@ public class UserDaoImpl implements UserDao {
 
             isUpdate = preparedStatement.executeUpdate() > 0;
 
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DaoException(e);
+        }
+        return isUpdate;
+    }
+
+    @Override
+    public boolean updateNameAndSurname(User user) throws DaoException {
+        boolean isUpdate;
+        try (Connection connection = ConcurrentConnectionPool.getInstance().takeConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NAME_AND_SURNAME_SQL)) {
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setLong(3, user.getId());
+
+            isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
@@ -213,6 +252,7 @@ public class UserDaoImpl implements UserDao {
         }
         return isUnblocked;
     }
+
     @Override
     public boolean delete(long id) throws DaoException {
         boolean isDeleted;
