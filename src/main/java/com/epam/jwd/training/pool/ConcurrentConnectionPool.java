@@ -1,6 +1,5 @@
 package com.epam.jwd.training.pool;
 
-import com.epam.jwd.training.util.ApplicationProperties;
 import com.epam.jwd.training.exception.CouldNotInitializeConnectionPoolException;
 import com.epam.jwd.training.util.PropertiesReader;
 import org.apache.logging.log4j.LogManager;
@@ -25,27 +24,27 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
 
     private static final Logger LOGGER = LogManager.getLogger(ConcurrentConnectionPool.class);
 
-    private static final Integer DEFAULT_POOL_SIZE = 10;
-
     private static final Lock lock = new ReentrantLock();
 
-    private final Integer connectionPoolSize;
+    private static final String URL_KEY = "db.url";
+    private static final String USER_KEY = "db.user";
+    private static final String PASSWORD_KEY = "db.password";
+    private static final String POOL_SIZE_KEY = "poolSize";
 
-    private final ApplicationProperties applicationProperties;
+    private final Integer poolSize;
+    private static final int DEFAULT_POOL_SIZE = 10;
+
     private final AtomicBoolean initialized;
     private final BlockingQueue<ProxyConnection> availableConnections;
     private final Queue<ProxyConnection> takenConnections;
 
-
     private ConcurrentConnectionPool() {
         initialized = new AtomicBoolean(false);
-        applicationProperties = PropertiesReader.getInstance().loadProperties();
-        connectionPoolSize = applicationProperties.getPoolSize();
+        poolSize = Integer.valueOf(PropertiesReader.get(POOL_SIZE_KEY));
         availableConnections = new LinkedBlockingDeque<>();
         takenConnections = new ArrayDeque<>();
         init();
     }
-
 
     public static ConcurrentConnectionPool getInstance() {
         if (instance == null) {
@@ -59,7 +58,7 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
     }
 
     public Connection takeConnection() {
-        ProxyConnection connection = null;
+        ProxyConnection connection;
         try {
             connection = availableConnections.take();
             takenConnections.add(connection);
@@ -88,12 +87,12 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
         if (initialized.compareAndSet(false, true)) {
             try {
                 registerDrivers();
-                int size = connectionPoolSize == null ? DEFAULT_POOL_SIZE : connectionPoolSize;
+                int size = poolSize == null ? DEFAULT_POOL_SIZE : poolSize;
 //                LOGGER.info(size);
                 for (int i = 0; i < size; i++) {
-                    Connection connection = DriverManager.getConnection(applicationProperties.getUrl(),
-                            applicationProperties.getUsername(),
-                            applicationProperties.getPassword()
+                    Connection connection = DriverManager.getConnection(PropertiesReader.get(URL_KEY),
+                            PropertiesReader.get(USER_KEY),
+                            PropertiesReader.get(PASSWORD_KEY)
                     );
                     availableConnections.add(new ProxyConnection(connection));
                 }
@@ -120,8 +119,7 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
 
     private void registerDrivers() throws CouldNotInitializeConnectionPoolException {
         try {
-//            LOGGER.info(applicationProperties.getUrl());
-            DriverManager.registerDriver(DriverManager.getDriver(applicationProperties.getUrl()));
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
         } catch (SQLException e) {
             LOGGER.error(e);
             initialized.set(false);

@@ -1,6 +1,7 @@
 package com.epam.jwd.training.util;
 
 import com.epam.jwd.training.exception.CouldNotReadPropertiesException;
+import lombok.experimental.UtilityClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,38 +9,29 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public final class PropertiesReader {
-
-    private static PropertiesReader instance;
+@UtilityClass
+public class PropertiesReader {
 
     private static final Logger LOGGER = LogManager.getLogger(PropertiesReader.class);
 
-    private static final Properties properties = new Properties();
+    private static final Properties PROPERTIES = new Properties();
+    private static final String FILE_NAME = "database.properties";
 
-    private PropertiesReader() {
+    static {
+        loadProperties();
     }
 
-    public static PropertiesReader getInstance() {
-        if (instance == null) {
-            instance = new PropertiesReader();
-        }
-        return instance;
-    }
-
-    public ApplicationProperties loadProperties() {
-        String propertiesFileName = "database.properties";
-        try (InputStream stream = this.getClass().getClassLoader().getResourceAsStream(propertiesFileName)) {
-            properties.load(stream);
-            return ApplicationProperties.getInstance(properties.getProperty("url"),
-                    properties.getProperty("userName"),
-                    properties.getProperty("password"),
-                    Integer.parseInt(properties.getProperty("connectionPoolSize")),
-                    Integer.parseInt(properties.getProperty("maxConnectionPoolSize"))
-            );
+    public static void loadProperties() {
+        try (InputStream stream = PropertiesReader.class.getClassLoader().getResourceAsStream(FILE_NAME)) {
+            PROPERTIES.load(stream);
         } catch (IOException e) {
             LOGGER.error(e);
             throw new CouldNotReadPropertiesException("Error reading file");
         }
+    }
+
+    public static String get(String key) {
+        return PROPERTIES.getProperty(key);
     }
 
 }
