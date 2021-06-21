@@ -12,13 +12,13 @@ public interface CourseService {
 
     List<Course> findAll() throws ServiceException;
 
-    Optional<Course> findById(long id) throws ServiceException;
+    Optional<Course> findById(Long id) throws ServiceException;
 
-    boolean delete(long id) throws ServiceException;
+    boolean delete(Long id) throws ServiceException;
 
-    List<Course> findAllCoursesByTeacherId(long id) throws ServiceException;
+    List<Course> findAllCoursesByTeacherId(Long id) throws ServiceException;
 
-    List<Course> findUserEnrolledByCourse(long userId) throws ServiceException;
+    List<Course> findUserEnrolledByCourse(Long userId) throws ServiceException;
 
     boolean updateHours(Course course) throws ServiceException;
 

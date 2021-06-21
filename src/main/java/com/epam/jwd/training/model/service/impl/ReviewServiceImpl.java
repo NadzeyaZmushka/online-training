@@ -36,7 +36,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Optional<Review> findById(long id) throws ServiceException {
+    public Optional<Review> findById(Long id) throws ServiceException {
         Optional<Review> reviewOptional;
         try {
             reviewOptional = reviewDao.findById(id);
@@ -48,7 +48,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public boolean delete(long id) throws ServiceException {
+    public boolean delete(Long id) throws ServiceException {
         boolean isDeleted;
         try {
             isDeleted = reviewDao.delete(id);
@@ -72,7 +72,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Optional<Review> findReviewByUserId(long id) throws ServiceException {
+    public Optional<Review> findReviewByUserId(Long id) throws ServiceException {
         Optional<Review> reviewOptional;
         try {
             reviewOptional = reviewDao.findReviewByUserId(id);

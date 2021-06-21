@@ -1,5 +1,6 @@
 package com.epam.jwd.training.model.service.impl;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.epam.jwd.training.model.dao.UserDao;
 import com.epam.jwd.training.model.dao.impl.UserDaoImpl;
 import com.epam.jwd.training.model.entity.User;
@@ -17,6 +18,8 @@ public class UserServiceImpl implements UserService {
     public static final UserServiceImpl INSTANCE = new UserServiceImpl();
 
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
+
+    private static final BCrypt.Hasher HASHER = BCrypt.withDefaults();
 
     private final UserDao userDao = UserDaoImpl.getInstance();
 
@@ -36,8 +39,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(long id) throws ServiceException {
-        Optional<User> user = Optional.empty();
+    public Optional<User> findById(Long id) throws ServiceException {
+        Optional<User> user;
         try {
             user = userDao.findById(id);
         } catch (DaoException e) {
@@ -49,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     //???
     @Override
-    public boolean delete(long id) throws ServiceException {
+    public boolean delete(Long id) throws ServiceException {
         boolean isDeleted;
         try {
             isDeleted = userDao.delete(id);
@@ -61,7 +64,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAllUsersOnCourse(long courseId) throws ServiceException {
+    public List<User> findAllUsersOnCourse(Long courseId) throws ServiceException {
         List<User> users;
         try {
             users = userDao.findAllUsersOnCourse(courseId);
@@ -84,10 +87,18 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    //??
     @Override
     public boolean addUser(User user, String password) throws ServiceException {
-        //todo:
-        return false;
+        boolean isAdd;
+        try {
+            String encryptedPassword = HASHER.hashToString(BCrypt.MIN_COST, password.toCharArray());
+            isAdd = userDao.addUser(user, encryptedPassword);
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return isAdd;
     }
 
     @Override
@@ -114,15 +125,22 @@ public class UserServiceImpl implements UserService {
         return isUpdate;
     }
 
+    //??
     @Override
-    public boolean updatePassword(String password, long userId) throws ServiceException {
-        //todo:
-
-        return false;
+    public boolean updatePassword(String password, User user) throws ServiceException {
+        boolean isUpdate;
+        try {
+            String encryptedPassword = HASHER.hashToString(BCrypt.MIN_COST, password.toCharArray());
+            isUpdate = userDao.updatePassword(encryptedPassword, user.getId());
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return isUpdate;
     }
 
     @Override
-    public boolean updateNameAndSurname(String name, String surname, long id) throws ServiceException {
+    public boolean updateNameAndSurname(String name, String surname, Long id) throws ServiceException {
         boolean isUpdate;
         try {
             User user = User.builder()
@@ -139,7 +157,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean blockUser(long id) throws ServiceException {
+    public boolean blockUser(Long id) throws ServiceException {
         boolean isBlocked;
         try {
             isBlocked = userDao.blockUser(id);
@@ -151,7 +169,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean unblockUser(long id) throws ServiceException {
+    public boolean unblockUser(Long id) throws ServiceException {
         boolean isUnBlocked;
         try {
             isUnBlocked = userDao.unblockUser(id);

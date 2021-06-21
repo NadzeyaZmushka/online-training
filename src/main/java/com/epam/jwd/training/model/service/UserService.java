@@ -10,11 +10,11 @@ public interface UserService {
 
     List<User> findAll() throws ServiceException;
 
-    Optional<User> findById(long id) throws ServiceException;
+    Optional<User> findById(Long id) throws ServiceException;
 
-    boolean delete(long id) throws ServiceException;
+    boolean delete(Long id) throws ServiceException;
 
-    List<User> findAllUsersOnCourse(long courseId) throws ServiceException;
+    List<User> findAllUsersOnCourse(Long courseId) throws ServiceException;
 
     Optional<User> findByEmail(String email) throws ServiceException;
 
@@ -24,12 +24,12 @@ public interface UserService {
 
     boolean updateUserToAdmin(User user) throws ServiceException;
 
-    boolean updatePassword(String password, long userId) throws ServiceException;
+    boolean updatePassword(String password, User user) throws ServiceException;
 
-    boolean updateNameAndSurname(String name, String surname, long id) throws ServiceException;
+    boolean updateNameAndSurname(String name, String surname, Long id) throws ServiceException;
 
-    boolean blockUser(long id) throws ServiceException;
+    boolean blockUser(Long id) throws ServiceException;
 
-    boolean unblockUser(long id) throws ServiceException;
+    boolean unblockUser(Long id) throws ServiceException;
 
 }

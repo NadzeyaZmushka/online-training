@@ -51,7 +51,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Optional<Course> findById(long id) throws ServiceException {
+    public Optional<Course> findById(Long id) throws ServiceException {
         Optional<Course> courseOptional;
         try {
             courseOptional = courseDao.findById(id);
@@ -63,7 +63,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public boolean delete(long id) throws ServiceException {
+    public boolean delete(Long id) throws ServiceException {
         boolean isDeleted;
         try {
             isDeleted = courseDao.delete(id);
@@ -75,7 +75,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> findAllCoursesByTeacherId(long teacherId) throws ServiceException {
+    public List<Course> findAllCoursesByTeacherId(Long teacherId) throws ServiceException {
         List<Course> courses;
         try {
             courses = courseDao.findAllCoursesByTeacherId(teacherId);
@@ -87,7 +87,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> findUserEnrolledByCourse(long userId) throws ServiceException {
+    public List<Course> findUserEnrolledByCourse(Long userId) throws ServiceException {
         List<Course> courses;
         try {
             courses = courseDao.findUserEnrolledByCourse(userId);

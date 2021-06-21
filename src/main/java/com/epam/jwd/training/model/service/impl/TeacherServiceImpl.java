@@ -36,7 +36,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Optional<Teacher> findById(long id) throws ServiceException {
+    public Optional<Teacher> findById(Long id) throws ServiceException {
         Optional<Teacher> teacherOptional;
         try {
             teacherOptional = teacherDao.findById(id);
@@ -48,7 +48,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public boolean delete(long id) throws ServiceException {
+    public boolean delete(Long id) throws ServiceException {
         boolean isDeleted;
         try {
             isDeleted = teacherDao.delete(id);

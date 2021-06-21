@@ -10,12 +10,12 @@ public interface ReviewService {
 
     List<Review> findAll() throws ServiceException;
 
-    Optional<Review> findById(long id) throws ServiceException;
+    Optional<Review> findById(Long id) throws ServiceException;
 
-    boolean delete(long id) throws ServiceException;
+    boolean delete(Long id) throws ServiceException;
 
     boolean save(Review review) throws ServiceException;
 
-    Optional<Review> findReviewByUserId(long id) throws ServiceException;
+    Optional<Review> findReviewByUserId(Long id) throws ServiceException;
 
 }

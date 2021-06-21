@@ -10,9 +10,9 @@ public interface TeacherService {
 
     List<Teacher> findAll() throws ServiceException;
 
-    Optional<Teacher> findById(long id) throws ServiceException;
+    Optional<Teacher> findById(Long id) throws ServiceException;
 
-    boolean delete(long id) throws ServiceException;
+    boolean delete(Long id) throws ServiceException;
 
     Optional<Teacher> findBySurname(String surname) throws ServiceException;
 

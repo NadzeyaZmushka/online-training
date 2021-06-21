@@ -36,7 +36,7 @@ public class LectureServiceImpl implements LectureService {
     }
 
     @Override
-    public Optional<Lecture> findById(long id) throws ServiceException {
+    public Optional<Lecture> findById(Long id) throws ServiceException {
         Optional<Lecture> taskOptional;
         try {
             taskOptional = lectureDao.findById(id);
@@ -48,7 +48,7 @@ public class LectureServiceImpl implements LectureService {
     }
 
     @Override
-    public boolean delete(long id) throws ServiceException {
+    public boolean delete(Long id) throws ServiceException {
         boolean isDeleted;
         try {
             isDeleted = lectureDao.delete(id);
@@ -60,7 +60,7 @@ public class LectureServiceImpl implements LectureService {
     }
 
     @Override
-    public List<Lecture> findAllLecturesByCourseId(long courseId) throws ServiceException {
+    public List<Lecture> findAllLecturesByCourseId(Long courseId) throws ServiceException {
         List<Lecture> lectures;
         try {
             lectures = lectureDao.findAllLecturesByCourseId(courseId);
@@ -96,7 +96,7 @@ public class LectureServiceImpl implements LectureService {
     }
 
     @Override
-    public Optional<Lecture> findLectureByIdAndCourseId(long id, long courseId) throws ServiceException {
+    public Optional<Lecture> findLectureByIdAndCourseId(Long id, Long courseId) throws ServiceException {
         Optional<Lecture> lectureOptional;
         try {
             lectureOptional = lectureDao.findLectureByIdAndCourseId(id, courseId);

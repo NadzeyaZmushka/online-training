@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum RoleType {
-    ADMIN(1L, "Admin"),
-    USER(2L, "User"),
-    GUEST(3L, "Guest");
+    ADMIN(1L, "ADMIN"),
+    USER(2L, "USER"),
+    GUEST(3L, "GUEST");
 
     public static final List<RoleType> ROLE_TYPE_LIST = Arrays.asList(values());
 
