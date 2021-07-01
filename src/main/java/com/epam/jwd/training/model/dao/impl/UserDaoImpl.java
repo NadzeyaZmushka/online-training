@@ -28,6 +28,7 @@ public class UserDaoImpl implements UserDao {
             "FROM training.users";
     private static final String FIND_USER_BY_ID_SQL = FIND_ALL_USERS_SQL + " WHERE u_id = ?";
     private static final String FIND_USER_BY_EMAIL_SQL = FIND_ALL_USERS_SQL + " WHERE user_email = ?";
+    private static final String FIND_USER_BY_EMAIL_AND_PASSWORD = FIND_ALL_USERS_SQL +" WHERE user_email = ? AND password = ?";
     private static final String FIND_ALL_USERS_ON_COURSE_SQL = "SELECT u_id, user_name, user_surname, user_email, role, enabled " +
             "FROM training.users_x_courses " +
             "INNER JOIN training.users on user_id = u_id " +
@@ -115,6 +116,25 @@ public class UserDaoImpl implements UserDao {
         try (Connection connection = connectionPool.takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_EMAIL_SQL)) {
             preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = buildUser(resultSet);
+                userOptional = Optional.of(user);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DaoException(e);
+        }
+        return userOptional;
+    }
+
+    @Override
+    public Optional<User> findByEmailAndPassword(String email, String password) throws DaoException {
+        Optional<User> userOptional = Optional.empty();
+        try (Connection connection = connectionPool.takeConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_EMAIL_AND_PASSWORD)){
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 User user = buildUser(resultSet);

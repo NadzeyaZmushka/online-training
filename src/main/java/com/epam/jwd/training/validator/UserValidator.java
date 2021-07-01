@@ -49,6 +49,14 @@ public class UserValidator {
         return matcher.matches();
     }
 
+    public boolean isValidEmailAndPassword(String email, String password) {
+        boolean isCorrect = true;
+        if (email == null || email.isBlank() || password == null || password.isBlank()) {
+            isCorrect = false;
+        }
+        return isCorrect;
+    }
+
     public static UserValidator getInstance() {
         return INSTANCE;
     }

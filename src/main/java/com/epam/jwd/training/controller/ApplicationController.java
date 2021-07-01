@@ -1,35 +1,46 @@
 package com.epam.jwd.training.controller;
 
+import com.epam.jwd.training.command.Command;
+import com.epam.jwd.training.command.CommandFactory;
+import com.epam.jwd.training.command.CommandResponse;
+import com.epam.jwd.training.pool.ConcurrentConnectionPool;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Enumeration;
 
-@WebServlet(urlPatterns = "/controller")
+@WebServlet(name = "controller", urlPatterns = {"/controller", "*.do"})
 public class ApplicationController extends HttpServlet {
 
-    //    @Override
-//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        try (final PrintWriter writer = resp.getWriter()) {
-//            writer.println("Hello World");
-//            final Enumeration<String> headerNames = req.getHeaderNames();
-//            while (headerNames.hasMoreElements()) {
-//                final String headerName = headerNames.nextElement();
-//                writer.format("%s: %s\n", headerName, req.getHeader(headerName));
-//            }
-//        }
-//    }
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
 
-        response.setContentType("text/html");
-        try (PrintWriter writer = response.getWriter()) {
-            writer.println("<h2>Hello from HelloServlet</h2>");
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Command command = CommandFactory.defineCommand(request);
+        CommandResponse commandResponse = command.execute(request);
+
+        if (commandResponse.getType().equals(CommandResponse.Type.FORWARD)) {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(commandResponse.getPagePath());
+            requestDispatcher.forward(request, response);
+        } else {
+            response.sendRedirect(commandResponse.getPagePath());
         }
     }
 
+    @Override
+    public void destroy() {
+        ConcurrentConnectionPool.getInstance().destroy();
+    }
 }
 

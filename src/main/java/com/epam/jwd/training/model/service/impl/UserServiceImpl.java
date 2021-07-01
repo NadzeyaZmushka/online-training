@@ -87,6 +87,19 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
+    public Optional<User> findByEmailAndPassword(String email, String password) throws ServiceException {
+        Optional<User> user;
+        try {
+            String encryptedPassword = HASHER.hashToString(BCrypt.MIN_COST, password.toCharArray());
+            user = userDao.findByEmailAndPassword(email, encryptedPassword);
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return user;
+    }
+
     //??
     @Override
     public boolean addUser(User user, String password) throws ServiceException {

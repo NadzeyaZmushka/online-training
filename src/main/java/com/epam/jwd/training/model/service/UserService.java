@@ -18,6 +18,8 @@ public interface UserService {
 
     Optional<User> findByEmail(String email) throws ServiceException;
 
+    Optional<User> findByEmailAndPassword(String email, String password) throws ServiceException;
+
     boolean addUser(User user, String password) throws ServiceException;
 
     boolean enrollOnCourse(User user, Long courseId) throws ServiceException;
