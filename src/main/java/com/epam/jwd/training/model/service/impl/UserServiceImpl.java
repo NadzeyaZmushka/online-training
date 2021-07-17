@@ -10,6 +10,7 @@ import com.epam.jwd.training.model.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
 
     private static final BCrypt.Hasher HASHER = BCrypt.withDefaults();
+    private static final BCrypt.Verifyer VERIFYER = BCrypt.verifyer();
 
     private final UserDao userDao = UserDaoImpl.getInstance();
 
@@ -91,7 +93,7 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByEmailAndPassword(String email, String password) throws ServiceException {
         Optional<User> user;
         try {
-            String encryptedPassword = HASHER.hashToString(BCrypt.MIN_COST, password.toCharArray());
+            String encryptedPassword = Base64.getEncoder().encodeToString(password.getBytes());
             user = userDao.findByEmailAndPassword(email, encryptedPassword);
         } catch (DaoException e) {
             LOGGER.error(e);
@@ -105,7 +107,7 @@ public class UserServiceImpl implements UserService {
     public boolean addUser(User user, String password) throws ServiceException {
         boolean isAdd;
         try {
-            String encryptedPassword = HASHER.hashToString(BCrypt.MIN_COST, password.toCharArray());
+            String encryptedPassword = Base64.getEncoder().encodeToString(password.getBytes());
             isAdd = userDao.addUser(user, encryptedPassword);
         } catch (DaoException e) {
             LOGGER.error(e);
@@ -143,7 +145,7 @@ public class UserServiceImpl implements UserService {
     public boolean updatePassword(String password, User user) throws ServiceException {
         boolean isUpdate;
         try {
-            String encryptedPassword = HASHER.hashToString(BCrypt.MIN_COST, password.toCharArray());
+            String encryptedPassword = Base64.getEncoder().encodeToString(password.getBytes());
             isUpdate = userDao.updatePassword(encryptedPassword, user.getId());
         } catch (DaoException e) {
             LOGGER.error(e);

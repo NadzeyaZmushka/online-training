@@ -6,7 +6,7 @@ public enum PageAccessType {
 
     GUEST(Set.of(
             CommandType.MAIN_PAGE,
-            CommandType.LECTURE_PAGE,
+            CommandType.COURSE_PAGE,
             CommandType.SIGN_IN_PAGE,
             CommandType.SIGN_IN,
             CommandType.SIGN_UP_PAGE,
@@ -15,13 +15,20 @@ public enum PageAccessType {
     )),
     USER(Set.of(
             CommandType.MAIN_PAGE,
-            CommandType.LECTURE_PAGE,
+            CommandType.COURSE_PAGE,
+            CommandType.SIGN_OUT,
             CommandType.CHANGE_LANGUAGE
     )),
     ADMIN(Set.of(
             CommandType.MAIN_PAGE,
-            CommandType.LECTURE_PAGE,
-            CommandType.CHANGE_LANGUAGE
+            CommandType.COURSE_PAGE,
+            CommandType.SIGN_OUT,
+            CommandType.CHANGE_LANGUAGE,
+            CommandType.COURSE_DELETE,
+            CommandType.COURSE_ADD,
+            CommandType.UPDATE_COST,
+            CommandType.COURSE_UPDATE,
+            CommandType.DESCRIPTION_UPDATE
     ));
 
     private final Set<CommandType> commands;

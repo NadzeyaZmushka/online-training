@@ -111,6 +111,30 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public boolean updateCourseName(Course course) throws ServiceException {
+        boolean isUpdate;
+        try {
+            isUpdate = courseDao.updateCourseName(course);
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return isUpdate;
+    }
+
+    @Override
+    public boolean updateDescription(Course course) throws ServiceException {
+        boolean isUpdate;
+        try {
+            isUpdate = courseDao.updateDescription(course);
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return isUpdate;
+    }
+
+    @Override
     public boolean updateCost(Course course) throws ServiceException {
         boolean isUpdate;
         try {

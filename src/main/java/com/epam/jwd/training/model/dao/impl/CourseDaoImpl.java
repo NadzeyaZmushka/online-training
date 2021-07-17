@@ -48,6 +48,9 @@ public class CourseDaoImpl implements CourseDao {
     private static final String UPDATE_START_END_COURSE_SQL = "UPDATE training.courses " +
             "SET start_course = ?, end_course = ? " +
             "WHERE c_id = ?";
+    private static final String UPDATE_COURSE_NAME_SQL = "UPDATE training.courses SET course_name = ? WHERE c_id = ?";
+    private static final String COURSE_DETAILS_DESCRIPTION_UPDATE_SQL = "UPDATE training.courses SET c_description = ? WHERE c_id = ?";
+
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
 
     private CourseDaoImpl() {
@@ -101,6 +104,38 @@ public class CourseDaoImpl implements CourseDao {
         try (Connection connection = connectionPool.takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NUMBER_OF_HOURS_SQL)) {
             preparedStatement.setInt(1, course.getHours());
+            preparedStatement.setLong(2, course.getId());
+
+            isUpdate = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DaoException(e);
+        }
+        return isUpdate;
+    }
+
+    @Override
+    public boolean updateCourseName(Course course) throws DaoException {
+        boolean isUpdate;
+        try (Connection connection = connectionPool.takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_COURSE_NAME_SQL)) {
+            preparedStatement.setString(1, course.getName());
+            preparedStatement.setLong(2, course.getId());
+
+            isUpdate = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DaoException(e);
+        }
+        return isUpdate;
+    }
+
+    @Override
+    public boolean updateDescription(Course course) throws DaoException {
+        boolean isUpdate;
+        try (Connection connection = connectionPool.takeConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(COURSE_DETAILS_DESCRIPTION_UPDATE_SQL)){
+            preparedStatement.setString(1, course.getDescription());
             preparedStatement.setLong(2, course.getId());
 
             isUpdate = preparedStatement.executeUpdate() > 0;

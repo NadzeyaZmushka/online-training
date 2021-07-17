@@ -21,5 +21,17 @@ public class RequestAttribute {
     public static final String ERROR_EMAIL_MESSAGE_IS_NOT_EXIST = "errorEmailMessageIsNotExist";
     public static final String ERROR_NAME_AND_SURNAME_MESSAGE = "errorNameAndSurnameMessage";
     public static final String ERROR_PASSWORD_MESSAGE = "errorPasswordMessage";
-
+    public static final String ERROR_DESCRIPTION_ADD = "errorDescriptionAdd";
+    public static final String ERROR_HOURS_ADD = "errorHoursAdd";
+    public static final String ERROR_NAME_AND_SURNAME_ADD = "errorNameAndSurnameAdd";
+    public static final String ERROR_COST_ADD = "errorCostAdd";
+    public static final String ERROR_START_AND_END_COURSE_ADD = "errorStartAndEndCourseAdd";
+    public static final String ERROR_TEACHER_NOT_FOUND_ADD = "errorTeacherNotFoundAdd";
+    public static final String COST = "cost";
+    public static final String END_COURSE = "endCourse";
+    public static final String START_COURSE = "startCourse";
+    public static final String HOURS = "hours";
+    public static final String DESCRIPTION = "description";
+    public static final String COURSE_DESCRIPTION = "course_description";
+    public static final String COURSE = "course";
 }

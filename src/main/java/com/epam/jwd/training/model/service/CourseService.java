@@ -22,6 +22,10 @@ public interface CourseService {
 
     boolean updateHours(Course course) throws ServiceException;
 
+    boolean updateCourseName(Course course) throws ServiceException;
+
+    boolean updateDescription(Course course) throws ServiceException;
+
     boolean updateCost(Course course) throws ServiceException;
 
     boolean updateDate(Course course) throws ServiceException;

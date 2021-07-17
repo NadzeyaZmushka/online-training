@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "controller", urlPatterns = {"/controller", "*.do"})
+@WebServlet(urlPatterns = {"/controller", "*.do"})
 public class ApplicationController extends HttpServlet {
 
     @Override

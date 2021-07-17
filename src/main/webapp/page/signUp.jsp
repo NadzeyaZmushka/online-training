@@ -9,7 +9,7 @@
 </head>
 <body>
 <c:import url="header.jsp"/>
-<c:import url="sidebar.jsp"/>
+<%--<c:import url="sidebar.jsp"/>--%>
 <form action="${pageContext.request.contextPath}/controller" method="post">
     <input type="hidden" name="command" value="sign_up">
     <label for="email"></label><input type="text" id="email" name="email"
@@ -44,14 +44,14 @@
     </c:if>
     <input type="submit" value="<fmt:message key="button.signUp"/>">
 </form>
-<%--<form action="${pageContext.request.contextPath}/controller" method="get">--%>
-<%--    <input type="hidden" name="command" value="sign_in_page">--%>
-<%--    <input type="submit" value="<fmt:message key="button.signIn"/>">--%>
-<%--</form>--%>
-<%--<form action="${pageContext.request.contextPath}/controller" method="get">--%>
-<%--    <input type="hidden" name="command" value="main_page">--%>
-<%--    <input type="submit" value="Главная страница">--%>
-<%--</form>--%>
+<form action="${pageContext.request.contextPath}/controller" method="get">
+    <input type="hidden" name="command" value="sign_in_page">
+    <input type="submit" value="<fmt:message key="button.signIn"/>">
+</form>
+<form action="${pageContext.request.contextPath}/controller" method="get">
+    <input type="hidden" name="command" value="main_page">
+    <input type="submit" value="Главная страница">
+</form>
 <c:import url="footer.jsp"/>
 </body>
 </html>

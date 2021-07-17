@@ -78,10 +78,8 @@ public class Teacher extends BaseEntity {
 
     @Override
     public String toString() {
-        return  "Teacher{" +super.toString() +
-                "name = '" + name + '\'' +
-                ", surname = '" + surname + '\'' +
-                "} ";
+        return name + " " +
+                surname;
     }
 
 }

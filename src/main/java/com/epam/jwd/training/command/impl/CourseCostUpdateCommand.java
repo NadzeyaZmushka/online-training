@@ -8,53 +8,59 @@ import com.epam.jwd.training.command.RequestParameter;
 import com.epam.jwd.training.command.SessionAttribute;
 import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.model.entity.Course;
-import com.epam.jwd.training.model.entity.Lecture;
 import com.epam.jwd.training.model.service.CourseService;
-import com.epam.jwd.training.model.service.LectureService;
 import com.epam.jwd.training.model.service.impl.CourseServiceImpl;
-import com.epam.jwd.training.model.service.impl.LectureServiceImpl;
+import com.epam.jwd.training.validator.CourseValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.Optional;
 
-public class LectureCommand implements Command {
+public class CourseCostUpdateCommand implements Command {
 
-    private static final Logger LOGGER = LogManager.getLogger(LectureCommand.class);
+    private static final Logger LOGGER = LogManager.getLogger(CourseCostUpdateCommand.class);
 
-    private final LectureService lectureService = LectureServiceImpl.getInstance();
     private final CourseService courseService = CourseServiceImpl.getInstance();
+    private final CourseValidator courseValidator = CourseValidator.getInstance();
 
     @Override
     public CommandResponse execute(HttpServletRequest request) {
         String courseIdString = request.getParameter(RequestParameter.COURSE_ID);
+        String cost = request.getParameter(RequestParameter.COST);
         HttpSession session = request.getSession();
         CommandResponse response = new CommandResponse();
+        boolean isCorrectData = true;
         try {
             Long courseId = Long.valueOf(courseIdString);
-            Optional<Course> courseOptional = courseService.findById(courseId);
-            if (courseOptional.isPresent()) {
-                List<Lecture> lectures = lectureService.findAllLecturesByCourseId(courseId);
-                if (!lectures.isEmpty()) {
-                    request.setAttribute(RequestAttribute.LECTURES, lectures);
+//            Optional<Course> courseOptional = courseService.findById(courseId);
+//            if (courseOptional.isPresent()) {
+                if (!courseValidator.isValidCost(cost)) {
+                    session.setAttribute(SessionAttribute.ERROR_COST, true);
+                    isCorrectData = false;
                 }
-                request.setAttribute(RequestAttribute.COURSE_ID, courseOptional.get().getId());
-                response.setPagePath(PagePath.LECTURE.getDirectUrl());
-                session.setAttribute(SessionAttribute.CURRENT_PAGE, PagePath.LECTURE.getServletPath() + courseId);
-            } else {
-                session.setAttribute(SessionAttribute.ERROR_COURSE_NOT_FOUND, true);
+                if (isCorrectData) {
+                    Course course = Course.builder()
+                            .setId(courseId)
+                            .setCost(BigDecimal.valueOf(Long.parseLong(cost)))
+                            .build();
+                    courseService.updateCost(course);
+                }
                 response.setType(CommandResponse.Type.REDIRECT);
-                response.setPagePath(PagePath.MAIN.getServletPath());
-            }
+                response.setPagePath(PagePath.COURSE.getServletPath() + courseId);
+//            }
+//            else {
+//                session.setAttribute(SessionAttribute.ERROR_COURSE_NOT_FOUND, true);
+//                response.setType(CommandResponse.Type.REDIRECT);
+//                response.setPagePath(PagePath.MAIN.getServletPath());
+//            }
         } catch (ServiceException e) {
             LOGGER.error(e);
             response.setPagePath(PagePath.ERROR_500.getDirectUrl());
             request.setAttribute(RequestAttribute.EXCEPTION, e.getMessage());
         }
-
         return response;
     }
 }

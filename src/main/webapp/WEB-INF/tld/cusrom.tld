@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-
 <taglib xmlns="http://java.sun.com/xml/ns/javaee"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
@@ -13,17 +12,9 @@
         <tag-class>com.epam.jwd.training.tag.FooterTag</tag-class>
         <body-content>empty</body-content>
     </tag>
-<!--    <tag>-->
-<!--        <name>headertag</name>-->
-<!--        <tag-class>com.epam.jwd.training.tag.HeaderTag</tag-class>-->
-<!--        <body-content>empty</body-content>-->
-<!--        <attribute>-->
-<!--            <name>role</name>-->
-<!--            <required>true</required>-->
-<!--            <rtexprvalue>true</rtexprvalue>-->
-<!--        </attribute>-->
-<!--    </tag>-->
-
-    <!-- Invoke 'Generate' action to add tags or functions -->
-
+    <tag>
+        <name>currentTime</name>
+        <tag-class>com.epam.jwd.training.tag.CurrentTimeTag</tag-class>
+        <body-content>empty</body-content>
+    </tag>
 </taglib>
