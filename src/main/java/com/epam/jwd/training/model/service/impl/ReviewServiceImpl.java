@@ -83,6 +83,18 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewOptional;
     }
 
+    @Override
+    public boolean isUserHasReview(Long reviewId, Long userId) throws ServiceException {
+        boolean isHas;
+        try {
+            isHas = reviewDao.isUserHasReview(reviewId, userId);
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return isHas;
+    }
+
     public static ReviewServiceImpl getInstance() {
         return INSTANCE;
     }

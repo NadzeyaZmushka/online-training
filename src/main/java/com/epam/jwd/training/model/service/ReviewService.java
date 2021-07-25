@@ -18,4 +18,5 @@ public interface ReviewService {
 
     Optional<Review> findReviewByUserId(Long id) throws ServiceException;
 
+    boolean isUserHasReview(Long reviewId, Long userId) throws ServiceException;
 }

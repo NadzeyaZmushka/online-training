@@ -11,4 +11,6 @@ public interface ReviewDao extends BaseDao<Review> {
 
     Optional<Review> findReviewByUserId(Long userId) throws DaoException;
 
+    boolean isUserHasReview(Long reviewId, Long userId) throws DaoException;
+
 }

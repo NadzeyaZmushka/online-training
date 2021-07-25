@@ -18,7 +18,10 @@ import com.epam.jwd.training.command.impl.LectureAddCommand;
 import com.epam.jwd.training.command.impl.LectureDeleteCommand;
 import com.epam.jwd.training.command.impl.LectureUpdateCommand;
 import com.epam.jwd.training.command.impl.MainCommand;
+import com.epam.jwd.training.command.impl.OpenReviewCommand;
 import com.epam.jwd.training.command.impl.ProfileCommand;
+import com.epam.jwd.training.command.impl.ReviewAddCommand;
+import com.epam.jwd.training.command.impl.ReviewDeleteCommand;
 import com.epam.jwd.training.command.impl.ShowAllTeachersCommand;
 import com.epam.jwd.training.command.impl.ShowAllUsersCommand;
 import com.epam.jwd.training.command.impl.ShowUsersEnrolledCourseCommand;
@@ -59,7 +62,10 @@ public enum CommandType {
     SHOW_ALL_USERS(new ShowAllUsersCommand()),
     HIDE_ALL_USERS(new HideAllUsersCommand()),
     SHOW_ALL_USERS_ENROLLED_COURSE(new ShowUsersEnrolledCourseCommand()),
-    HIDE_ALL_USERS_ENROLLED_COURSE(new HideUsersEnrolledCourseCommand());
+    HIDE_ALL_USERS_ENROLLED_COURSE(new HideUsersEnrolledCourseCommand()),
+    REVIEW_ADD(new ReviewAddCommand()),
+    REVIEW_PAGE(new OpenReviewCommand()),
+    REVIEW_DELETE(new ReviewDeleteCommand());
 
     private final Command command;
 
