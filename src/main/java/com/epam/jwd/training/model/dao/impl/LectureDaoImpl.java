@@ -34,7 +34,7 @@ public class LectureDaoImpl implements LectureDao {
             " WHERE course_id = ?";
     private static final String UPDATE_TASK_SQL = "UPDATE training.lectures SET lecture_name = ? " +
             "WHERE l_id = ?";
-    private static final String ADD_TASK_SQL = "INSERT INTO training.lectures (lecture_name, course_id) " +
+    private static final String ADD_LECTURE_SQL = "INSERT INTO training.lectures (lecture_name, course_id) " +
             "VALUES (?, ?)";
     private static final String DELETE_TASK_SQL = "DELETE FROM training.lectures " +
             "WHERE l_id = ?";
@@ -85,7 +85,7 @@ public class LectureDaoImpl implements LectureDao {
     public boolean save(Lecture lecture) throws DaoException {
         boolean isSaved;
         try (Connection connection = connectionPool.takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(ADD_TASK_SQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(ADD_LECTURE_SQL)) {
             preparedStatement.setString(1, lecture.getName());
             preparedStatement.setLong(2, lecture.getCourse().getId());
 

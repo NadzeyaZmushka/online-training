@@ -11,13 +11,18 @@ public enum PageAccessType {
             CommandType.SIGN_IN,
             CommandType.SIGN_UP_PAGE,
             CommandType.SIGN_UP,
-            CommandType.CHANGE_LANGUAGE
+            CommandType.CHANGE_LANGUAGE,
+            CommandType.PROFILE_PAGE
     )),
     USER(Set.of(
             CommandType.MAIN_PAGE,
             CommandType.COURSE_PAGE,
             CommandType.SIGN_OUT,
-            CommandType.CHANGE_LANGUAGE
+            CommandType.ENROLL_COURSE,
+            CommandType.CHANGE_LANGUAGE,
+            CommandType.PROFILE_PAGE,
+            CommandType.UPDATE_USER_NAME_SURNAME,
+            CommandType.UPDATE_PASSWORD
     )),
     ADMIN(Set.of(
             CommandType.MAIN_PAGE,
@@ -28,7 +33,22 @@ public enum PageAccessType {
             CommandType.COURSE_ADD,
             CommandType.UPDATE_COST,
             CommandType.COURSE_UPDATE,
-            CommandType.DESCRIPTION_UPDATE
+            CommandType.UPDATE_DESCRIPTION,
+            CommandType.UPDATE_HOURS,
+            CommandType.UPDATE_START_END,
+            CommandType.UPDATE_TEACHER,
+            CommandType.LECTURE_ADD,
+            CommandType.LECTURE_UPDATE,
+            CommandType.LECTURE_DELETE,
+            CommandType.PROFILE_PAGE,
+            CommandType.SHOW_ALL_TEACHERS,
+            CommandType.UPDATE_USER_NAME_SURNAME,
+            CommandType.UPDATE_PASSWORD,
+            CommandType.HIDE_ALL_TEACHERS,
+            CommandType.SHOW_ALL_USERS,
+            CommandType.HIDE_ALL_USERS,
+            CommandType.SHOW_ALL_USERS_ENROLLED_COURSE,
+            CommandType.HIDE_ALL_USERS_ENROLLED_COURSE
     ));
 
     private final Set<CommandType> commands;

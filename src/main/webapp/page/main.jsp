@@ -37,7 +37,7 @@
         </label>
         <c:if test="${errorDescriptionAdd}">
             <div class="alert alert-danger" role="alert">
-                <fmt:message key="error.lecture.description"/>
+                <fmt:message key="error.course.description"/>
             </div>
         </c:if>
         <p><fmt:message key="course.number_of_hours"/></p>
@@ -47,7 +47,7 @@
         </label>
         <c:if test="${errorHoursAdd}">
             <div class="alert alert-danger" role="alert">
-                <fmt:message key="error.lecture.hours"/>
+                <fmt:message key="error.course.hours"/>
             </div>
         </c:if>
         <p><fmt:message key="course.cost"/></p>
@@ -56,7 +56,7 @@
         </label>
         <c:if test="${errorCostAdd}">
             <div class="alert alert-danger" role="alert">
-                <fmt:message key="error.lecture.cost"/>
+                <fmt:message key="error.course.cost"/>
             </div>
         </c:if>
         <p><fmt:message key="course.teacher_name"/></p>
@@ -69,12 +69,12 @@
         </label>
         <c:if test="${errorNameAndSurnameAdd}">
             <div class="alert alert-danger" role="alert">
-                <fmt:message key="error.lecture.name_and_surname"/>
+                <fmt:message key="error.course.name_and_surname"/>
             </div>
         </c:if>
         <c:if test="${errorTeacherNotFoundAdd}">
             <div class="alert alert-danger" role="alert">
-                <fmt:message key="error.lecture.teacher_not_found"/>
+                <fmt:message key="error.course.teacher_not_found"/>
             </div>
         </c:if>
         <p><fmt:message key="course.start_course"/></p>
@@ -89,7 +89,7 @@
         </label>
         <c:if test="${errorStartAndEndCourseAdd}">
         <div class="alert alert-danger" role="alert">
-                <fmt:message key="error.lecture.start_and_end_course"/>
+                <fmt:message key="error.course.start_and_end_course"/>
                 <%--            </div>--%>
             </c:if>
             <input type="submit" value="<fmt:message key="button.add_course"/>">

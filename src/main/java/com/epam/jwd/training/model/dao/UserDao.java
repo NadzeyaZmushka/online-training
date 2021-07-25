@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface UserDao extends BaseDao<User> {
 
-    List<User> findAllUsersOnCourse(Long courseId) throws DaoException;
+    List<User> findAllUsersOnCourse() throws DaoException;
 
     Optional<User> findByEmail(String email) throws DaoException;
 
@@ -17,6 +17,8 @@ public interface UserDao extends BaseDao<User> {
     boolean addUser(User user, String password) throws DaoException;
 
     boolean enrollCourse(User user, Long courseId) throws DaoException;
+
+    boolean isHaveCourse(Long userId, Long courseId) throws DaoException;
 
     boolean updateUserToAdmin(User user) throws DaoException;
 

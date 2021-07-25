@@ -66,10 +66,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAllUsersOnCourse(Long courseId) throws ServiceException {
+    public List<User> findAllUsersOnCourse() throws ServiceException {
         List<User> users;
         try {
-            users = userDao.findAllUsersOnCourse(courseId);
+            users = userDao.findAllUsersOnCourse();
         } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
@@ -126,6 +126,18 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(e);
         }
         return isEnrolled;
+    }
+
+    @Override
+    public boolean isHaveCourse(Long userId, Long courseId) throws ServiceException {
+        boolean isHaveCourse;
+        try {
+            isHaveCourse = userDao.isHaveCourse(userId, courseId);
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return isHaveCourse;
     }
 
     @Override

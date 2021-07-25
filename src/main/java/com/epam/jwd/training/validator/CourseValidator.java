@@ -30,6 +30,14 @@ public class CourseValidator {
         return isCorrect;
     }
 
+    public boolean isValidLecture(String message) {
+        boolean isCorrect = true;
+        if (message == null || message.isBlank()) {
+            isCorrect = false;
+        }
+        return isCorrect;
+    }
+
     public boolean isValidHours(String hours) {
         if (hours == null || hours.isBlank()) {
             return false;

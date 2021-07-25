@@ -14,7 +14,7 @@ public interface UserService {
 
     boolean delete(Long id) throws ServiceException;
 
-    List<User> findAllUsersOnCourse(Long courseId) throws ServiceException;
+    List<User> findAllUsersOnCourse() throws ServiceException;
 
     Optional<User> findByEmail(String email) throws ServiceException;
 
@@ -23,6 +23,8 @@ public interface UserService {
     boolean addUser(User user, String password) throws ServiceException;
 
     boolean enrollOnCourse(User user, Long courseId) throws ServiceException;
+
+    boolean isHaveCourse(Long userId, Long courseId) throws ServiceException;
 
     boolean updateUserToAdmin(User user) throws ServiceException;
 

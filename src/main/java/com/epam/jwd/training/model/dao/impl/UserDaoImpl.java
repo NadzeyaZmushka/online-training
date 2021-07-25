@@ -2,6 +2,7 @@ package com.epam.jwd.training.model.dao.impl;
 
 import com.epam.jwd.training.model.dao.ColumnName;
 import com.epam.jwd.training.model.dao.UserDao;
+import com.epam.jwd.training.model.entity.Course;
 import com.epam.jwd.training.model.entity.RoleType;
 import com.epam.jwd.training.model.entity.User;
 import com.epam.jwd.training.exception.DaoException;
@@ -29,15 +30,11 @@ public class UserDaoImpl implements UserDao {
     private static final String FIND_USER_BY_ID_SQL = FIND_ALL_USERS_SQL + " WHERE u_id = ?";
     private static final String FIND_USER_BY_EMAIL_SQL = FIND_ALL_USERS_SQL + " WHERE user_email = ?";
     private static final String FIND_USER_BY_EMAIL_AND_PASSWORD = FIND_ALL_USERS_SQL +" WHERE user_email = ? AND password = ?";
-    private static final String FIND_ALL_USERS_ON_COURSE_SQL = "SELECT u_id, user_name, user_surname, user_email, role, enabled " +
-            "FROM training.users_x_courses " +
-            "INNER JOIN training.users on user_id = u_id " +
-            "INNER JOIN training.courses on course_id = c_id " +
-            "WHERE course_id = ?";
+    private static final String FIND_ALL_USERS_ON_COURSE_SQL = "SELECT u_id, user_email, user_name, user_surname, c_id, course_name FROM training.users_x_courses INNER JOIN training.users ON user_id = u_id INNER JOIN training.courses ON course_id = c_id";
     private static final String ENROLL_USER_ON_COURSE_SQL = "INSERT INTO training.users_x_courses (user_id, course_id) " +
             "VALUES (?, ?)";
     private static final String UPDATE_NAME_AND_SURNAME_SQL = "UPDATE training.users " +
-            "SET user_name = ?, user_surnsme = ? " +
+            "SET user_name = ?, user_surname = ? " +
             "WHERE u_id = ?";
     private static final String ADD_USER_SQL = "INSERT INTO training.users (user_name, user_surname, user_email, password, role, enabled) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
@@ -51,6 +48,7 @@ public class UserDaoImpl implements UserDao {
             "SET enabled = false WHERE u_id = ?";
     private static final String UNBLOCK_USER_SQL = "UPDATE training.users " +
             "SET enabled = true WHERE u_id = ?";
+    private static final String USER_ENROLL_COURSE_SQL = "SELECT user_id, course_id FROM training.users_x_courses WHERE user_id = ? AND course_id = ?";
 
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
 
@@ -58,14 +56,23 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findAllUsersOnCourse(Long courseId) throws DaoException {
+    public List<User> findAllUsersOnCourse() throws DaoException {
         List<User> users = new ArrayList<>();
         try (Connection connection = connectionPool.takeConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_USERS_ON_COURSE_SQL);
-            preparedStatement.setLong(1, courseId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                User user = buildUser(resultSet);
+                Course course = Course.builder()
+                        .setId(resultSet.getLong(ColumnName.C_ID))
+                        .setName(resultSet.getString(ColumnName.COURSE_NAME))
+                        .build();
+                User user = User.builder()
+                        .setId(resultSet.getLong(ColumnName.U_ID))
+                        .setEmail(resultSet.getString(ColumnName.USER_EMAIL))
+                        .setName(resultSet.getString(ColumnName.USER_NAME))
+                        .setSurname(resultSet.getString(ColumnName.USER_SURNAME))
+                        .setCourse(course)
+                        .build();
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -182,6 +189,25 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException(e);
         }
         return isEnrolled;
+    }
+
+    @Override
+    public boolean isHaveCourse(Long userId, Long courseId) throws DaoException {
+        boolean isHaveCourse = false;
+        try (Connection connection = connectionPool.takeConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(USER_ENROLL_COURSE_SQL)){
+            preparedStatement.setLong(1, userId);
+            preparedStatement.setLong(2, courseId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                isHaveCourse = true;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DaoException(e);
+        }
+        return isHaveCourse;
     }
 
     // ???

@@ -11,15 +11,15 @@
 <body>
 <h1>ERROR</h1>
 <h2>Ooops. Something goes wrong.</h2>
-<br /> Exception: ${Exception}
-<br /> Message from exception: ${Exception }
-<br />
+<%--<br /> Exception: ${Exception}--%>
+<%--<br /> Message from exception: ${Exception }--%>
+<%--<br />--%>
 
 <br /> Status code: ${pageContext.errorData.statusCode}
 <br /> Servlet name: ${pageContext.errorData.servletName}
 <br /> Exception: ${pageContext.exception}
 <br /> Message from exception: ${pageContext.exception.message}
-<br />
+<br /> ${pageContext.exception.printStackTrace()}
 <div>
     <form action="controller" method="post">
         <input type="submit" value="To main page">

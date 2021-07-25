@@ -21,6 +21,8 @@ public interface CourseDao extends BaseDao<Course> {
 
     boolean updateDate(Course course) throws DaoException;
 
+    boolean updateTeacher(Course course) throws DaoException;
+
     boolean save(Course course) throws DaoException;
 
 }

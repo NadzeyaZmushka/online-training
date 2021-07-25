@@ -69,6 +69,18 @@ public class User extends BaseEntity {
         this.enabled = enabled;
     }
 
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     public static class UserBuilder {
 
         private Long id;

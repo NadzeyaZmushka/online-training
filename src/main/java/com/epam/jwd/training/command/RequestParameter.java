@@ -16,5 +16,12 @@ public class RequestParameter {
     public static final String START_COURSE = "start_course";
     public static final String END_COURSE = "end_course";
     public static final String COST = "cost";
+    public static final String START = "start";
+    public static final String END = "end";
+    public static final String TEACHER_NAME = "teacher_name";
+    public static final String TEACHER_SURNAME = "teacher_surname";
 
+    public static final String LECTURE = "lecture";
+    public static final String LECTURE_ID = "lecture_id";
+    public static final String MESSAGE = "message";
 }

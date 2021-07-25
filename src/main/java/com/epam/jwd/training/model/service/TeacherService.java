@@ -14,7 +14,7 @@ public interface TeacherService {
 
     boolean delete(Long id) throws ServiceException;
 
-    Optional<Teacher> findBySurname(String surname) throws ServiceException;
+    Optional<Teacher> findByNameAndSurname(String name, String surname) throws ServiceException;
 
     public boolean save(String name, String surname) throws ServiceException;
 

@@ -49,7 +49,8 @@ public class CourseDaoImpl implements CourseDao {
             "SET start_course = ?, end_course = ? " +
             "WHERE c_id = ?";
     private static final String UPDATE_COURSE_NAME_SQL = "UPDATE training.courses SET course_name = ? WHERE c_id = ?";
-    private static final String COURSE_DETAILS_DESCRIPTION_UPDATE_SQL = "UPDATE training.courses SET c_description = ? WHERE c_id = ?";
+    private static final String UPDATE_COURSE_DESCRIPTION_SQL = "UPDATE training.courses SET c_description = ? WHERE c_id = ?";
+    private static final String TEACHER_ON_COURSE_UPDATE_SQL = "UPDATE training.courses SET teacher_id = ? WHERE c_id = ?";
 
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
 
@@ -134,7 +135,7 @@ public class CourseDaoImpl implements CourseDao {
     public boolean updateDescription(Course course) throws DaoException {
         boolean isUpdate;
         try (Connection connection = connectionPool.takeConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(COURSE_DETAILS_DESCRIPTION_UPDATE_SQL)){
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_COURSE_DESCRIPTION_SQL)){
             preparedStatement.setString(1, course.getDescription());
             preparedStatement.setLong(2, course.getId());
 
@@ -171,6 +172,22 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.setDate(1, course.getStartCourse());
             preparedStatement.setDate(2, course.getEndCourse());
             preparedStatement.setLong(3, course.getId());
+
+            isUpdate = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DaoException(e);
+        }
+        return isUpdate;
+    }
+
+    @Override
+    public boolean updateTeacher(Course course) throws DaoException {
+        boolean isUpdate;
+        try (Connection connection = connectionPool.takeConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(TEACHER_ON_COURSE_UPDATE_SQL)){
+            preparedStatement.setLong(1, course.getTeacher().getId());
+            preparedStatement.setLong(2, course.getId());
 
             isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {

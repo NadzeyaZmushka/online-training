@@ -25,12 +25,13 @@ public class TeacherDaoImpl implements TeacherDao {
 
     private static final String FIND_ALL_TEACHERS_SQL = "SELECT t_id, teacher_name, teacher_surname " +
             "FROM training.teachers";
-    private static final String FIND_TEACHER_BY_SURNAME_SQL = FIND_ALL_TEACHERS_SQL + " WHERE teacher_surname = ?";
+    private static final String FIND_TEACHER_BY_NAME_AND_SURNAME_SQL = FIND_ALL_TEACHERS_SQL + " WHERE teacher_name = ? AND teacher_surname = ?";
     private static final String FIND_TEACHER_BY_ID_SQL = FIND_ALL_TEACHERS_SQL + " WHERE t_id = ?";
     private static final String ADD_TEACHER_SQL = "INSERT INTO training.teachers (teacher_name, teacher_surname) " +
             "VALUES (?,?)";
     private static final String DELETE_TEACHER_SQL = "DELETE FROM training.teachers " +
             "WHERE t_id = ?";
+//    private static final String FIND_TEACHER_BY_NAME_AND_SURNAME =
 
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
 
@@ -38,11 +39,12 @@ public class TeacherDaoImpl implements TeacherDao {
     }
 
     @Override
-    public Optional<Teacher> findBySurname(String surname) throws DaoException {
+    public Optional<Teacher> findByNameAndSurname(String name, String surname) throws DaoException {
         Optional<Teacher> teacherOptional = Optional.empty();
         try (Connection connection = connectionPool.takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_TEACHER_BY_SURNAME_SQL)) {
-            preparedStatement.setString(1, surname);
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_TEACHER_BY_NAME_AND_SURNAME_SQL)) {
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, surname);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Teacher teacher = Teacher.builder()

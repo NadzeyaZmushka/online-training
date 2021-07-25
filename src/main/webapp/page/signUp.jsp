@@ -9,7 +9,6 @@
 </head>
 <body>
 <c:import url="header.jsp"/>
-<%--<c:import url="sidebar.jsp"/>--%>
 <form action="${pageContext.request.contextPath}/controller" method="post">
     <input type="hidden" name="command" value="sign_up">
     <label for="email"></label><input type="text" id="email" name="email"
@@ -32,11 +31,11 @@
     <c:if test="${requestScope.errorNameAndSurnameMessage}">
         <br> <fmt:message key="error.signUp.nameAndSurname"/><br>
     </c:if>
-    <input type="password" id="password" name="password" placeholder="<fmt:message key="placeholder.password"/>"
+    <input type="password" id="password" name="password" placeholder="<fmt:message key="placeholder.password"/>" required pattern="^[a-zA-Z0-9]+"
            title='<fmt:message key="input.title.password"/>'>
     <br><br>
     <input type="password" id="repeat_password" name="repeat_password"
-           placeholder="<fmt:message key="placeholder.passwordRepeat"/>"
+           placeholder="<fmt:message key="placeholder.passwordRepeat"/>" required pattern="^[a-zA-Z0-9]+"
            title='<fmt:message key="input.title.password"/>'>
     <br><br>
     <c:if test="${requestScope.errorPasswordMessage}">
@@ -45,12 +44,9 @@
     <input type="submit" value="<fmt:message key="button.signUp"/>">
 </form>
 <form action="${pageContext.request.contextPath}/controller" method="get">
-    <input type="hidden" name="command" value="sign_in_page">
-    <input type="submit" value="<fmt:message key="button.signIn"/>">
-</form>
-<form action="${pageContext.request.contextPath}/controller" method="get">
     <input type="hidden" name="command" value="main_page">
-    <input type="submit" value="Главная страница">
+    <input type="submit" value="<fmt:message
+                    key="sidebar.path.main"/>">
 </form>
 <c:import url="footer.jsp"/>
 </body>

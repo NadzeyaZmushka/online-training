@@ -16,6 +16,7 @@ public class RequestAttribute {
     public static final String CURRENT_PAGE = "current_page";
     public static final String LECTURES = "lectures";
     public static final String COURSE_ID = "courseId";
+    public static final String USER_ENROLLED_BY_COURSE = "userEnrolledByCourse";
     public static final String ERROR_EMAIL_MESSAGE_INVALID = "errorEmailMessageInvalid";
     public static final String ERROR_EMAIL_MESSAGE_IS_EXIST = "errorEmailMessageIsExist";
     public static final String ERROR_EMAIL_MESSAGE_IS_NOT_EXIST = "errorEmailMessageIsNotExist";

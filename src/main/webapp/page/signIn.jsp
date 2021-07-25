@@ -32,12 +32,9 @@
             <input type="submit" value="<fmt:message key="button.signIn.forgotPassword"/>">
         </form>
         <form action="${pageContext.request.contextPath}/controller" method="get">
-            <input type="hidden" name="command" value="sign_up_page">
-            <input type="submit" value="<fmt:message key="button.signUp"/>">
-        </form>
-        <form action="${pageContext.request.contextPath}/controller" method="get">
             <input type="hidden" name="command" value="main_page">
-            <input type="submit" value="Главная страница">
+            <input type="submit" value="<fmt:message
+                    key="sidebar.path.main"/>">
         </form>
 <c:import url="footer.jsp"/>
 </body>

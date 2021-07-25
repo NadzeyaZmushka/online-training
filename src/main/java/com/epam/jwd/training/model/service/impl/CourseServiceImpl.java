@@ -160,6 +160,18 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public boolean updateTeacher(Course course) throws ServiceException {
+        boolean isUpdate;
+        try {
+            isUpdate = courseDao.updateTeacher(course);
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return isUpdate;
+    }
+
+    @Override
     public boolean save(String name, String description, String hours, String start, String end, String cost, Teacher teacher) throws ServiceException {
         boolean isSave;
         Course course = Course.builder()

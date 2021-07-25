@@ -30,6 +30,8 @@ public interface CourseService {
 
     boolean updateDate(Course course) throws ServiceException;
 
+    boolean updateTeacher(Course course) throws ServiceException;
+
     boolean save(String name, String description, String hours,
                  String start, String end, String cost, Teacher teacher) throws ServiceException;
 

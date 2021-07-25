@@ -60,10 +60,10 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Optional<Teacher> findBySurname(String surname) throws ServiceException {
+    public Optional<Teacher> findByNameAndSurname(String name, String surname) throws ServiceException {
         Optional<Teacher> teacherOptional;
         try {
-            teacherOptional = teacherDao.findBySurname(surname);
+            teacherOptional = teacherDao.findByNameAndSurname(name, surname);
         } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

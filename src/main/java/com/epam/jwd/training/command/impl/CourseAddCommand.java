@@ -66,7 +66,7 @@ public class CourseAddCommand implements Command {
                 request.setAttribute(RequestAttribute.ERROR_START_AND_END_COURSE_ADD, true);
                 isCorrectData = false;
             }
-            Optional<Teacher> teacherOptional = teacherService.findBySurname(surname);
+            Optional<Teacher> teacherOptional = teacherService.findByNameAndSurname(name, surname);
             if (teacherOptional.isEmpty()) {
                 request.setAttribute(RequestAttribute.ERROR_TEACHER_NOT_FOUND_ADD, true);
                 isCorrectData = false;
