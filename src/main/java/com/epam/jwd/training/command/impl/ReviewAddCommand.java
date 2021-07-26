@@ -12,7 +12,6 @@ import com.epam.jwd.training.model.entity.User;
 import com.epam.jwd.training.model.service.ReviewService;
 import com.epam.jwd.training.model.service.impl.ReviewServiceImpl;
 import com.epam.jwd.training.validator.CourseValidator;
-import com.epam.jwd.training.validator.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -54,7 +54,10 @@ public enum PageAccessType {
             CommandType.SHOW_ALL_USERS_ENROLLED_COURSE,
             CommandType.HIDE_ALL_USERS_ENROLLED_COURSE,
             CommandType.REVIEW_PAGE,
-            CommandType.REVIEW_DELETE
+            CommandType.REVIEW_DELETE,
+            CommandType.TEACHER_ADD,
+            CommandType.TEACHER_DELETE,
+            CommandType.UPDATE_TO_ADMIN
     ));
 
     private final Set<CommandType> commands;

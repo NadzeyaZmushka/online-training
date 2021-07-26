@@ -88,7 +88,7 @@
                    placeholder="<fmt:message key="course.end_course"/>" required>
         </label>
         <c:if test="${errorStartAndEndCourseAdd}">
-        <div class="alert alert-danger" role="alert">
+<%--        <div class="alert alert-danger" role="alert">--%>
                 <fmt:message key="error.course.start_and_end_course"/>
                 <%--            </div>--%>
             </c:if>

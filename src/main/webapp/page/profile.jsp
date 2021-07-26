@@ -59,95 +59,130 @@
             <input type="submit" value="<fmt:message key="button.profile.show_all_teachers"/>">
         </form>
     </c:if>
-        <c:if test="${allTeachers != null}">
-            <table border="1">
-                <tr>
-                    <th><fmt:message key="table.profile.u_id"/></th>
-                    <th><fmt:message key="table.profile.u_name"/></th>
-                    <th><fmt:message key="table.profile.u_surname"/></th>
-                </tr>
-                <c:forEach items="${allTeachers}" var="teacher">
-                    <tr>
-                        <td>${teacher.getId()}</td>
-                        <td>${teacher.getName()}</td>
-                        <td>${teacher.getSurname()}</td>
-                    </tr>
-                </c:forEach>
-            </table>
-            <form action="${pageContext.request.contextPath}/controller" method="post">
-                <input type="hidden" name="command" value="hide_all_teachers">
-                <input type="submit" value="<fmt:message key="button.profile.hide_all_teachers"/>">
-            </form>
-        </c:if>
-
-        <c:if test="${allUsers == null}">
-            <form action="${pageContext.request.contextPath}/controller" method="post">
-                <input type="hidden" name="command" value="show_all_users">
-                <input type="submit" value="<fmt:message key="button.profile.show_all_users"/>">
-            </form>
-        </c:if>
-
-
-        <c:if test="${allUsers != null}">
-            <table border="1">
-                <tr>
-                    <th><fmt:message key="table.profile.u_id"/></th>
-                    <th><fmt:message key="table.profile.u_email"/></th>
-                    <th><fmt:message key="table.profile.u_name"/></th>
-                    <th><fmt:message key="table.profile.u_surname"/></th>
-                    <th><fmt:message key="table.profile.u_role"/></th>
-                    <th><fmt:message key="table.profile.u_status"/></th>
-                </tr>
-                <c:forEach var="user" items="${allUsers}">
-                <tr>
-                    <td>${user.getId()}</td>
-                    <td>${user.getEmail()}</td>
-                    <td>${user.getName()}</td>
-                    <td>${user.getSurname()}</td>
-                    <td>${user.getRole()}</td>
-                    <td>
-                        <c:if test="${user.isEnabled() == true}">
-                            <fmt:message key="table.profile.u_status_active"/>
-                        </c:if>
-                        <c:if test="${user.isEnabled() == false}">
-                            <fmt:message key="table.profile.u_status_inactive"/>
-                        </c:if>
-                    </td>
-                    </c:forEach>
-                </tr>
-            </table>
-            <form action="${pageContext.request.contextPath}/controller" method="post">
-                <input type="hidden" name="command" value="hide_all_users">
-                <input type="submit" value="<fmt:message key="button.profile.hide_all_users"/>">
-            </form>
-        </c:if>
-<c:if test="${usersEnrolledCourse == null}">
-    <form action="${pageContext.request.contextPath}/controller" method="post">
-        <input type="hidden" name="command" value="show_all_users_enrolled_course">
-        <input type="submit" value="<fmt:message key="button.profile.show_all_user_enrolled_course"/>">
-    </form>
-</c:if>
-    <c:if test="${usersEnrolledCourse != null}">
-    <table border="1">
-        <tr>
-            <th><fmt:message key="table.profile.u_id"/></th>
-            <th><fmt:message key="table.profile.u_email"/></th>
-            <th><fmt:message key="table.profile.u_name"/></th>
-            <th><fmt:message key="table.profile.u_surname"/></th>
-            <th><fmt:message key="table.profile.th_course_id"/></th>
-            <th><fmt:message key="table.profile.th_course_name"/></th>
-        </tr>
-        <c:forEach items="${usersEnrolledCourse}" var="userEnrolledCourse">
+    <c:if test="${allTeachers != null}">
+        <table border="1">
             <tr>
-                <td>${userEnrolledCourse.getId()}</td>
-                <td>${userEnrolledCourse.getEmail()}</td>
-                <td>${userEnrolledCourse.getName()}</td>
-                <td>${userEnrolledCourse.getSurname()}</td>
-                <td>${userEnrolledCourse.getCourse().getId()}</td>
-                <td>${userEnrolledCourse.getCourse().getName()}</td>
+                <th><fmt:message key="table.profile.u_id"/></th>
+                <th><fmt:message key="table.profile.u_name"/></th>
+                <th><fmt:message key="table.profile.u_surname"/></th>
+                <th><fmt:message key="profile.delete_teacher"/></th>
+
             </tr>
-        </c:forEach>
-    </table>
+            <c:forEach items="${allTeachers}" var="teacher">
+                <tr>
+                    <td>${teacher.getId()}</td>
+                    <td>${teacher.getName()}</td>
+                    <td>${teacher.getSurname()}</td>
+                    <td>
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="command" value="teacher_delete">
+                            <input type="hidden" name="teacher_id" value="${teacher.getId()}">
+                            <input type="submit" value="<fmt:message key="button.profile.teacher_delete"/>">
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+        <form action="${pageContext.request.contextPath}/controller" method="post">
+            <input type="hidden" name="command" value="hide_all_teachers">
+            <input type="submit" value="<fmt:message key="button.profile.hide_all_teachers"/>">
+        </form>
+    </c:if>
+    <c:if test="${allTeachers != null}">
+        <h1><fmt:message key="profile.add_teacher"/></h1>
+        <form action="${pageContext.request.contextPath}/controller" method="post">
+            <input type="hidden" name="command" value="teacher_add">
+            <input type="text" name="teacher_name" required pattern="^[\p{L}]+$">
+            <input type="text" name="teacher_surname" required pattern="^[\p{L}]+$">
+            <input type="submit" value="<fmt:message key="button.profile.add_teacher"/>">
+        </form>
+    </c:if>
+<%--    <c:if test="${allTeachers != null}">--%>
+<%--        <h1><fmt:message key="profile.delete_teacher"/></h1>--%>
+<%--        <form action="${pageContext.request.contextPath}/controller" method="post">--%>
+<%--            <input type="hidden" name="command" value="teacher_delete">--%>
+<%--            <c:forEach var="teacher" items="${allTeachers}">--%>
+<%--                <input type="checkbox" name="teacher_id" value="${teacher.getId()}"/>${teacher.getId()}--%>
+<%--            </c:forEach>--%>
+<%--            <input type="submit" value="<fmt:message key="button.profile.teacher_delete"/>">--%>
+<%--        </form>--%>
+<%--    </c:if>--%>
+    <c:if test="${allUsers == null}">
+        <form action="${pageContext.request.contextPath}/controller" method="post">
+            <input type="hidden" name="command" value="show_all_users">
+            <input type="submit" value="<fmt:message key="button.profile.show_all_users"/>">
+        </form>
+    </c:if>
+    <c:if test="${allUsers != null}">
+        <table border="1">
+            <tr>
+                <th><fmt:message key="table.profile.u_id"/></th>
+                <th><fmt:message key="table.profile.u_email"/></th>
+                <th><fmt:message key="table.profile.u_name"/></th>
+                <th><fmt:message key="table.profile.u_surname"/></th>
+                <th><fmt:message key="table.profile.u_role"/></th>
+                <th><fmt:message key="table.profile.u_status"/></th>
+                <th><fmt:message key="table.profile.create_admin"/></th>
+            </tr>
+            <c:forEach var="user" items="${allUsers}">
+            <tr>
+                <td>${user.getId()}</td>
+                <td>${user.getEmail()}</td>
+                <td>${user.getName()}</td>
+                <td>${user.getSurname()}</td>
+                <td>${user.getRole()}</td>
+                <td>
+                    <c:if test="${user.isEnabled() == true}">
+                        <fmt:message key="table.profile.u_status_active"/>
+                    </c:if>
+                    <c:if test="${user.isEnabled() == false}">
+                        <fmt:message key="table.profile.u_status_inactive"/>
+                    </c:if>
+                </td>
+                <td>
+                    <c:if test="${user.getRole().toString() eq 'USER'}">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="command" value="update_to_admin">
+                            <input type="hidden" name="user_id" value="${user.getId()}">
+                            <input type="submit" value="<fmt:message key="table.profile.create_admin"/>">
+                        </form>
+                    </c:if>
+                </td>
+                </c:forEach>
+            </tr>
+        </table>
+        <form action="${pageContext.request.contextPath}/controller" method="post">
+            <input type="hidden" name="command" value="hide_all_users">
+            <input type="submit" value="<fmt:message key="button.profile.hide_all_users"/>">
+        </form>
+    </c:if>
+    <c:if test="${usersEnrolledCourse == null}">
+        <form action="${pageContext.request.contextPath}/controller" method="post">
+            <input type="hidden" name="command" value="show_all_users_enrolled_course">
+            <input type="submit" value="<fmt:message key="button.profile.show_all_user_enrolled_course"/>">
+        </form>
+    </c:if>
+    <c:if test="${usersEnrolledCourse != null}">
+        <table border="1">
+            <tr>
+                <th><fmt:message key="table.profile.u_id"/></th>
+                <th><fmt:message key="table.profile.u_email"/></th>
+                <th><fmt:message key="table.profile.u_name"/></th>
+                <th><fmt:message key="table.profile.u_surname"/></th>
+                <th><fmt:message key="table.profile.th_course_id"/></th>
+                <th><fmt:message key="table.profile.th_course_name"/></th>
+            </tr>
+            <c:forEach items="${usersEnrolledCourse}" var="userEnrolledCourse">
+                <tr>
+                    <td>${userEnrolledCourse.getId()}</td>
+                    <td>${userEnrolledCourse.getEmail()}</td>
+                    <td>${userEnrolledCourse.getName()}</td>
+                    <td>${userEnrolledCourse.getSurname()}</td>
+                    <td>${userEnrolledCourse.getCourse().getId()}</td>
+                    <td>${userEnrolledCourse.getCourse().getName()}</td>
+                </tr>
+            </c:forEach>
+        </table>
     </c:if>
     <c:if test="${usersEnrolledCourse != null}">
         <form action="${pageContext.request.contextPath}/controller" method="post">

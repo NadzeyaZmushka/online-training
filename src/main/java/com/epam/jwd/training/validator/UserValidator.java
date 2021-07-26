@@ -14,7 +14,7 @@ public class UserValidator {
     //??
     private static final String PASSWORD_REGEX = "[a-zA-Z\\d]{1,15}";
     //??
-    private final static String NAME_REGEX = "[\\p{Alpha}А-Яа-я\\s-]{1,15}";
+    private final static String NAME_REGEX = "^[\\p{L}]+$";
 
     private UserValidator() {
     }

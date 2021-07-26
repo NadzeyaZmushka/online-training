@@ -9,7 +9,10 @@ public enum PagePath {
     REVIEW("page/review.jsp", "controller?command=review_page"),
     ERROR_500 ("page/error/error500.jsp",""),
     COURSE("page/course.jsp", "controller?command=course_page&course_id="),
-    PROFILE("page/profile.jsp", "controller?command=profile_page");
+    PROFILE("page/profile.jsp", "controller?command=profile_page"),
+    SHOW_ALL_TEACHERS("", "controller?command=show_all_teachers"),
+    SHOW_ALL_USERS("", "controller?command=show_all_users"),
+    ABOUT_US("page/aboutUs.jsp", "");
 
     private final String directUrl;
     private final String servletPath;

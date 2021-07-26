@@ -28,8 +28,11 @@ import com.epam.jwd.training.command.impl.ShowUsersEnrolledCourseCommand;
 import com.epam.jwd.training.command.impl.SignInCommand;
 import com.epam.jwd.training.command.impl.SignOutCommand;
 import com.epam.jwd.training.command.impl.SignUpCommand;
+import com.epam.jwd.training.command.impl.TeacherAddCommand;
+import com.epam.jwd.training.command.impl.TeacherDeleteCommand;
 import com.epam.jwd.training.command.impl.ToPageCommand;
 import com.epam.jwd.training.command.impl.UpdatePasswordCommand;
+import com.epam.jwd.training.command.impl.UpdateToAdminCommand;
 import com.epam.jwd.training.command.impl.UpdateUserNameAndSurnameCommand;
 
 public enum CommandType {
@@ -65,7 +68,10 @@ public enum CommandType {
     HIDE_ALL_USERS_ENROLLED_COURSE(new HideUsersEnrolledCourseCommand()),
     REVIEW_ADD(new ReviewAddCommand()),
     REVIEW_PAGE(new OpenReviewCommand()),
-    REVIEW_DELETE(new ReviewDeleteCommand());
+    REVIEW_DELETE(new ReviewDeleteCommand()),
+    TEACHER_ADD(new TeacherAddCommand()),
+    TEACHER_DELETE(new TeacherDeleteCommand()),
+    UPDATE_TO_ADMIN(new UpdateToAdminCommand());
 
     private final Command command;
 
