@@ -13,7 +13,8 @@ public enum PageAccessType {
             CommandType.SIGN_UP,
             CommandType.CHANGE_LANGUAGE,
             CommandType.PROFILE_PAGE,
-            CommandType.REVIEW_PAGE
+            CommandType.REVIEW_PAGE,
+            CommandType.ABOUT_US_PAGE
     )),
     USER(Set.of(
             CommandType.MAIN_PAGE,
@@ -26,7 +27,8 @@ public enum PageAccessType {
             CommandType.UPDATE_PASSWORD,
             CommandType.REVIEW_ADD,
             CommandType.REVIEW_PAGE,
-            CommandType.REVIEW_DELETE
+            CommandType.REVIEW_DELETE,
+            CommandType.ABOUT_US_PAGE
     )),
     ADMIN(Set.of(
             CommandType.MAIN_PAGE,
@@ -57,7 +59,10 @@ public enum PageAccessType {
             CommandType.REVIEW_DELETE,
             CommandType.TEACHER_ADD,
             CommandType.TEACHER_DELETE,
-            CommandType.UPDATE_TO_ADMIN
+            CommandType.UPDATE_TO_ADMIN,
+            CommandType.ABOUT_US_PAGE,
+            CommandType.BLOCK_USER,
+            CommandType.UNBLOCK_USER
     ));
 
     private final Set<CommandType> commands;

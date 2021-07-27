@@ -60,4 +60,5 @@ public class UserValidator {
     public static UserValidator getInstance() {
         return INSTANCE;
     }
+
 }

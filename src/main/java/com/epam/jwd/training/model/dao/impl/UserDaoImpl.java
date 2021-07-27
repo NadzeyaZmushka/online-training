@@ -44,10 +44,11 @@ public class UserDaoImpl implements UserDao {
             "WHERE u_id = ?";
     private static final String UPDATE_USER_PASSWORD_SQL = "UPDATE training.users SET password = ? " +
             "WHERE u_id = ?";
-    private static final String BLOCK_USER_SQL = "UPDATE training.users " +
-            "SET enabled = false WHERE u_id = ?";
-    private static final String UNBLOCK_USER_SQL = "UPDATE training.users " +
-            "SET enabled = true WHERE u_id = ?";
+//    private static final String BLOCK_USER_SQL = "UPDATE training.users " +
+//            "SET enabled = false WHERE u_id = ?";
+//    private static final String UNBLOCK_USER_SQL = "UPDATE training.users " +
+//            "SET enabled = true WHERE u_id = ?";
+    private static final String CHANGE_USER_STATUS_SQL = "UPDATE training.users SET enabled = ? WHERE u_id = ?";
     private static final String USER_ENROLL_COURSE_SQL = "SELECT user_id, course_id FROM training.users_x_courses WHERE user_id = ? AND course_id = ?";
 
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
@@ -263,38 +264,54 @@ public class UserDaoImpl implements UserDao {
         return isUpdate;
     }
 
-    //??
-
     @Override
-    public boolean blockUser(Long id) throws DaoException {
-        boolean isBlocked;
+    public boolean changeUserStatus(Long id, boolean isEnabled) throws DaoException {
+        boolean isChange;
         try (Connection connection = connectionPool.takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(BLOCK_USER_SQL)) {
-            preparedStatement.setLong(1, id);
+        PreparedStatement preparedStatement = connection.prepareStatement(CHANGE_USER_STATUS_SQL)){
+            preparedStatement.setBoolean(1, isEnabled);
+            preparedStatement.setLong(2, id);
 
-            isBlocked = preparedStatement.executeUpdate() > 0;
+            isChange = preparedStatement.executeUpdate() > 1;
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
-        return isBlocked;
+        return isChange;
     }
+
     //??
 
-    @Override
-    public boolean unblockUser(Long id) throws DaoException {
-        boolean isUnblocked;
-        try (Connection connection = connectionPool.takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UNBLOCK_USER_SQL)) {
-            preparedStatement.setLong(1, id);
+//    @Override
+//    public boolean blockUser(Long id) throws DaoException {
+//        boolean isBlocked;
+//        try (Connection connection = connectionPool.takeConnection();
+//             PreparedStatement preparedStatement = connection.prepareStatement(BLOCK_USER_SQL)) {
+//            preparedStatement.setLong(1, id);
+//
+//            isBlocked = preparedStatement.executeUpdate() > 0;
+//        } catch (SQLException e) {
+//            LOGGER.error(e);
+//            throw new DaoException(e);
+//        }
+//        return isBlocked;
+//    }
+    //??
 
-            isUnblocked = preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DaoException(e);
-        }
-        return isUnblocked;
-    }
+//    @Override
+//    public boolean unblockUser(Long id) throws DaoException {
+//        boolean isUnblocked;
+//        try (Connection connection = connectionPool.takeConnection();
+//             PreparedStatement preparedStatement = connection.prepareStatement(UNBLOCK_USER_SQL)) {
+//            preparedStatement.setLong(1, id);
+//
+//            isUnblocked = preparedStatement.executeUpdate() > 0;
+//        } catch (SQLException e) {
+//            LOGGER.error(e);
+//            throw new DaoException(e);
+//        }
+//        return isUnblocked;
+//    }
 
     @Override
     public boolean delete(Long id) throws DaoException {

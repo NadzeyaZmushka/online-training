@@ -22,6 +22,5 @@ public class SessionAttribute {
     public static final String ALL_USERS = "allUsers";
     public static final String USERS_ENROLLED_COURSE = "usersEnrolledCourse";
     public static final String ERROR_TEACHER_ADD = "errorTeacherAdd";
-    public static final String ERROR_SELECT_TEACHER_ID = "errorSelectTeacherId";
 
 }

@@ -1,5 +1,7 @@
 package com.epam.jwd.training.command;
 
+import com.epam.jwd.training.command.impl.AboutUsCommand;
+import com.epam.jwd.training.command.impl.BlockUserCommand;
 import com.epam.jwd.training.command.impl.ChangeLanguageCommand;
 import com.epam.jwd.training.command.impl.CourseAddCommand;
 import com.epam.jwd.training.command.impl.CourseCommand;
@@ -31,6 +33,7 @@ import com.epam.jwd.training.command.impl.SignUpCommand;
 import com.epam.jwd.training.command.impl.TeacherAddCommand;
 import com.epam.jwd.training.command.impl.TeacherDeleteCommand;
 import com.epam.jwd.training.command.impl.ToPageCommand;
+import com.epam.jwd.training.command.impl.UnblockUserCommand;
 import com.epam.jwd.training.command.impl.UpdatePasswordCommand;
 import com.epam.jwd.training.command.impl.UpdateToAdminCommand;
 import com.epam.jwd.training.command.impl.UpdateUserNameAndSurnameCommand;
@@ -38,6 +41,7 @@ import com.epam.jwd.training.command.impl.UpdateUserNameAndSurnameCommand;
 public enum CommandType {
 
     MAIN_PAGE(new MainCommand()),
+    ABOUT_US_PAGE(new AboutUsCommand()),
     SIGN_IN(new SignInCommand()),
     SIGN_UP(new SignUpCommand()),
     COURSE_PAGE(new CourseCommand()),
@@ -71,7 +75,9 @@ public enum CommandType {
     REVIEW_DELETE(new ReviewDeleteCommand()),
     TEACHER_ADD(new TeacherAddCommand()),
     TEACHER_DELETE(new TeacherDeleteCommand()),
-    UPDATE_TO_ADMIN(new UpdateToAdminCommand());
+    UPDATE_TO_ADMIN(new UpdateToAdminCommand()),
+    BLOCK_USER(new BlockUserCommand()),
+    UNBLOCK_USER(new UnblockUserCommand());
 
     private final Command command;
 

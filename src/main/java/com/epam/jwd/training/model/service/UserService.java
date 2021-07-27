@@ -32,8 +32,9 @@ public interface UserService {
 
     boolean updateNameAndSurname(String name, String surname, Long id) throws ServiceException;
 
-    boolean blockUser(Long id) throws ServiceException;
-
-    boolean unblockUser(Long id) throws ServiceException;
+    //    boolean blockUser(Long id) throws ServiceException;
+//
+//    boolean unblockUser(Long id) throws ServiceException;
+    boolean changeUserStatus(Long id, boolean isEnabled) throws ServiceException;
 
 }

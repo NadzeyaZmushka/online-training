@@ -184,28 +184,40 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean blockUser(Long id) throws ServiceException {
-        boolean isBlocked;
+    public boolean changeUserStatus(Long id, boolean isEnabled) throws ServiceException {
+        boolean isChanged;
         try {
-            isBlocked = userDao.blockUser(id);
+            isChanged = userDao.changeUserStatus(id, isEnabled);
         } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
-        return isBlocked;
+        return isChanged;
     }
 
-    @Override
-    public boolean unblockUser(Long id) throws ServiceException {
-        boolean isUnBlocked;
-        try {
-            isUnBlocked = userDao.unblockUser(id);
-        } catch (DaoException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
-        }
-        return isUnBlocked;
-    }
+//    @Override
+//    public boolean blockUser(Long id) throws ServiceException {
+//        boolean isBlocked;
+//        try {
+//            isBlocked = userDao.blockUser(id);
+//        } catch (DaoException e) {
+//            LOGGER.error(e);
+//            throw new ServiceException(e);
+//        }
+//        return isBlocked;
+//    }
+//
+//    @Override
+//    public boolean unblockUser(Long id) throws ServiceException {
+//        boolean isUnBlocked;
+//        try {
+//            isUnBlocked = userDao.unblockUser(id);
+//        } catch (DaoException e) {
+//            LOGGER.error(e);
+//            throw new ServiceException(e);
+//        }
+//        return isUnBlocked;
+//    }
 
     public static UserServiceImpl getInstance() {
         return INSTANCE;

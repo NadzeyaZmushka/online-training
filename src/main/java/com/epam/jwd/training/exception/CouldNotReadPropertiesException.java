@@ -16,4 +16,5 @@ public class CouldNotReadPropertiesException extends RuntimeException {
     public CouldNotReadPropertiesException(Throwable cause) {
         super(cause);
     }
+
 }

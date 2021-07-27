@@ -26,8 +26,8 @@ public interface UserDao extends BaseDao<User> {
 
     boolean updateNameAndSurname(User user) throws DaoException;
 
-    boolean blockUser(Long id) throws DaoException;
+    boolean changeUserStatus(Long id, boolean isEnabled) throws DaoException;
 
-    boolean unblockUser(Long id) throws DaoException;
+//    boolean unblockUser(Long id) throws DaoException;
 
 }

@@ -42,5 +42,6 @@ public class ApplicationController extends HttpServlet {
     public void destroy() {
         ConcurrentConnectionPool.getInstance().destroy();
     }
+
 }
 

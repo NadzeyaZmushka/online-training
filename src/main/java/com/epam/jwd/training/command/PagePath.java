@@ -8,6 +8,7 @@ public enum PagePath {
     SIGN_UP("page/signUp.jsp", "controller?command=sign_up_page"),
     REVIEW("page/review.jsp", "controller?command=review_page"),
     ERROR_500 ("page/error/error500.jsp",""),
+    ERROR_404("page/error/error404.jsp", ""),
     COURSE("page/course.jsp", "controller?command=course_page&course_id="),
     PROFILE("page/profile.jsp", "controller?command=profile_page"),
     SHOW_ALL_TEACHERS("", "controller?command=show_all_teachers"),

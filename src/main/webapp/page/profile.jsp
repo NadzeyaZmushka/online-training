@@ -97,16 +97,16 @@
             <input type="submit" value="<fmt:message key="button.profile.add_teacher"/>">
         </form>
     </c:if>
-<%--    <c:if test="${allTeachers != null}">--%>
-<%--        <h1><fmt:message key="profile.delete_teacher"/></h1>--%>
-<%--        <form action="${pageContext.request.contextPath}/controller" method="post">--%>
-<%--            <input type="hidden" name="command" value="teacher_delete">--%>
-<%--            <c:forEach var="teacher" items="${allTeachers}">--%>
-<%--                <input type="checkbox" name="teacher_id" value="${teacher.getId()}"/>${teacher.getId()}--%>
-<%--            </c:forEach>--%>
-<%--            <input type="submit" value="<fmt:message key="button.profile.teacher_delete"/>">--%>
-<%--        </form>--%>
-<%--    </c:if>--%>
+    <%--    <c:if test="${allTeachers != null}">--%>
+    <%--        <h1><fmt:message key="profile.delete_teacher"/></h1>--%>
+    <%--        <form action="${pageContext.request.contextPath}/controller" method="post">--%>
+    <%--            <input type="hidden" name="command" value="teacher_delete">--%>
+    <%--            <c:forEach var="teacher" items="${allTeachers}">--%>
+    <%--                <input type="checkbox" name="teacher_id" value="${teacher.getId()}"/>${teacher.getId()}--%>
+    <%--            </c:forEach>--%>
+    <%--            <input type="submit" value="<fmt:message key="button.profile.teacher_delete"/>">--%>
+    <%--        </form>--%>
+    <%--    </c:if>--%>
     <c:if test="${allUsers == null}">
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="show_all_users">
@@ -123,6 +123,7 @@
                 <th><fmt:message key="table.profile.u_role"/></th>
                 <th><fmt:message key="table.profile.u_status"/></th>
                 <th><fmt:message key="table.profile.create_admin"/></th>
+                <th><fmt:message key="table.profile.change_status"/></th>
             </tr>
             <c:forEach var="user" items="${allUsers}">
             <tr>
@@ -145,6 +146,22 @@
                             <input type="hidden" name="command" value="update_to_admin">
                             <input type="hidden" name="user_id" value="${user.getId()}">
                             <input type="submit" value="<fmt:message key="table.profile.create_admin"/>">
+                        </form>
+                    </c:if>
+                </td>
+                <td>
+                    <c:if test="${user.isEnabled() eq true}">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="command" value="block_user">
+                            <input type="hidden" name="user_id" value="${user.getId()}">
+                            <input type="submit" value="<fmt:message key="profile.block_user"/>">
+                        </form>
+                    </c:if>
+                    <c:if test="${user.isEnabled() eq false}">
+                        <form>
+                            <input type="hidden" name="command" value="unblock_user">
+                            <input type="hidden" name="user_id" value="${user.getId()}">
+                            <input type="submit" value="<fmt:message key="profile.unblock_user"/>">
                         </form>
                     </c:if>
                 </td>
