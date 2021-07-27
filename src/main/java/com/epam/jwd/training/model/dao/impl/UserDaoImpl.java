@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -158,8 +159,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean addUser(User user, String password) throws DaoException {
         boolean isAdded;
+        long savedUserId;
         try (Connection connection = connectionPool.takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER_SQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER_SQL, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setString(3, user.getEmail());
@@ -168,6 +170,10 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setBoolean(6, user.isEnabled());
 
             isAdded = preparedStatement.executeUpdate() > 0;
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            generatedKeys.first();
+            savedUserId = generatedKeys.getLong(ColumnName.GENERATED_KEY);
+            user.setId(savedUserId);
 
         } catch (SQLException e) {
             LOGGER.error(e);

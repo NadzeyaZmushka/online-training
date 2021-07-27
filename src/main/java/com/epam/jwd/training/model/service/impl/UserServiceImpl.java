@@ -1,11 +1,10 @@
 package com.epam.jwd.training.model.service.impl;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.epam.jwd.training.exception.DaoException;
+import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.model.dao.UserDao;
 import com.epam.jwd.training.model.dao.impl.UserDaoImpl;
 import com.epam.jwd.training.model.entity.User;
-import com.epam.jwd.training.exception.DaoException;
-import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.model.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,8 +19,8 @@ public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
 
-    private static final BCrypt.Hasher HASHER = BCrypt.withDefaults();
-    private static final BCrypt.Verifyer VERIFYER = BCrypt.verifyer();
+//    private static final BCrypt.Hasher HASHER = BCrypt.withDefaults();
+//    private static final BCrypt.Verifyer VERIFYER = BCrypt.verifyer();
 
     private final UserDao userDao = UserDaoImpl.getInstance();
 

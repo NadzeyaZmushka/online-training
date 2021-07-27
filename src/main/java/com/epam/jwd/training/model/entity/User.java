@@ -65,6 +65,10 @@ public class User extends BaseEntity {
         return enabled;
     }
 
+    public void setRole(RoleType role) {
+        this.role = role;
+    }
+
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }

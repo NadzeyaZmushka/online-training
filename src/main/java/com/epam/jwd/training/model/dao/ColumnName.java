@@ -19,6 +19,7 @@ public final class ColumnName {
     public static final String USER_SURNAME = "user_surname";
     public static final String USER_EMAIL = "user_email";
     public static final String USER_ENABLED = "enabled";
+    public static final String GENERATED_KEY = "GENERATED_KEY";
 //    public static final String USER_PASSWORD = "password";
     public static final String ROLE = "role";
     public static final String COURSE_ID = "course_id";
