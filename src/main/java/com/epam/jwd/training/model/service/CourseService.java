@@ -1,6 +1,5 @@
 package com.epam.jwd.training.model.service;
 
-import com.epam.jwd.training.dto.CourseDto;
 import com.epam.jwd.training.model.entity.Course;
 import com.epam.jwd.training.model.entity.Teacher;
 import com.epam.jwd.training.exception.ServiceException;

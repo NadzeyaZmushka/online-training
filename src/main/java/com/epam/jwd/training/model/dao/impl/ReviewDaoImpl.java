@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,7 @@ public class ReviewDaoImpl implements ReviewDao {
             "FROM training.reviews " +
             "INNER JOIN users ON user_id = u_id " +
             "ORDER BY date_review";
+//    private static final String FIND_REVIEW_BY_ID_SQL = FIND_ALL_REVIEWS_SQL + " WHERE r_id = ?";
     private static final String ADD_REVIEW_SQL = "INSERT INTO training.reviews (description, date_review, user_id) " +
             "VALUES (?, ?, ?)";
     private static final String DELETE_REVIEW_SQL = "DELETE FROM training.reviews " +
@@ -46,13 +48,19 @@ public class ReviewDaoImpl implements ReviewDao {
     @Override
     public boolean save(Review review) throws DaoException {
         boolean isSaved;
+        long savedReviewId;
         try (Connection connection = connectionPool.takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(ADD_REVIEW_SQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(ADD_REVIEW_SQL, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, review.getDescription());
             preparedStatement.setDate(2, review.getDate());
             preparedStatement.setLong(3, review.getUser().getId());
 
             isSaved = preparedStatement.executeUpdate() > 0;
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            generatedKeys.first();
+            savedReviewId = generatedKeys.getLong(ColumnName.GENERATED_KEY);
+            review.setId(savedReviewId);
 
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -134,7 +142,7 @@ public class ReviewDaoImpl implements ReviewDao {
     //??
     @Override
     public Optional<Review> findById(Long id) throws DaoException {
-        throw new UnsupportedOperationException();
+       throw new UnsupportedOperationException();
     }
 
     @Override

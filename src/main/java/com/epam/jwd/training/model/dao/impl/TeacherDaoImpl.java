@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -107,14 +108,20 @@ public class TeacherDaoImpl implements TeacherDao {
     }
 
     @Override
-    public boolean save(Teacher teacher) throws DaoException {
+    public boolean addTeacher(Teacher teacher) throws DaoException {
         boolean isSaved;
+        long savedTeacherId;
         try (Connection connection = connectionPool.takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(ADD_TEACHER_SQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(ADD_TEACHER_SQL, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, teacher.getName());
             preparedStatement.setString(2, teacher.getSurname());
 
             isSaved = preparedStatement.executeUpdate() > 0;
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            generatedKeys.first();
+            savedTeacherId = generatedKeys.getLong(ColumnName.GENERATED_KEY);
+            teacher.setId(savedTeacherId);
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

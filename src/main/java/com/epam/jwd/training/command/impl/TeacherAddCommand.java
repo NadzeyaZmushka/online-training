@@ -44,7 +44,10 @@ public class TeacherAddCommand implements Command {
                 isCorrectData = false;
             }
             if (isCorrectData) {
-                teacherService.save(name, surname);
+                Teacher teacher = Teacher.builder()
+                        .setName(name)
+                        .setSurname(surname).build();
+                teacherService.save(teacher);
             }
             response.setType(CommandResponse.Type.REDIRECT);
             response.setPagePath(PagePath.SHOW_ALL_TEACHERS.getServletPath());
