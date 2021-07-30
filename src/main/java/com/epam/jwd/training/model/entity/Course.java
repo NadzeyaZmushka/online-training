@@ -66,6 +66,10 @@ public class Course extends BaseEntity {
         return teacher;
     }
 
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
     public static class CourseBuilder {
 
         private Long id;

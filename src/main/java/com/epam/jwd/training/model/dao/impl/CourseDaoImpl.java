@@ -1,10 +1,10 @@
 package com.epam.jwd.training.model.dao.impl;
 
+import com.epam.jwd.training.exception.DaoException;
 import com.epam.jwd.training.model.dao.ColumnName;
 import com.epam.jwd.training.model.dao.CourseDao;
 import com.epam.jwd.training.model.entity.Course;
 import com.epam.jwd.training.model.entity.Teacher;
-import com.epam.jwd.training.exception.DaoException;
 import com.epam.jwd.training.pool.ConcurrentConnectionPool;
 import com.epam.jwd.training.pool.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -235,8 +236,9 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public boolean save(Course course) throws DaoException {
         boolean isSaved;
+        long savedCourseId;
         try (Connection connection = connectionPool.takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(ADD_COURSE_SQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(ADD_COURSE_SQL, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, course.getName());
             preparedStatement.setString(2, course.getDescription());
             preparedStatement.setInt(3, course.getHours());
@@ -247,6 +249,10 @@ public class CourseDaoImpl implements CourseDao {
 
             isSaved = preparedStatement.executeUpdate() > 0;
 
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            generatedKeys.first();
+            savedCourseId = generatedKeys.getLong(ColumnName.GENERATED_KEY);
+            course.setId(savedCourseId);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException(e);

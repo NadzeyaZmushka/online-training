@@ -5,13 +5,10 @@ import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.model.dao.CourseDao;
 import com.epam.jwd.training.model.dao.impl.CourseDaoImpl;
 import com.epam.jwd.training.model.entity.Course;
-import com.epam.jwd.training.model.entity.Teacher;
 import com.epam.jwd.training.model.service.CourseService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -172,17 +169,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public boolean save(String name, String description, String hours, String start, String end, String cost, Teacher teacher) throws ServiceException {
+    public boolean save(Course course) throws ServiceException {
         boolean isSave;
-        Course course = Course.builder()
-                .setName(name)
-                .setDescription(description)
-                .setHours(Integer.parseInt(hours))
-                .setStartCourse(Date.valueOf(start))
-                .setEndCourse(Date.valueOf(end))
-                .setCost(BigDecimal.valueOf(Long.parseLong(cost)))
-                .setTeacher(teacher)
-                .build();
         try {
             isSave = courseDao.save(course);
         } catch (DaoException e) {

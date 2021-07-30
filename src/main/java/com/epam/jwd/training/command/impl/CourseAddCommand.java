@@ -7,6 +7,7 @@ import com.epam.jwd.training.command.RequestAttribute;
 import com.epam.jwd.training.command.RequestParameter;
 import com.epam.jwd.training.command.SessionAttribute;
 import com.epam.jwd.training.exception.ServiceException;
+import com.epam.jwd.training.model.entity.Course;
 import com.epam.jwd.training.model.entity.Teacher;
 import com.epam.jwd.training.model.service.CourseService;
 import com.epam.jwd.training.model.service.TeacherService;
@@ -18,6 +19,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.Optional;
 
 public class CourseAddCommand implements Command {
@@ -72,7 +75,16 @@ public class CourseAddCommand implements Command {
                 isCorrectData = false;
             }
             if (isCorrectData) {
-                courseService.save(courseName, description, hours, startCourse, endCourse, cost, teacherOptional.get());
+                Course course = Course.builder()
+                        .setName(courseName)
+                        .setDescription(description)
+                        .setHours(Integer.parseInt(hours))
+                        .setStartCourse(Date.valueOf(startCourse))
+                        .setEndCourse(Date.valueOf(endCourse))
+                        .setCost(BigDecimal.valueOf(Double.parseDouble(cost)))
+                        .setTeacher(teacherOptional.get())
+                        .build();
+                courseService.save(course);
                 response.setType(CommandResponse.Type.REDIRECT);
                 response.setPagePath(PagePath.MAIN.getServletPath());
             }

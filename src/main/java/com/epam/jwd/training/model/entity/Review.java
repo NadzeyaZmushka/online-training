@@ -41,6 +41,10 @@ public class Review extends BaseEntity {
         return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public static class ReviewBuilder {
 
         private Long id;

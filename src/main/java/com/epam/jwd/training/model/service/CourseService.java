@@ -1,8 +1,7 @@
 package com.epam.jwd.training.model.service;
 
-import com.epam.jwd.training.model.entity.Course;
-import com.epam.jwd.training.model.entity.Teacher;
 import com.epam.jwd.training.exception.ServiceException;
+import com.epam.jwd.training.model.entity.Course;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +30,6 @@ public interface CourseService {
 
     boolean updateTeacher(Course course) throws ServiceException;
 
-    boolean save(String name, String description, String hours,
-                 String start, String end, String cost, Teacher teacher) throws ServiceException;
+    boolean save(Course course) throws ServiceException;
 
 }
