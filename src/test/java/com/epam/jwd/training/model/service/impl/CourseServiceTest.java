@@ -28,7 +28,6 @@ public class CourseServiceTest {
             .setEndCourse(Date.valueOf(LocalDate.now().plusMonths(5)))
             .setHours(88)
             .setCost(BigDecimal.valueOf(888.88))
-            .setTeacher(null)
             .build();
 
     @Before

@@ -7,6 +7,8 @@
 <html>
 <head>
     <title>Title</title>
+
+    <link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
 <c:import url="header.jsp"/>
@@ -27,9 +29,9 @@
             <h3><fmt:message key="profile.rename_name_surname"/></h3>
             <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="update_user_name_surname">
-                <input type="text" name="name" value="${user.getName()}" required pattern="^[\p{L}]+$">
+                <input type="text" name="name" value="${user.getName()}" >
                 <input type="text" name="surname" value="${user.getSurname()}" required pattern="^[\p{L}]+$">
-                <input type="submit" value="<fmt:message key="button.profile.update_name_surname"/>">
+                <input type="submit" class="header_button" value="<fmt:message key="button.profile.update_name_surname"/>">
             </form>
         </c:if>
     </div>
@@ -42,7 +44,7 @@
                        title='<fmt:message key="input.title.password"/>'>
                 <input type="password" name="repeat_password" required pattern="^[a-zA-Z0-9]+"
                        title='<fmt:message key="input.title.password"/>'>
-                <input type="submit" value="<fmt:message key="button.profile.update_password"/>">
+                <input type="submit" class="header_button" value="<fmt:message key="button.profile.update_password"/>">
             </form>
         </c:if>
     </div>
@@ -97,16 +99,6 @@
             <input type="submit" value="<fmt:message key="button.profile.add_teacher"/>">
         </form>
     </c:if>
-    <%--    <c:if test="${allTeachers != null}">--%>
-    <%--        <h1><fmt:message key="profile.delete_teacher"/></h1>--%>
-    <%--        <form action="${pageContext.request.contextPath}/controller" method="post">--%>
-    <%--            <input type="hidden" name="command" value="teacher_delete">--%>
-    <%--            <c:forEach var="teacher" items="${allTeachers}">--%>
-    <%--                <input type="checkbox" name="teacher_id" value="${teacher.getId()}"/>${teacher.getId()}--%>
-    <%--            </c:forEach>--%>
-    <%--            <input type="submit" value="<fmt:message key="button.profile.teacher_delete"/>">--%>
-    <%--        </form>--%>
-    <%--    </c:if>--%>
     <c:if test="${allUsers == null}">
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="show_all_users">

@@ -6,11 +6,15 @@
 <html>
 <head>
     <title><fmt:message key="main.itCourse"/></title>
+
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+
 <c:import url="header.jsp"/>
 <c:import url="sidebar.jsp"/>
 <c:if test="${course != null}">
+<div class="container-fluid bg_course">
     <h2>${course.getName()}</h2>
     <p><fmt:message key="p.course.description"/>: ${course.getDescription()}</p>
     <c:if test="${user.getRole().toString() eq 'ADMIN'}">
@@ -78,48 +82,49 @@
             <input type="submit" value="<fmt:message key="button.delete_course"/>">
         </form>
     </c:if>
-</c:if>
-<c:if test="${user.getRole().toString() eq 'USER'}">
-    <form action="${pageContext.request.contextPath}/controller" method="post">
-        <input type="hidden" name="command" value="enroll_course">
-        <input type="hidden" name="course_id" value="${courseId}">
-        <input type="submit" value="<fmt:message key="button.submit.course"/>">
-    </form>
-</c:if>
-<h3><fmt:message key="title.lecture"/></h3>
-<c:if test="${lectures != null}">
-    <c:forEach var="lecture" items="${lectures}">
-        <li>${lecture.getName()}</li>
-        <c:if test="${user.getRole().toString() eq 'ADMIN'}">
-            <form action="${pageContext.request.contextPath}/controller" method="post">
-                <input type="hidden" name="command" value="lecture_update">
-                <input type="hidden" name="lecture_id" value="${lecture.getId()}">
-                <input type="hidden" name="course_id" value="${courseId}">
-                <input type="text" name="lecture" value="${lecture.getName()}" required>
-                <input type="submit" value="<fmt:message key="button.update_lecture"/>">
-            </form>
-            <form action="${pageContext.request.contextPath}/controller" method="post">
-                <input type="hidden" name="command" value="lecture_delete">
-                <input type="hidden" name="lecture_id" value="${lecture.getId()}">
-                <input type="hidden" name="course_id" value="${courseId}">
-                <input type="submit" value="<fmt:message key="button.delete_lecture"/>">
-            </form>
-        </c:if>
-    </c:forEach>
-</c:if>
-<c:if test="${user.getRole().toString() eq 'ADMIN'}">
-    <form action="${pageContext.request.contextPath}/controller" method="post">
-        <input type="hidden" name="command" value="lecture_add">
-        <input type="hidden" name="course_id" value="${course.getId()}">
-        <input type="text" name="message" required>
-        <input type="submit" value="<fmt:message key="button.add_lecture"/>">
-    </form>
-</c:if>
+    </c:if>
+    <c:if test="${user.getRole().toString() eq 'USER'}">
+        <form action="${pageContext.request.contextPath}/controller" method="post">
+            <input type="hidden" name="command" value="enroll_course">
+            <input type="hidden" name="course_id" value="${courseId}">
+            <input type="submit" value="<fmt:message key="button.submit.course"/>">
+        </form>
+    </c:if>
+    <h3><fmt:message key="title.lecture"/></h3>
+    <c:if test="${lectures != null}">
+        <c:forEach var="lecture" items="${lectures}">
+            <li>${lecture.getName()}</li>
+            <c:if test="${user.getRole().toString() eq 'ADMIN'}">
+                <form action="${pageContext.request.contextPath}/controller" method="post">
+                    <input type="hidden" name="command" value="lecture_update">
+                    <input type="hidden" name="lecture_id" value="${lecture.getId()}">
+                    <input type="hidden" name="course_id" value="${courseId}">
+                    <input type="text" name="lecture" value="${lecture.getName()}" required>
+                    <input type="submit" value="<fmt:message key="button.update_lecture"/>">
+                </form>
+                <form action="${pageContext.request.contextPath}/controller" method="post">
+                    <input type="hidden" name="command" value="lecture_delete">
+                    <input type="hidden" name="lecture_id" value="${lecture.getId()}">
+                    <input type="hidden" name="course_id" value="${courseId}">
+                    <input type="submit" value="<fmt:message key="button.delete_lecture"/>">
+                </form>
+            </c:if>
+        </c:forEach>
+    </c:if>
+    <c:if test="${user.getRole().toString() eq 'ADMIN'}">
+        <form action="${pageContext.request.contextPath}/controller" method="post">
+            <input type="hidden" name="command" value="lecture_add">
+            <input type="hidden" name="course_id" value="${course.getId()}">
+            <input type="text" name="message" required>
+            <input type="submit" value="<fmt:message key="button.add_lecture"/>">
+        </form>
+    </c:if>
 
 
-<c:if test="${lectures == null}">
-    <h1><fmt:message key="no.lectures"/></h1>
-</c:if>
+    <c:if test="${lectures == null}">
+        <h1><fmt:message key="no.lectures"/></h1>
+    </c:if>
+</div>
 <c:import url="footer.jsp"/>
 </body>
 </html>
