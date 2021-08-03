@@ -1,34 +1,51 @@
 @charset "UTF-8";
-.button_language
-{
-    position: relative;
+.button_language {
     display: inline-block;
-    width: 2.5em;
-    height: 2.1em;
-    line-height: 2.1em;
-    vertical-align: center;
-    text-align: center;
+    color: #000;
+    font-size: 12px;
     text-decoration: none;
-    text-shadow: 0 -1px 1px #777;
-    color: #fff;
+    user-select: none;
+    padding: 0 5px;
     outline: none;
-    border: 2px solid #F64C2B;
-    border-radius: 5px;
-    box-shadow: 0 0 0 60px rgba(0,0,0,0) inset, .1em .1em .2em #800;
-    background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
+    border-radius: 2px;
 }
+
+.button_language:before {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1; /* для больших картинок 0 */
+    padding-right: 5px;
+}
+
+.button_language[data-en]:before {
+    content: url(../img/en.png);
+}
+
+.button_language[data-ru]:before {
+    content: url(../img/ru.png);
+}
+
+.button_language:hover {
+    background: linear-gradient(#ececeb, #eaeaea);
+    box-shadow: inset rgba(0, 0, 0, .5) 0 -1px 1px,
+    inset rgba(0, 0, 0, .2) 0 1px,
+    inset #fff 0 2px,
+    rgba(0, 0, 0, .2) 0 1px 1px;
+}
+
 .button_language:active {
-    top: .1em;
-    left: .1em;
-    box-shadow: 0 0 0 60px rgba(0,0,0,.05) inset;
- }
-.header_button
-{
+    background: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .1));
+    box-shadow: inset rgba(0, 0, 0, .8) 0 1px 2px,
+    inset rgba(0, 0, 0, .05) 0 -1px 0,
+    #fff 0 1px 1px;
+}
+
+.header_button {
     position: relative;
     display: inline-block;
     width: 7em;
-    height: 3.2em;
-    line-height: 3.2em;
+    height: 2.2em;
+    line-height: 2.2em;
     vertical-align: center;
     text-align: center;
     text-decoration: none;
@@ -37,11 +54,12 @@
     outline: none;
     border: 2px solid #F64C2B;
     border-radius: 5px;
-    box-shadow: 0 0 0 60px rgba(0,0,0,0) inset, .1em .1em .2em #800;
+    box-shadow: 0 0 0 60px rgba(0, 0, 0, 0) inset, .1em .1em .2em #800;
     background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
 }
+
 .header_button:active {
     top: .1em;
     left: .1em;
-    box-shadow: 0 0 0 60px rgba(0,0,0,.05) inset;
+    box-shadow: 0 0 0 60px rgba(0, 0, 0, .05) inset;
 }

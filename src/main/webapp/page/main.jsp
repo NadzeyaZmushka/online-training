@@ -27,7 +27,7 @@
         </ul>
     </c:forEach>
     <c:if test="${user.getRole().toString() eq 'ADMIN'}">
-        <div style="text-align: end">
+        <div style="text-align: right">
             <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="course_add">
 <%--                <p><fmt:message key="course.name"/></p>--%>
@@ -76,12 +76,13 @@
                 <c:if test="${errorTeacherNotFoundAdd}">
                     <fmt:message key="error.course.teacher_not_found"/>
                 </c:if>
+                <br>
                 <fmt:message key="course.start_course"/>
 <%--                <label>--%>
                     <input type="date" name="start_course" value="${startCourse}"
                            placeholder="<fmt:message key="course.start_course"/>" required>
 <%--                </label>--%>
-                <br>
+<%--                <br>--%>
                 <fmt:message key="course.end_course"/>
 <%--                <label>--%>
                     <input type="date" name="end_course" value="${endCourse}"
@@ -110,7 +111,8 @@
                 onclick="<c:remove var="errorCourseNotFound" scope="session"/>">Ок
         </button>
     </c:if>
-</div>
+<br>
 <c:import url="footer.jsp"/>
+</div>
 </body>
 </html>

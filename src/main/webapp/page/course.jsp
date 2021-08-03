@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-
+<div class="container-fluid bg_course">
 <c:import url="header.jsp"/>
 <c:import url="sidebar.jsp"/>
 <c:if test="${course != null}">
-<div class="container-fluid bg_course">
+
     <h2>${course.getName()}</h2>
     <p><fmt:message key="p.course.description"/>: ${course.getDescription()}</p>
     <c:if test="${user.getRole().toString() eq 'ADMIN'}">
@@ -124,7 +124,8 @@
     <c:if test="${lectures == null}">
         <h1><fmt:message key="no.lectures"/></h1>
     </c:if>
-</div>
+
 <c:import url="footer.jsp"/>
+</div>
 </body>
 </html>

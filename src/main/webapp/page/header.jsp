@@ -16,13 +16,13 @@
     <c:if test="${user != null}">
         <h4><fmt:message key="hello"/>, "${user.getEmail()}"</h4>
     </c:if>
-    <form action="${pageContext.request.contextPath}/controller"
-          method="post">
-        <input type="hidden" name="command" value="change_language"/>
-        <fmt:message key="header.button.language"/>
-            <button class="button_language" name="language" value="en">EN</button>
-            <button class="button_language" name="language" value="ru">RU</button>
-    </form>
+<%--    <form action="${pageContext.request.contextPath}/controller"--%>
+<%--          method="post">--%>
+<%--        <input type="hidden" name="command" value="change_language"/>--%>
+<%--        <fmt:message key="header.button.language"/>--%>
+<%--            <button class="button_language" name="language" value="en">EN</button>--%>
+<%--            <button class="button_language" name="language" value="ru">RU</button>--%>
+<%--    </form>--%>
     <c:if test="${user == null}">
         <form action="${pageContext.request.contextPath}/controller"
               method="get">
