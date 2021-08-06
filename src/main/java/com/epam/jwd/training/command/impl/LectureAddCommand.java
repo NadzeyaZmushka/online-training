@@ -21,6 +21,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+/**
+ * The command add new lecture
+ *
+ * @author Nadzeya Zmushka
+ */
 public class LectureAddCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(LectureAddCommand.class);

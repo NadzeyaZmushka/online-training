@@ -1,8 +1,12 @@
 package com.epam.jwd.training.model.dao;
 
+/**
+ * Class contains column names in database
+ *
+ * @author Nadzeya Zmushka
+ */
 public final class ColumnName {
 
-//    public static final String ID = "id";
     public static final String C_ID = "c_id";
     public static final String COURSE_NAME = "course_name";
     public static final String COURSE_DESCRIPTION = "c_description";
@@ -20,7 +24,6 @@ public final class ColumnName {
     public static final String USER_EMAIL = "user_email";
     public static final String USER_ENABLED = "enabled";
     public static final String GENERATED_KEY = "GENERATED_KEY";
-//    public static final String USER_PASSWORD = "password";
     public static final String ROLE = "role";
     public static final String COURSE_ID = "course_id";
     public static final String L_ID = "l_id";

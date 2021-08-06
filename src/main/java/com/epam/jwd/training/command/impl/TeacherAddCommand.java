@@ -18,6 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+/**
+ * The command add new teacher
+ *
+ * @author Nadzeya Zmushka
+ */
 public class TeacherAddCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(TeacherAddCommand.class);
@@ -39,18 +44,18 @@ public class TeacherAddCommand implements Command {
             }
             if (isCorrectData) {
                 Optional<Teacher> teacherOptional = teacherService.findByNameAndSurname(name, surname);
-            if (teacherOptional.isPresent()) {
-                session.setAttribute(SessionAttribute.ERROR_TEACHER_ADD, true);
-                isCorrectData = false;
-            }
-            if (isCorrectData) {
-                Teacher teacher = Teacher.builder()
-                        .setName(name)
-                        .setSurname(surname).build();
-                teacherService.save(teacher);
-            }
-            response.setType(CommandResponse.Type.REDIRECT);
-            response.setPagePath(PagePath.SHOW_ALL_TEACHERS.getServletPath());
+                if (teacherOptional.isPresent()) {
+                    session.setAttribute(SessionAttribute.ERROR_TEACHER_ADD, true);
+                    isCorrectData = false;
+                }
+                if (isCorrectData) {
+                    Teacher teacher = Teacher.builder()
+                            .setName(name)
+                            .setSurname(surname).build();
+                    teacherService.save(teacher);
+                }
+                response.setType(CommandResponse.Type.REDIRECT);
+                response.setPagePath(PagePath.SHOW_ALL_TEACHERS.getServletPath());
             }
         } catch (ServiceException e) {
             LOGGER.error(e);

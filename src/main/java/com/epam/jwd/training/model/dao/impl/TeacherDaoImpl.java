@@ -32,7 +32,6 @@ public class TeacherDaoImpl implements TeacherDao {
             "VALUES (?,?)";
     private static final String DELETE_TEACHER_SQL = "DELETE FROM training.teachers " +
             "WHERE t_id = ?";
-//    private static final String FIND_TEACHER_BY_NAME_AND_SURNAME =
 
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
 

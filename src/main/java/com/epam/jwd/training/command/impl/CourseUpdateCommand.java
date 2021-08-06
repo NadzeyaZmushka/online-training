@@ -18,6 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+/**
+ * The command update course name
+ *
+ * @author Nadzeya Zmushka
+ */
 public class CourseUpdateCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(CourseUpdateCommand.class);

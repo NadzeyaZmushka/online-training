@@ -15,6 +15,11 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The command update user to admin
+ *
+ * @author Nadzeya Zmushka
+ */
 public class UpdateToAdminCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(UpdateToAdminCommand.class);

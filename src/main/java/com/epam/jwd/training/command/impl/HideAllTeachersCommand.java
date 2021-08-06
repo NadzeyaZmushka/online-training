@@ -8,6 +8,11 @@ import com.epam.jwd.training.command.SessionAttribute;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The command hides all teachers
+ *
+ * @author Nadzeya Zmushka
+ */
 public class HideAllTeachersCommand implements Command {
 
     @Override

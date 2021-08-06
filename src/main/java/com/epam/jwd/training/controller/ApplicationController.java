@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Controller for requests from client
+ *
+ * @author Nadzeya Zmushka
+ */
 @WebServlet(urlPatterns = {"/controller", "*.do"})
 public class ApplicationController extends HttpServlet {
 

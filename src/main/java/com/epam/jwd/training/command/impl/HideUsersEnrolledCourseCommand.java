@@ -8,6 +8,11 @@ import com.epam.jwd.training.command.SessionAttribute;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The command hides all users on courses
+ *
+ * @author Nadzeya Zmushka
+ */
 public class HideUsersEnrolledCourseCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest request) {

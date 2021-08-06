@@ -13,6 +13,11 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The command delete teacher
+ *
+ * @author Nadzeya Zmushka
+ */
 public class TeacherDeleteCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(TeacherDeleteCommand.class);

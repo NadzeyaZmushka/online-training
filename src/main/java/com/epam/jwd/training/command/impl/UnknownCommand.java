@@ -6,6 +6,11 @@ import com.epam.jwd.training.command.PagePath;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * This type of command returns when system can't define the command
+ *
+ * @author Nadzeya Zmushka
+ */
 public class UnknownCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest request) {

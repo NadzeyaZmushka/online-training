@@ -17,6 +17,11 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The command update course hours
+ *
+ * @author Nadzeya Zmushka
+ */
 public class CourseHoursUpdateCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(CourseHoursUpdateCommand.class);

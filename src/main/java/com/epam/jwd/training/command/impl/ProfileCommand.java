@@ -17,6 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * The command opens profile page
+ *
+ * @author Nadzeya Zmushka
+ */
 public class ProfileCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(ProfileCommand.class);

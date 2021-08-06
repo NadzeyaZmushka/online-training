@@ -34,7 +34,7 @@
         <c:if test="${success}">
             <h3><fmt:message key="success"/></h3>
         </c:if>
-        <br>
+<%--        <br>--%>
         <h3><fmt:message key="profile.role"/> - ${user.getRole()}</h3>
         <h3><fmt:message key="button.profile.update_password"/></h3>
         <form action="${pageContext.request.contextPath}/controller" method="post">
@@ -59,7 +59,7 @@
             </form>
         </c:if>
         <c:if test="${allTeachers != null}">
-            <table border="1">
+            <table class="table">
                 <tr>
                     <th><fmt:message key="table.profile.u_id"/></th>
                     <th><fmt:message key="table.profile.u_name"/></th>
@@ -103,7 +103,7 @@
             </form>
         </c:if>
         <c:if test="${allUsers != null}">
-            <table border="1">
+            <table class="table">
                 <tr>
                     <th><fmt:message key="table.profile.u_id"/></th>
                     <th><fmt:message key="table.profile.u_email"/></th>
@@ -169,7 +169,7 @@
             </form>
         </c:if>
         <c:if test="${usersEnrolledCourse != null}">
-            <table border="1">
+            <table class="table">
                 <tr>
                     <th><fmt:message key="table.profile.u_id"/></th>
                     <th><fmt:message key="table.profile.u_email"/></th>

@@ -7,6 +7,11 @@ import com.epam.jwd.training.command.PagePath;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Sign out command
+ *
+ * @author Nadzeya Zmushka
+ */
 public class SignOutCommand implements Command {
 
     @Override

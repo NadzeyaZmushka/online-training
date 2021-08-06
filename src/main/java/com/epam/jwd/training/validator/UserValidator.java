@@ -7,9 +7,6 @@ public class UserValidator {
 
     private static final UserValidator INSTANCE = new UserValidator();
 
-//    private static final Logger LOGGER = LogManager.getLogger(UserValidator.class);
-
-    //??
     private static final String EMAIL_REGEX = "\\w+@\\p{Alpha}+\\.\\p{Alpha}{2,}";
     //??
     private static final String PASSWORD_REGEX = "[a-zA-Z\\d]{1,15}";

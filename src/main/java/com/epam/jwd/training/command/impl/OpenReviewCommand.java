@@ -16,6 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * The command opens reviews
+ *
+ * @author Nadzeya Zmushka
+ */
 public class OpenReviewCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(OpenReviewCommand.class);

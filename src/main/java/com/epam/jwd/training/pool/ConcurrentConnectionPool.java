@@ -9,15 +9,19 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayDeque;
 import java.util.Enumeration;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Connection pool realized with two blocking queue {@link BlockingQueue} for free connections encapsulates.
+ * Uses singleton pattern to return connection pool class instance.
+ *
+ * @author Nadzeya Zmushka
+ */
 public final class ConcurrentConnectionPool implements ConnectionPool {
 
     private static ConcurrentConnectionPool instance;
@@ -36,13 +40,13 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
 
     private final AtomicBoolean initialized;
     private final BlockingQueue<ProxyConnection> availableConnections;
-    private final Queue<ProxyConnection> takenConnections;
+    private final BlockingQueue<ProxyConnection> takenConnections;
 
     private ConcurrentConnectionPool() {
         initialized = new AtomicBoolean(false);
         poolSize = Integer.valueOf(PropertiesReader.get(POOL_SIZE_KEY));
         availableConnections = new LinkedBlockingDeque<>();
-        takenConnections = new ArrayDeque<>();
+        takenConnections = new LinkedBlockingDeque<>();
         init();
     }
 
@@ -88,7 +92,6 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
             try {
                 registerDrivers();
                 int size = poolSize == null ? DEFAULT_POOL_SIZE : poolSize;
-//                LOGGER.info(size);
                 for (int i = 0; i < size; i++) {
                     Connection connection = DriverManager.getConnection(PropertiesReader.get(URL_KEY),
                             PropertiesReader.get(USER_KEY),

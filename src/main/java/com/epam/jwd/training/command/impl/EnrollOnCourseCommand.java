@@ -20,6 +20,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+/**
+ * The command enrolls user on course
+ *
+ * @author Nadzeya Zmushka
+ */
 public class EnrollOnCourseCommand implements Command {
 
     public static final Logger LOGGER = LogManager.getLogger(EnrollOnCourseCommand.class);
@@ -44,8 +49,7 @@ public class EnrollOnCourseCommand implements Command {
                     session.setAttribute(SessionAttribute.USER, user);
                     response.setType(CommandResponse.Type.REDIRECT);
                     response.setPagePath(PagePath.PROFILE.getServletPath());
-                }
-                else {
+                } else {
                     session.setAttribute(SessionAttribute.ERROR_USER_HAVE_COURSE, true);
                     isCorrectDada = false;
                 }

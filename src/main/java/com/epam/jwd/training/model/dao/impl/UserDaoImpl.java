@@ -30,7 +30,7 @@ public class UserDaoImpl implements UserDao {
             "FROM training.users";
     private static final String FIND_USER_BY_ID_SQL = FIND_ALL_USERS_SQL + " WHERE u_id = ?";
     private static final String FIND_USER_BY_EMAIL_SQL = FIND_ALL_USERS_SQL + " WHERE user_email = ?";
-    private static final String FIND_USER_BY_EMAIL_AND_PASSWORD = FIND_ALL_USERS_SQL +" WHERE user_email = ? AND password = ?";
+    private static final String FIND_USER_BY_EMAIL_AND_PASSWORD = FIND_ALL_USERS_SQL + " WHERE user_email = ? AND password = ?";
     private static final String FIND_ALL_USERS_ON_COURSE_SQL = "SELECT u_id, user_email, user_name, user_surname, c_id, course_name FROM training.users_x_courses INNER JOIN training.users ON user_id = u_id INNER JOIN training.courses ON course_id = c_id";
     private static final String ENROLL_USER_ON_COURSE_SQL = "INSERT INTO training.users_x_courses (user_id, course_id) " +
             "VALUES (?, ?)";
@@ -45,10 +45,6 @@ public class UserDaoImpl implements UserDao {
             "WHERE u_id = ?";
     private static final String UPDATE_USER_PASSWORD_SQL = "UPDATE training.users SET password = ? " +
             "WHERE u_id = ?";
-//    private static final String BLOCK_USER_SQL = "UPDATE training.users " +
-//            "SET enabled = false WHERE u_id = ?";
-//    private static final String UNBLOCK_USER_SQL = "UPDATE training.users " +
-//            "SET enabled = true WHERE u_id = ?";
     private static final String CHANGE_USER_STATUS_SQL = "UPDATE training.users SET enabled = ? WHERE u_id = ?";
     private static final String USER_ENROLL_COURSE_SQL = "SELECT user_id, course_id FROM training.users_x_courses WHERE user_id = ? AND course_id = ?";
 
@@ -141,7 +137,7 @@ public class UserDaoImpl implements UserDao {
     public Optional<User> findByEmailAndPassword(String email, String password) throws DaoException {
         Optional<User> userOptional = Optional.empty();
         try (Connection connection = connectionPool.takeConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_EMAIL_AND_PASSWORD)){
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_EMAIL_AND_PASSWORD)) {
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -202,7 +198,7 @@ public class UserDaoImpl implements UserDao {
     public boolean isHaveCourse(Long userId, Long courseId) throws DaoException {
         boolean isHaveCourse = false;
         try (Connection connection = connectionPool.takeConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(USER_ENROLL_COURSE_SQL)){
+             PreparedStatement preparedStatement = connection.prepareStatement(USER_ENROLL_COURSE_SQL)) {
             preparedStatement.setLong(1, userId);
             preparedStatement.setLong(2, courseId);
 
@@ -257,7 +253,7 @@ public class UserDaoImpl implements UserDao {
     public boolean updateNameAndSurname(User user) throws DaoException {
         boolean isUpdate;
         try (Connection connection = connectionPool.takeConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NAME_AND_SURNAME_SQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NAME_AND_SURNAME_SQL)) {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setLong(3, user.getId());
@@ -274,7 +270,7 @@ public class UserDaoImpl implements UserDao {
     public boolean changeUserStatus(Long id, boolean isEnabled) throws DaoException {
         boolean isChange;
         try (Connection connection = connectionPool.takeConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(CHANGE_USER_STATUS_SQL)){
+             PreparedStatement preparedStatement = connection.prepareStatement(CHANGE_USER_STATUS_SQL)) {
             preparedStatement.setBoolean(1, isEnabled);
             preparedStatement.setLong(2, id);
 

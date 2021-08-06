@@ -1,5 +1,10 @@
 package com.epam.jwd.training.exception;
 
+/**
+ * Throws when problems are in services
+ *
+ * @author Nadzeya Zmushka
+ */
 public class ServiceException extends Exception {
 
     public ServiceException() {

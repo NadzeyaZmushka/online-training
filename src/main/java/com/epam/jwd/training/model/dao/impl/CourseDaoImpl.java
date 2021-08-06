@@ -38,7 +38,7 @@ public class CourseDaoImpl implements CourseDao {
             "INNER JOIN training.courses ON course_id = c_id " +
             "WHERE user_id = ?";
     private static final String ADD_COURSE_SQL = "INSERT INTO courses (course_name, c_description, hours, start_course, end_course, cost_course, teacher_id) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?)"; //???
+            "VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_COURSE_SQL = "DELETE FROM training.courses WHERE c_id = ?";
     private static final String UPDATE_NUMBER_OF_HOURS_SQL = "UPDATE training.courses " +
             "SET hours = ? " +
@@ -136,7 +136,7 @@ public class CourseDaoImpl implements CourseDao {
     public boolean updateDescription(Course course) throws DaoException {
         boolean isUpdate;
         try (Connection connection = connectionPool.takeConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_COURSE_DESCRIPTION_SQL)){
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_COURSE_DESCRIPTION_SQL)) {
             preparedStatement.setString(1, course.getDescription());
             preparedStatement.setLong(2, course.getId());
 
@@ -186,7 +186,7 @@ public class CourseDaoImpl implements CourseDao {
     public boolean updateTeacher(Course course) throws DaoException {
         boolean isUpdate;
         try (Connection connection = connectionPool.takeConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(TEACHER_ON_COURSE_UPDATE_SQL)){
+             PreparedStatement preparedStatement = connection.prepareStatement(TEACHER_ON_COURSE_UPDATE_SQL)) {
             preparedStatement.setLong(1, course.getTeacher().getId());
             preparedStatement.setLong(2, course.getId());
 

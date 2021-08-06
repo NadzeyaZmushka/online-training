@@ -15,7 +15,6 @@
 <c:import url="header.jsp"/>
 <c:import url="sidebar.jsp"/>
 <c:if test="${course != null}">
-
     <h2>${course.getName()}</h2>
     <p><fmt:message key="p.course.description"/>: ${course.getDescription()}</p>
     <c:if test="${user.getRole().toString() eq 'ADMIN'}">

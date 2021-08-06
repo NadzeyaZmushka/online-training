@@ -26,6 +26,11 @@ import static com.epam.jwd.training.command.RequestParameter.PASSWORD;
 import static com.epam.jwd.training.command.RequestParameter.REPEAT_PASSWORD;
 import static com.epam.jwd.training.command.RequestParameter.SURNAME;
 
+/**
+ * Sign out command
+ *
+ * @author Nadzeya Zmushka
+ */
 public class SignUpCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(SignUpCommand.class);

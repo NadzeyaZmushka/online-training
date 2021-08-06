@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Class for reading property files
+ *
+ * @author Nadzeya Zmushka
+ */
 @UtilityClass
 public class PropertiesReader {
 

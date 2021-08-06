@@ -18,6 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+/**
+ * The command update password
+ *
+ * @author Nadzeya Zmushka
+ */
 public class UpdatePasswordCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(UpdatePasswordCommand.class);

@@ -21,6 +21,11 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
+/**
+ * Make command access checking
+ *
+ * @author Nadzeya Zmushka
+ */
 @WebFilter
 public class RoleAccessFilter implements Filter {
 

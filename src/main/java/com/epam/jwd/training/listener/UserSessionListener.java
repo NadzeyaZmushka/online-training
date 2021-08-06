@@ -10,6 +10,11 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+/**
+ * Listener for create and destroy session
+ *
+ * @author Nadzeya Zmushka
+ */
 @WebListener
 public class UserSessionListener implements HttpSessionListener {
 

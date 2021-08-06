@@ -19,6 +19,12 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+/**
+ * Wrapper class for connection class.
+ * Using for control creating and closing connections
+ *
+ * @author Nadzeya Zmushka
+ */
 public class ProxyConnection implements Connection {
 
     private final Connection actualConnection;

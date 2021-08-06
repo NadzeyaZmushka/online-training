@@ -16,6 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * The command shows all users
+ *
+ * @author Nadzeya Zmushka
+ */
 public class ShowAllUsersCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(ShowAllUsersCommand.class);

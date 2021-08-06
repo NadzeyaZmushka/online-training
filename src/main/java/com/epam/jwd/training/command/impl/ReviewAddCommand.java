@@ -20,12 +20,17 @@ import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.time.LocalDate;
 
+/**
+ * The command add new review
+ *
+ * @author Nadzeya Zmushka
+ */
 public class ReviewAddCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(ReviewAddCommand.class);
 
     private final ReviewService reviewService = ReviewServiceImpl.getInstance();
-//    private final Validator validator = Validator.getInstance();
+    //    private final Validator validator = Validator.getInstance();
     private final CourseValidator courseValidator = CourseValidator.getInstance();
 
     @Override

@@ -30,7 +30,6 @@ public class ReviewDaoImpl implements ReviewDao {
             "FROM training.reviews " +
             "INNER JOIN users ON user_id = u_id " +
             "ORDER BY date_review";
-//    private static final String FIND_REVIEW_BY_ID_SQL = FIND_ALL_REVIEWS_SQL + " WHERE r_id = ?";
     private static final String ADD_REVIEW_SQL = "INSERT INTO training.reviews (description, date_review, user_id) " +
             "VALUES (?, ?, ?)";
     private static final String DELETE_REVIEW_SQL = "DELETE FROM training.reviews " +
@@ -93,19 +92,19 @@ public class ReviewDaoImpl implements ReviewDao {
 
     @Override
     public boolean isUserHasReview(Long reviewId, Long userId) throws DaoException {
-       boolean isHas = false;
-       try (Connection connection = connectionPool.takeConnection();
-       PreparedStatement preparedStatement = connection.prepareStatement(USER_HAS_REVIEW_SQL)){
-           preparedStatement.setLong(1, reviewId);
-           preparedStatement.setLong(2, userId);
-           ResultSet resultSet = preparedStatement.executeQuery();
-          while (resultSet.next()) {
-              isHas = true;
-          }
-       } catch (SQLException e) {
-           LOGGER.error(e);
-           throw new DaoException(e);
-       }
+        boolean isHas = false;
+        try (Connection connection = connectionPool.takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(USER_HAS_REVIEW_SQL)) {
+            preparedStatement.setLong(1, reviewId);
+            preparedStatement.setLong(2, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                isHas = true;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DaoException(e);
+        }
         return isHas;
     }
 
@@ -142,7 +141,7 @@ public class ReviewDaoImpl implements ReviewDao {
     //??
     @Override
     public Optional<Review> findById(Long id) throws DaoException {
-       throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     @Override

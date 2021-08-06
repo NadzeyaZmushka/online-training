@@ -20,6 +20,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+/**
+ * The command delete lecture
+ *
+ * @author Nadzeya Zmushka
+ */
 public class LectureDeleteCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(LectureDeleteCommand.class);

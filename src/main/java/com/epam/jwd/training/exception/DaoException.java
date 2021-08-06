@@ -1,5 +1,10 @@
 package com.epam.jwd.training.exception;
 
+/**
+ * Throws when {@link java.sql.SQLException} are in dao
+ *
+ * @author Nadzeya Zmushka
+ */
 public class DaoException extends Exception {
 
     public DaoException() {
