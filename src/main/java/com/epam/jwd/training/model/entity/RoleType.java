@@ -3,6 +3,11 @@ package com.epam.jwd.training.model.entity;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Enum contains all types of roles
+ *
+ * @author Nadzeya Zmushka
+ */
 public enum RoleType {
     ADMIN(1L, "ADMIN"),
     USER(2L, "USER"),

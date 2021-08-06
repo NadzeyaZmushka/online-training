@@ -13,6 +13,12 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The command delete course.
+ *
+ * @author Nadzeya Zmushka
+ */
+
 public class CourseDeleteCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(CourseDeleteCommand.class);

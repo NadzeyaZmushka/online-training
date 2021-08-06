@@ -5,11 +5,10 @@
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="locale"/>
 <footer>
-<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/footer.css">
     <div style="align-content: end">
         <div style="text-align: center">
-            <form action="${pageContext.request.contextPath}/controller"
-                  method="post">
+            <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="change_language"/>
                 <fmt:message key="header.button.language"/>
                 <button class="button_language" name="language" value="en">EN</button>

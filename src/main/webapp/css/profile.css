@@ -10,8 +10,25 @@
 }
 
 .bg_profile {
-    background: gainsboro url('../img/fon1.jpg') no-repeat fixed center;
+    background: gainsboro url('../img/mei_022019-14.jpg') no-repeat fixed center;
     width: 100%;
     height: 250%;
     background-size: 100%;
+}
+.profile_button {
+    position: relative;
+    display: inline-block;
+    width: 17em;
+    height: 2.0em;
+    line-height: 2.0em;
+    vertical-align: center;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px #777;
+    color: #fff;
+    outline: none;
+    border: 2px solid #F64C2B;
+    border-radius: 5px;
+    box-shadow: 0 0 0 60px rgba(0, 0, 0, 0) inset, .1em .1em .2em #800;
+    background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
 }

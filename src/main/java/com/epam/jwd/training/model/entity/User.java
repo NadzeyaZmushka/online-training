@@ -2,6 +2,11 @@ package com.epam.jwd.training.model.entity;
 
 import java.util.Objects;
 
+/**
+ * Entity class user
+ *
+ * @author Nadzeya Zmushka
+ */
 public class User extends BaseEntity {
 
     private String name;
@@ -14,6 +19,15 @@ public class User extends BaseEntity {
     public User() {
     }
 
+    /**
+     * Instantiates a new User.
+     *
+     * @param name    the name
+     * @param surname the surname
+     * @param email   the email
+     * @param role    the role {@link RoleType}
+     * @param enabled the enabled
+     */
     public User(String name, String surname,
                 String email,
                 RoleType role, boolean enabled) {
@@ -25,6 +39,16 @@ public class User extends BaseEntity {
 
     }
 
+    /**
+     * Instantiates a new User.
+     *
+     * @param id      the id
+     * @param name    the name
+     * @param surname the surname
+     * @param email   the email
+     * @param role    the role {@link RoleType}
+     * @param enabled the enabled
+     */
     public User(Long id, String name, String surname,
                 String email,
                 RoleType role, Course course, boolean enabled) {
@@ -37,6 +61,11 @@ public class User extends BaseEntity {
         this.enabled = enabled;
     }
 
+    /**
+     * Builder user builder.
+     *
+     * @return the user builder
+     */
     public static UserBuilder builder() {
         return new UserBuilder();
     }
@@ -85,6 +114,9 @@ public class User extends BaseEntity {
         this.surname = surname;
     }
 
+    /**
+     * Class user builder
+     */
     public static class UserBuilder {
 
         private Long id;
@@ -95,41 +127,88 @@ public class User extends BaseEntity {
         private Course course;
         private boolean enabled;
 
+        /**
+         * Sets id.
+         *
+         * @param id the id
+         * @return the id
+         */
         public UserBuilder setId(Long id) {
             this.id = id;
             return this;
         }
 
+        /**
+         * Sets name.
+         *
+         * @param name the name
+         * @return the name
+         */
         public UserBuilder setName(String name) {
             this.name = name;
             return this;
         }
 
+        /**
+         * Sets surname.
+         *
+         * @param surname the surname
+         * @return the surname
+         */
         public UserBuilder setSurname(String surname) {
             this.surname = surname;
             return this;
         }
 
+        /**
+         * Sets email.
+         *
+         * @param email the email
+         * @return the email
+         */
         public UserBuilder setEmail(String email) {
             this.email = email;
             return this;
         }
 
+        /**
+         * Sets role.
+         *
+         * @param role the role {@link RoleType}
+         * @return the role
+         */
         public UserBuilder setRole(RoleType role) {
             this.role = role;
             return this;
         }
 
+        /**
+         * Sets course.
+         *
+         * @param course the course
+         * @return the course
+         */
         public UserBuilder setCourse(Course course) {
             this.course = course;
             return this;
         }
 
+        /**
+         * Sets enabled.
+         *
+         * @param enabled the enabled
+         * @return the enabled
+         */
         public UserBuilder setEnabled(boolean enabled) {
             this.enabled = enabled;
             return this;
         }
 
+        /**
+         * Build user
+         *
+         * @return {@link User}
+         */
         public User build() {
             return new User(id, name, surname, email, role, course, enabled);
         }

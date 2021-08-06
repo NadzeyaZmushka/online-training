@@ -5,15 +5,19 @@
 <fmt:setBundle basename="locale"/>
 <html>
 <head>
-    <title><fmt:message key="title.about_us"/> </title>
-    <c:import url="header.jsp"/>
-    <c:import url="sidebar.jsp"/>
+    <title><fmt:message key="title.about_us"/></title>
+
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<div style="text-align: center">
-    <h1><fmt:message key="title.about_us"/> </h1>
-    <h3><fmt:message key="about_us"/> </h3>
+<div class="bg">
+    <c:import url="header.jsp"/>
+    <c:import url="sidebar.jsp"/>
+    <div style="text-align: center">
+        <h1><fmt:message key="title.about_us"/></h1>
+        <h3><fmt:message key="about_us"/></h3>
+    </div>
+    <c:import url="footer.jsp"/>
 </div>
-<c:import url="footer.jsp"/>
 </body>
 </html>

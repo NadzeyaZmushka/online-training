@@ -23,45 +23,39 @@
         <h3><fmt:message key="placeholder.email"/> - ${user.getEmail()}</h3>
         <h3><fmt:message key="placeholder.name"/> - ${user.getName()}</h3>
         <h3><fmt:message key="placeholder.surname"/> - ${user.getSurname()}</h3>
+        <h3><fmt:message key="profile.rename_name_surname"/></h3>
+        <form action="${pageContext.request.contextPath}/controller" method="post">
+            <input type="hidden" name="command" value="update_user_name_surname">
+            <input type="text" name="name" value="${user.getName()}">
+            <input type="text" name="surname" value="${user.getSurname()}" required pattern="^[\p{L}]+$">
+            <input type="submit" class="profile_button"
+                   value="<fmt:message key="button.profile.update_name_surname"/>">
+        </form>
+        <c:if test="${success}">
+            <h3><fmt:message key="success"/></h3>
+        </c:if>
+        <br>
         <h3><fmt:message key="profile.role"/> - ${user.getRole()}</h3>
-
-        <div style="text-align: right">
-            <c:if test="${user != null}">
-                <h3><fmt:message key="profile.rename_name_surname"/></h3>
-                <form action="${pageContext.request.contextPath}/controller" method="post">
-                    <input type="hidden" name="command" value="update_user_name_surname">
-                    <input type="text" name="name" value="${user.getName()}">
-                    <input type="text" name="surname" value="${user.getSurname()}" required pattern="^[\p{L}]+$">
-                    <input type="submit" class="header_button"
-                           value="<fmt:message key="button.profile.update_name_surname"/>">
-                </form>
-            </c:if>
-        </div>
-        <div style="text-align: right">
-            <c:if test="${user != null}">
-                <h3><fmt:message key="button.profile.update_password"/></h3>
-                <form action="${pageContext.request.contextPath}/controller" method="post">
-                    <input type="hidden" name="command" value="update_password">
-                    <input type="password" name="password" required pattern="^[a-zA-Z0-9]+"
-                           title='<fmt:message key="input.title.password"/>'>
-                    <input type="password" name="repeat_password" required pattern="^[a-zA-Z0-9]+"
-                           title='<fmt:message key="input.title.password"/>'>
-                    <input type="submit" class="header_button"
-                           value="<fmt:message key="button.profile.update_password"/>">
-                </form>
-            </c:if>
-        </div>
-        <div style="text-align: right">
+        <h3><fmt:message key="button.profile.update_password"/></h3>
+        <form action="${pageContext.request.contextPath}/controller" method="post">
+            <input type="hidden" name="command" value="update_password">
+            <input type="password" name="password" required pattern="^[a-zA-Z0-9]+"
+                   title='<fmt:message key="input.title.password"/>'>
+            <input type="password" name="repeat_password" required pattern="^[a-zA-Z0-9]+"
+                   title='<fmt:message key="input.title.password"/>'>
+            <input type="submit" class="profile_button"
+                   value="<fmt:message key="button.profile.update_password"/>">
+        </form>
             <c:if test="${success}">
-                <fmt:message key="success"/>
+                <h3><fmt:message key="success"/></h3>
             </c:if>
-        </div>
+        <br>
     </c:if>
     <c:if test="${user.getRole().toString() eq 'ADMIN'}">
         <c:if test="${allTeachers == null}">
             <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="show_all_teachers">
-                <input type="submit" value="<fmt:message key="button.profile.show_all_teachers"/>">
+                <input type="submit" class="profile_button" value="<fmt:message key="button.profile.show_all_teachers"/>">
             </form>
         </c:if>
         <c:if test="${allTeachers != null}">
@@ -82,7 +76,7 @@
                             <form action="${pageContext.request.contextPath}/controller" method="post">
                                 <input type="hidden" name="command" value="teacher_delete">
                                 <input type="hidden" name="teacher_id" value="${teacher.getId()}">
-                                <input type="submit" value="<fmt:message key="button.profile.teacher_delete"/>">
+                                <input type="submit" class="profile_button" value="<fmt:message key="button.profile.teacher_delete"/>">
                             </form>
                         </td>
                     </tr>
@@ -90,7 +84,7 @@
             </table>
             <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="hide_all_teachers">
-                <input type="submit" value="<fmt:message key="button.profile.hide_all_teachers"/>">
+                <input type="submit" class="profile_button" value="<fmt:message key="button.profile.hide_all_teachers"/>">
             </form>
         </c:if>
         <c:if test="${allTeachers != null}">
@@ -99,13 +93,13 @@
                 <input type="hidden" name="command" value="teacher_add">
                 <input type="text" name="teacher_name" required pattern="^[\p{L}]+$">
                 <input type="text" name="teacher_surname" required pattern="^[\p{L}]+$">
-                <input type="submit" value="<fmt:message key="button.profile.add_teacher"/>">
+                <input type="submit" class="profile_button" value="<fmt:message key="button.profile.add_teacher"/>">
             </form>
         </c:if>
         <c:if test="${allUsers == null}">
             <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="show_all_users">
-                <input type="submit" value="<fmt:message key="button.profile.show_all_users"/>">
+                <input type="submit" class="profile_button" value="<fmt:message key="button.profile.show_all_users"/>">
             </form>
         </c:if>
         <c:if test="${allUsers != null}">
@@ -140,7 +134,7 @@
                             <form action="${pageContext.request.contextPath}/controller" method="post">
                                 <input type="hidden" name="command" value="update_to_admin">
                                 <input type="hidden" name="user_id" value="${user.getId()}">
-                                <input type="submit" value="<fmt:message key="table.profile.create_admin"/>">
+                                <input type="submit" class="profile_button" value="<fmt:message key="table.profile.create_admin"/>">
                             </form>
                         </c:if>
                     </td>
@@ -149,14 +143,14 @@
                             <form action="${pageContext.request.contextPath}/controller" method="post">
                                 <input type="hidden" name="command" value="block_user">
                                 <input type="hidden" name="user_id" value="${user.getId()}">
-                                <input type="submit" value="<fmt:message key="profile.block_user"/>">
+                                <input type="submit" class="profile_button" value="<fmt:message key="profile.block_user"/>">
                             </form>
                         </c:if>
                         <c:if test="${user.isEnabled() eq false}">
                             <form>
                                 <input type="hidden" name="command" value="unblock_user">
                                 <input type="hidden" name="user_id" value="${user.getId()}">
-                                <input type="submit" value="<fmt:message key="profile.unblock_user"/>">
+                                <input type="submit" class="profile_button" value="<fmt:message key="profile.unblock_user"/>">
                             </form>
                         </c:if>
                     </td>
@@ -165,13 +159,13 @@
             </table>
             <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="hide_all_users">
-                <input type="submit" value="<fmt:message key="button.profile.hide_all_users"/>">
+                <input type="submit" class="profile_button" value="<fmt:message key="button.profile.hide_all_users"/>">
             </form>
         </c:if>
         <c:if test="${usersEnrolledCourse == null}">
             <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="show_all_users_enrolled_course">
-                <input type="submit" value="<fmt:message key="button.profile.show_all_user_enrolled_course"/>">
+                <input type="submit" class="profile_button" value="<fmt:message key="button.profile.show_all_user_enrolled_course"/>">
             </form>
         </c:if>
         <c:if test="${usersEnrolledCourse != null}">
@@ -199,7 +193,7 @@
         <c:if test="${usersEnrolledCourse != null}">
             <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="hide_all_users_enrolled_course">
-                <input type="submit" value="<fmt:message key="button.profile.hide_all_users_enrolled_course"/>">
+                <input type="submit" class="profile_button" value="<fmt:message key="button.profile.hide_all_users_enrolled_course"/>">
             </form>
         </c:if>
     </c:if>

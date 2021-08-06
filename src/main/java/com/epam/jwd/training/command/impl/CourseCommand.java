@@ -21,6 +21,11 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The command opens course
+ *
+ * @author Nadzeya Zmushka
+ */
 public class CourseCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(CourseCommand.class);

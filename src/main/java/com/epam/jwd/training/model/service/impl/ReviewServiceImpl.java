@@ -1,10 +1,10 @@
 package com.epam.jwd.training.model.service.impl;
 
+import com.epam.jwd.training.exception.DaoException;
+import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.model.dao.ReviewDao;
 import com.epam.jwd.training.model.dao.impl.ReviewDaoImpl;
 import com.epam.jwd.training.model.entity.Review;
-import com.epam.jwd.training.exception.DaoException;
-import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.model.service.ReviewService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +12,11 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class review service
+ *
+ * @author Nadzeya Zmushka
+ */
 public class ReviewServiceImpl implements ReviewService {
 
     public static final ReviewServiceImpl INSTANCE = new ReviewServiceImpl();

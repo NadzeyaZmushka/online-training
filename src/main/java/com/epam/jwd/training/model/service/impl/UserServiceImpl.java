@@ -13,14 +13,16 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class user service
+ *
+ * @author Nadzeya Zmushka
+ */
 public class UserServiceImpl implements UserService {
 
     public static final UserServiceImpl INSTANCE = new UserServiceImpl();
 
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
-
-//    private static final BCrypt.Hasher HASHER = BCrypt.withDefaults();
-//    private static final BCrypt.Verifyer VERIFYER = BCrypt.verifyer();
 
     private final UserDao userDao = UserDaoImpl.getInstance();
 
@@ -40,28 +42,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(Long id) throws ServiceException {
+    public Optional<User> findById(Long userId) throws ServiceException {
         Optional<User> user;
         try {
-            user = userDao.findById(id);
+            user = userDao.findById(userId);
         } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
         return user;
-    }
-
-    //???
-    @Override
-    public boolean delete(Long id) throws ServiceException {
-        boolean isDeleted;
-        try {
-            isDeleted = userDao.delete(id);
-        } catch (DaoException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
-        }
-        return isDeleted;
     }
 
     @Override

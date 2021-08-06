@@ -8,6 +8,7 @@
     <title><fmt:message key="main.itCourse"/></title>
 
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/course.css">
 </head>
 <body>
 <div class="container-fluid bg_course">
@@ -22,7 +23,7 @@
             <input type="hidden" name="command" value="update_description">
             <input type="hidden" name="course_id" value="${courseId}">
             <input type="text" name="description" value="${course.getDescription()}" required>
-            <input type="submit" value="<fmt:message key="button.course.update_description"/>">
+            <input type="submit" class="course_button" value="<fmt:message key="button.course.update_description"/>">
         </form>
     </c:if>
     <p><fmt:message key="p.course.hours"/>: ${course.getHours()}</p>
@@ -31,7 +32,7 @@
             <input type="hidden" name="command" value="update_hours">
             <input type="hidden" name="course_id" value="${courseId}">
             <input type="text" name="hours" value="${course.getHours()}" required pattern="\d+">
-            <input type="submit" value="<fmt:message key="button.course.update_hours"/>">
+            <input type="submit" class="course_button" value="<fmt:message key="button.course.update_hours"/>">
         </form>
     </c:if>
     <p><fmt:message key="p.course.start_course"/>: ${course.getStartCourse()}</p>
@@ -42,7 +43,7 @@
             <input type="hidden" name="course_id" value="${courseId}">
             <input type="date" name="start" value="${course.getStartCourse()}" required>
             <input type="date" name="end" value="${course.getEndCourse()}" required>
-            <input type="submit" value="<fmt:message key="button.course.update_start_end"/>">
+            <input type="submit" class="course_button" value="<fmt:message key="button.course.update_start_end"/>">
         </form>
     </c:if>
     <p><fmt:message key="p.course.teacher"/>: ${course.getTeacher()}</p>
@@ -54,7 +55,7 @@
                    pattern="^[\p{L}]+$">
             <input type="text" name="teacher_surname" value="${course.getTeacher().getSurname()}" required
                    pattern="^[\p{L}]+$">
-            <input type="submit" value="<fmt:message key="button.course.update_teacher"/>">
+            <input type="submit" class="course_button" value="<fmt:message key="button.course.update_teacher"/>">
         </form>
     </c:if>
     <p><fmt:message key="p.course.cost"/>: ${course.getCost()}</p>
@@ -63,13 +64,13 @@
             <input type="hidden" name="command" value="update_cost">
             <input type="hidden" name="course_id" value="${courseId}">
             <input type="text" name="cost" value="${course.getCost()}" required pattern="\d+">
-            <input type="submit" value="<fmt:message key="button.course.update_cost"/>">
+            <input type="submit" class="course_button" value="<fmt:message key="button.course.update_cost"/>">
         </form>
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="course_update">
             <input type="hidden" name="course_id" value="${courseId}">
             <input type="text" name="course_name" value="${course.getName()}" required>
-            <input type="submit" value="<fmt:message key="button.main.update_course"/>">
+            <input type="submit" class="course_button" value="<fmt:message key="button.main.update_course"/>">
         </form>
         <c:if test="${errorIsNotValidCourseName}">
             <div class="alert alert-danger" role="alert">
@@ -79,7 +80,7 @@
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="course_delete">
             <input type="hidden" name="course_id" value="${courseId}">
-            <input type="submit" value="<fmt:message key="button.delete_course"/>">
+            <input type="submit" class="course_button" value="<fmt:message key="button.delete_course"/>">
         </form>
     </c:if>
     </c:if>
@@ -87,7 +88,7 @@
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="enroll_course">
             <input type="hidden" name="course_id" value="${courseId}">
-            <input type="submit" value="<fmt:message key="button.submit.course"/>">
+            <input type="submit" class="course_button" value="<fmt:message key="button.submit.course"/>">
         </form>
     </c:if>
     <h3><fmt:message key="title.lecture"/></h3>
@@ -100,13 +101,13 @@
                     <input type="hidden" name="lecture_id" value="${lecture.getId()}">
                     <input type="hidden" name="course_id" value="${courseId}">
                     <input type="text" name="lecture" value="${lecture.getName()}" required>
-                    <input type="submit" value="<fmt:message key="button.update_lecture"/>">
+                    <input type="submit" class="course_button" value="<fmt:message key="button.update_lecture"/>">
                 </form>
                 <form action="${pageContext.request.contextPath}/controller" method="post">
                     <input type="hidden" name="command" value="lecture_delete">
                     <input type="hidden" name="lecture_id" value="${lecture.getId()}">
                     <input type="hidden" name="course_id" value="${courseId}">
-                    <input type="submit" value="<fmt:message key="button.delete_lecture"/>">
+                    <input type="submit" class="course_button" value="<fmt:message key="button.delete_lecture"/>">
                 </form>
             </c:if>
         </c:forEach>
@@ -116,7 +117,7 @@
             <input type="hidden" name="command" value="lecture_add">
             <input type="hidden" name="course_id" value="${course.getId()}">
             <input type="text" name="message" required>
-            <input type="submit" value="<fmt:message key="button.add_lecture"/>">
+            <input type="submit" class="course_button" value="<fmt:message key="button.add_lecture"/>">
         </form>
     </c:if>
 

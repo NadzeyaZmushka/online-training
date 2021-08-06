@@ -38,6 +38,11 @@ import com.epam.jwd.training.command.impl.UpdatePasswordCommand;
 import com.epam.jwd.training.command.impl.UpdateToAdminCommand;
 import com.epam.jwd.training.command.impl.UpdateUserNameAndSurnameCommand;
 
+/**
+ * Enum contains all types of commands.
+ *
+ * @author Nadzeya Zmushka
+ */
 public enum CommandType {
 
     MAIN_PAGE(new MainCommand()),
@@ -85,6 +90,9 @@ public enum CommandType {
         this.command = command;
     }
 
+    /**
+     * @return {@link Command}
+     */
     public Command getCommand() {
         return command;
     }

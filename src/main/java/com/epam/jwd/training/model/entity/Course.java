@@ -4,6 +4,11 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Objects;
 
+/**
+ * Entity class course
+ *
+ * @author Nadzeya Zmushka
+ */
 public class Course extends BaseEntity {
 
     private String name;
@@ -17,6 +22,18 @@ public class Course extends BaseEntity {
     public Course() {
     }
 
+    /**
+     * Instantiates a new Course.
+     *
+     * @param id          the id
+     * @param name        the course name
+     * @param description the course description
+     * @param hours       the course hours
+     * @param startCourse the start of course
+     * @param endCourse   the end of course
+     * @param cost        the course cost
+     * @param teacher     the teacher
+     */
     public Course(Long id, String name, String description, int hours,
                   Date startCourse, Date endCourse,
                   BigDecimal cost, Teacher teacher) {
@@ -30,6 +47,11 @@ public class Course extends BaseEntity {
         this.teacher = teacher;
     }
 
+    /**
+     * Builder course builder.
+     *
+     * @return {@link CourseBuilder}
+     */
     public static CourseBuilder builder() {
         return new CourseBuilder();
     }
@@ -70,6 +92,9 @@ public class Course extends BaseEntity {
         this.teacher = teacher;
     }
 
+    /**
+     * Class Course builder
+     */
     public static class CourseBuilder {
 
         private Long id;

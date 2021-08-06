@@ -3,6 +3,11 @@ package com.epam.jwd.training.model.entity;
 import java.sql.Date;
 import java.util.Objects;
 
+/**
+ * Entity class review
+ *
+ * @author Nadzeya Zmushka
+ */
 public class Review extends BaseEntity {
 
     private String description;
@@ -12,12 +17,20 @@ public class Review extends BaseEntity {
     public Review() {
     }
 
-    public Review(String description, Date date, User user) {
-        this.description = description;
-        this.date = date;
-        this.user = user;
-    }
+//    public Review(String description, Date date, User user) {
+//        this.description = description;
+//        this.date = date;
+//        this.user = user;
+//    }
 
+    /**
+     * Instantiates a new Review.
+     *
+     * @param id          the id
+     * @param description the description
+     * @param date        the date message
+     * @param user        the user
+     */
     public Review(Long id, String description, Date date, User user) {
         super(id);
         this.description = description;
@@ -25,6 +38,11 @@ public class Review extends BaseEntity {
         this.user = user;
     }
 
+    /**
+     * Builder review builder.
+     *
+     * @return {@link ReviewBuilder}
+     */
     public static ReviewBuilder builder() {
         return new ReviewBuilder();
     }
@@ -45,6 +63,9 @@ public class Review extends BaseEntity {
         this.user = user;
     }
 
+    /**
+     * Class Review Builder
+     */
     public static class ReviewBuilder {
 
         private Long id;
@@ -52,27 +73,55 @@ public class Review extends BaseEntity {
         private Date date;
         private User user;
 
+        /**
+         * Sets id.
+         *
+         * @param id the id
+         * @return the id
+         */
         public ReviewBuilder setId(Long id) {
             this.id = id;
             return this;
         }
 
+        /**
+         * Sets description.
+         *
+         * @param description the description
+         * @return the description
+         */
         public ReviewBuilder setDescription(String description) {
             this.description = description;
             return this;
         }
 
+        /**
+         * Sets date message.
+         *
+         * @param date the date message
+         * @return the date message
+         */
         public ReviewBuilder setDate(Date date) {
             this.date = date;
             return this;
         }
 
-
+        /**
+         * Sets user.
+         *
+         * @param user {@link User}
+         * @return the user
+         */
         public ReviewBuilder setUser(User user) {
             this.user = user;
             return this;
         }
 
+        /**
+         * Build review.
+         *
+         * @return {@link Review}
+         */
         public Review build() {
             return new Review(id, description, date, user);
         }

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<div class="container-fluid bg_review">
+<div class="container-fluid bg">
 <c:import url="header.jsp"/>
 <c:import url="sidebar.jsp"/>
 <h1 style="text-align: center"><fmt:message key="title.review"/></h1>

@@ -1,10 +1,10 @@
 package com.epam.jwd.training.model.service.impl;
 
+import com.epam.jwd.training.exception.DaoException;
+import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.model.dao.LectureDao;
 import com.epam.jwd.training.model.dao.impl.LectureDaoImpl;
 import com.epam.jwd.training.model.entity.Lecture;
-import com.epam.jwd.training.exception.DaoException;
-import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.model.service.LectureService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +12,11 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class lecture service
+ *
+ * @author Nadzeya Zmushka
+ */
 public class LectureServiceImpl implements LectureService {
 
     public static final LectureServiceImpl INSTANCE = new LectureServiceImpl();

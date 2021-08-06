@@ -9,6 +9,11 @@ import com.epam.jwd.training.command.SessionAttribute;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The command change language
+ *
+ * @author Nadzeya Zmushka
+ */
 public class ChangeLanguageCommand implements Command {
 
     private static final String EN = "en";

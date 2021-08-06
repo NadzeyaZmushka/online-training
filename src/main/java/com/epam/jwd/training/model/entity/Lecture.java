@@ -2,6 +2,11 @@ package com.epam.jwd.training.model.entity;
 
 import java.util.Objects;
 
+/**
+ * Entity class lecture
+ *
+ * @author Nadzeya Zmushka
+ */
 public class Lecture extends BaseEntity {
 
     private String name;
@@ -10,19 +15,31 @@ public class Lecture extends BaseEntity {
     public Lecture() {
     }
 
-    public Lecture(String name, Course course) {
-        this.name = name;
-        this.course = course;
-    }
+//    public Lecture(String name, Course course) {
+//        this.name = name;
+//        this.course = course;
+//    }
 
+    /**
+     * Instantiates a new Lecture.
+     *
+     * @param id     the id
+     * @param name   the lecture name
+     * @param course the course
+     */
     public Lecture(Long id, String name, Course course) {
         super(id);
         this.name = name;
         this.course = course;
     }
 
-    public static TaskBuilder builder() {
-        return new TaskBuilder();
+    /**
+     * Builder lecture builder.
+     *
+     * @return {@link LectureBuilder}
+     */
+    public static LectureBuilder builder() {
+        return new LectureBuilder();
     }
 
     public String getName() {
@@ -33,26 +50,52 @@ public class Lecture extends BaseEntity {
         return course;
     }
 
-    public static class TaskBuilder {
+    /**
+     * Class lecture builder
+     */
+    public static class LectureBuilder {
         private Long id;
         private String description;
         private Course course;
 
-        public TaskBuilder setId(Long id) {
+        /**
+         * Sets id.
+         *
+         * @param id the id
+         * @return the id
+         */
+        public LectureBuilder setId(Long id) {
             this.id = id;
             return this;
         }
 
-        public TaskBuilder setName(String description) {
-            this.description = description;
+        /**
+         * Sets name.
+         *
+         * @param name the lecture name
+         * @return the name
+         */
+        public LectureBuilder setName(String name) {
+            this.description = name;
             return this;
         }
 
-        public TaskBuilder setCourse(Course course) {
+        /**
+         * Sets course.
+         *
+         * @param course the course
+         * @return the course
+         */
+        public LectureBuilder setCourse(Course course) {
             this.course = course;
             return this;
         }
 
+        /**
+         * Build lecture.
+         *
+         * @return {@link Lecture}
+         */
         public Lecture build() {
             return new Lecture(id, description, course);
         }

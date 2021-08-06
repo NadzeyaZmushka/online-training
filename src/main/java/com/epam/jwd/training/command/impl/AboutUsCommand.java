@@ -6,6 +6,11 @@ import com.epam.jwd.training.command.PagePath;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The command shows info about us.
+ *
+ * @author Nadzeya Zmushka
+ */
 public class AboutUsCommand implements Command {
 
     @Override

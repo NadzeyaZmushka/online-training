@@ -1,6 +1,11 @@
 package com.epam.jwd.training.command;
 
-public class RequestParameter {
+/**
+ * Contains all request parameters used in system
+ *
+ * @author Nadzeya Zmushka
+ */
+public final class RequestParameter {
 
     public static final String COMMAND = "command";
     public static final String EMAIL = "email";
@@ -26,4 +31,8 @@ public class RequestParameter {
     public static final String LECTURE_ID = "lecture_id";
     public static final String MESSAGE = "message";
     public static final String USER_ID = "user_id";
+
+    private RequestParameter() {
+    }
+
 }

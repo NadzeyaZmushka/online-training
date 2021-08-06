@@ -13,6 +13,11 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The command blocks user.
+ *
+ * @author Nadzeya Zmushka
+ */
 public class BlockUserCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(BlockUserCommand.class);

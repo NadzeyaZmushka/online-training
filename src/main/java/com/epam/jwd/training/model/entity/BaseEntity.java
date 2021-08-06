@@ -2,6 +2,11 @@ package com.epam.jwd.training.model.entity;
 
 import java.util.Objects;
 
+/**
+ * Class of base entity
+ *
+ * @author Nadzeya Zmushka
+ */
 public abstract class BaseEntity {
 
     private Long id;
@@ -9,6 +14,11 @@ public abstract class BaseEntity {
     public BaseEntity() {
     }
 
+    /**
+     * Instantiates a new BaseEntity.
+     *
+     * @param id the id
+     */
     public BaseEntity(Long id) {
         this.id = id;
     }

@@ -4,7 +4,6 @@ import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.model.entity.RoleType;
 import com.epam.jwd.training.model.entity.User;
 import com.epam.jwd.training.model.service.UserService;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,18 +33,18 @@ public class UserServiceImplTest {
         userServiceTest.addUser(expected, password);
     }
 
-    @After
-    public void deleteUser() throws ServiceException {
-        userServiceTest.delete(expected.getId());
-    }
+//    @After
+//    public void deleteUser() throws ServiceException {
+//        userServiceTest.delete(expected.getId());
+//    }
 
-    @Test
-    public void test_delete_mustDeleteUser() throws ServiceException {
-        userServiceTest.delete(expected.getId());
-        List<User> allUsers = userServiceTest.findAll();
-
-        assertFalse(allUsers.contains(expected));
-    }
+//    @Test
+//    public void test_delete_mustDeleteUser() throws ServiceException {
+//        userServiceTest.delete(expected.getId());
+//        List<User> allUsers = userServiceTest.findAll();
+//
+//        assertFalse(allUsers.contains(expected));
+//    }
 
     @Test
     public void test_findById_returnUserWithSuchId() throws ServiceException {

@@ -1,6 +1,11 @@
 package com.epam.jwd.training.command;
 
-public class RequestAttribute {
+/**
+ * Contains all request attributes used in system.
+ *
+ * @author Nadzeya Zmushka
+ */
+public final class RequestAttribute {
 
     public static final String COURSES = "courses";
     public static final String NAME = "name";
@@ -32,4 +37,8 @@ public class RequestAttribute {
     public static final String DESCRIPTION = "description";
     public static final String COURSE = "course";
     public static final String REVIEWS = "reviews";
+
+    private RequestAttribute() {
+    }
+
 }

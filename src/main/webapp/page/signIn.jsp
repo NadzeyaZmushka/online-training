@@ -9,38 +9,40 @@
 
     <link rel="stylesheet" href="css/signIn.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<c:import url="header.jsp"/>
-<div class="signIn-container">
-    <form action="${pageContext.request.contextPath}/controller" method="post">
-        <input type="hidden" name="command" value="sign_in">
-        <label for="email"></label><input type="text" id="email" name="email"
-                                          placeholder="<fmt:message key="placeholder.email"/>" value="${email}"
-                                          required>
-        <label for="password"></label><input type="password" id="password" name="password"
-                                             placeholder="<fmt:message key="placeholder.password"/>" required>
-        <input type="submit" class="header_button" value="<fmt:message key="button.signIn"/>">
-    </form>
-    <c:if test="${requestScope.errorUserMessageIsValid}">
-        <fmt:message key="error.signIn.emailAndPasswordIsValid"/>
-    </c:if>
-    <c:if test="${requestScope.errorUserBlock}">
-        <fmt:message key="error.signIn.user_locked"/>
-    </c:if>
-    <c:if test="${requestScope.errorUserMessageIsNotExist}">
-        <fmt:message key="error.signIn.emailAndPasswordIsIncorrect"/>
-    </c:if>
-    <form action="${pageContext.request.contextPath}/controller" method="get">
-        <input type="hidden" name="command" value="forgot_password_page">
-        <input type="submit" class="header_button" value="<fmt:message key="button.signIn.forgotPassword"/>">
-    </form>
-    <form action="${pageContext.request.contextPath}/controller" method="get">
-        <input type="hidden" name="command" value="main_page">
-        <input type="submit" class="header_button" value="<fmt:message
+<div class="bg">
+    <c:import url="header.jsp"/>
+    <div class="signIn-container">
+        <form action="${pageContext.request.contextPath}/controller" method="post">
+            <input type="hidden" name="command" value="sign_in">
+            <input type="text" id="email" name="email" placeholder="<fmt:message key="placeholder.email"/>"
+                   value="${email}" required>
+            <input type="password" id="password" name="password" placeholder="<fmt:message key="placeholder.password"/>"
+                   required>
+            <input type="submit" class="header_button" value="<fmt:message key="button.signIn"/>">
+        </form>
+        <c:if test="${requestScope.errorUserMessageIsValid}">
+            <fmt:message key="error.signIn.emailAndPasswordIsValid"/>
+        </c:if>
+        <c:if test="${requestScope.errorUserBlock}">
+            <fmt:message key="error.signIn.user_locked"/>
+        </c:if>
+        <c:if test="${requestScope.errorUserMessageIsNotExist}">
+            <fmt:message key="error.signIn.emailAndPasswordIsIncorrect"/>
+        </c:if>
+        <%--    <form action="${pageContext.request.contextPath}/controller" method="get">--%>
+        <%--        <input type="hidden" name="command" value="forgot_password_page">--%>
+        <%--        <input type="submit" class="header_button" value="<fmt:message key="button.signIn.forgotPassword"/>">--%>
+        <%--    </form>--%>
+        <form action="${pageContext.request.contextPath}/controller" method="get">
+            <input type="hidden" name="command" value="main_page">
+            <input type="submit" class="header_button" value="<fmt:message
                     key="sidebar.path.main"/>">
-    </form>
+        </form>
+    </div>
+    <c:import url="footer.jsp"/>
 </div>
-<c:import url="footer.jsp"/>
 </body>
 </html>

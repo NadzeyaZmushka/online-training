@@ -23,6 +23,11 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Optional;
 
+/**
+ * The command add new course
+ *
+ * @author Nadzeya Zmushka
+ */
 public class CourseAddCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(CourseAddCommand.class);
@@ -87,8 +92,7 @@ public class CourseAddCommand implements Command {
                 courseService.save(course);
                 response.setType(CommandResponse.Type.REDIRECT);
                 response.setPagePath(PagePath.MAIN.getServletPath());
-            }
-            else {
+            } else {
                 request.setAttribute(RequestAttribute.DESCRIPTION, description);
                 request.setAttribute(RequestAttribute.HOURS, hours);
                 request.setAttribute(RequestAttribute.NAME, name);

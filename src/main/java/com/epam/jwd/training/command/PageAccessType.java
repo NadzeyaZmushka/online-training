@@ -2,6 +2,11 @@ package com.epam.jwd.training.command;
 
 import java.util.Set;
 
+/**
+ * Enum contains page access types
+ *
+ * @author Nadzeya Zmushka
+ */
 public enum PageAccessType {
 
     GUEST(Set.of(
@@ -71,6 +76,9 @@ public enum PageAccessType {
         this.commands = commands;
     }
 
+    /**
+     * @return the commands {@link Set<CommandType>}
+     */
     public Set<CommandType> getCommands() {
         return commands;
     }

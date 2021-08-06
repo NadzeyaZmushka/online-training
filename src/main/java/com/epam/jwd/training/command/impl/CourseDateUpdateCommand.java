@@ -19,6 +19,11 @@ import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.time.LocalDate;
 
+/**
+ * The command updates start and end of course.
+ *
+ * @author Nadzeya Zmushka
+ */
 public class CourseDateUpdateCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(CourseDateUpdateCommand.class);

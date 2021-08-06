@@ -5,7 +5,7 @@
 <fmt:setBundle basename="locale"/>
 <head>
     <link rel="stylesheet" href="css/sidebar.css">
-<%--    <link rel="stylesheet" href="css/btn.css">--%>
+<%--    <link rel="stylesheet" href="css/course.css">--%>
     <title></title>
 </head>
 <nav style="float: end;">

@@ -13,12 +13,20 @@
     background-size: 100%;
 }
 
-.bg_review {
-    background: gainsboro url('../img/fon.jpg') no-repeat fixed center;
-    width: 100%;
-    height: 150%;
-    background-size: 100%;
-}
+/*.bg_review {*/
+/*    background: url('../img/reviews1.png') space;*/
+/*    width: 100%;*/
+/*    height: 150%;*/
+/*    background-size: 100%;*/
+/*}*/
+
+/*.bg_aboutUs {*/
+/*    background: gainsboro url('../img/fon1.jpg') no-repeat fixed center;*/
+/*    width: 100%;*/
+/*    height: 150%;*/
+/*    background-size: 100%;*/
+/*}*/
+
 
 .review-border {
     border: 1px #EA1502;

@@ -2,6 +2,11 @@ package com.epam.jwd.training.model.entity;
 
 import java.util.Objects;
 
+/**
+ * Entity class teacher
+ *
+ * @author Nadzeya Zmushka
+ */
 public class Teacher extends BaseEntity {
 
     private String name;
@@ -10,17 +15,29 @@ public class Teacher extends BaseEntity {
     public Teacher() {
     }
 
-    public Teacher(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
-    }
+//    public Teacher(String name, String surname) {
+//        this.name = name;
+//        this.surname = surname;
+//    }
 
+    /**
+     * Instantiates a new Teacher.
+     *
+     * @param id      the id
+     * @param name    the name
+     * @param surname the surname
+     */
     public Teacher(Long id, String name, String surname) {
         super(id);
         this.name = name;
         this.surname = surname;
     }
 
+    /**
+     * Builder teacher builder.
+     *
+     * @return {@link TeacherBuilder}
+     */
     public static TeacherBuilder builder() {
         return new TeacherBuilder();
     }

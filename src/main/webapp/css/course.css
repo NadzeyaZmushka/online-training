@@ -1,0 +1,45 @@
+@charset "UTF-8";
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+.table th {
+    font-weight: bold;
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #dddddd;
+}
+.table td {
+    border: 1px solid #dddddd;
+    padding: 5px;
+}
+.table tr td:first-child, .table tr th:first-child {
+    border-left: none;
+}
+.table tr td:last-child, .table tr th:last-child {
+    border-right: none;
+}
+.course_button {
+    position: relative;
+    display: inline-block;
+    width: 13em;
+    height: 2.1em;
+    line-height: 2.1em;
+    vertical-align: center;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px #777;
+    color: #fff;
+    outline: none;
+    border: 2px solid #F64C2B;
+    border-radius: 5px;
+    box-shadow: 0 0 0 60px rgba(0, 0, 0, 0) inset, .1em .1em .2em #800;
+    background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
+}
+
+.course_button:active {
+    top: .1em;
+    left: .1em;
+    box-shadow: 0 0 0 60px rgba(0, 0, 0, .05) inset;
+}

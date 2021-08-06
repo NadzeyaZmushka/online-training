@@ -17,8 +17,12 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import java.util.Optional;
 
+/**
+ * The command updates course cost
+ *
+ * @author Nadzeya Zmushka
+ */
 public class CourseCostUpdateCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(CourseCostUpdateCommand.class);
@@ -37,19 +41,19 @@ public class CourseCostUpdateCommand implements Command {
             Long courseId = Long.valueOf(courseIdString);
 //            Optional<Course> courseOptional = courseService.findById(courseId);
 //            if (courseOptional.isPresent()) {
-                if (!courseValidator.isValidCost(cost)) {
-                    session.setAttribute(SessionAttribute.ERROR_COST, true);
-                    isCorrectData = false;
-                }
-                if (isCorrectData) {
-                    Course course = Course.builder()
-                            .setId(courseId)
-                            .setCost(BigDecimal.valueOf(Long.parseLong(cost)))
-                            .build();
-                    courseService.updateCost(course);
-                }
-                response.setType(CommandResponse.Type.REDIRECT);
-                response.setPagePath(PagePath.COURSE.getServletPath() + courseId);
+            if (!courseValidator.isValidCost(cost)) {
+                session.setAttribute(SessionAttribute.ERROR_COST, true);
+                isCorrectData = false;
+            }
+            if (isCorrectData) {
+                Course course = Course.builder()
+                        .setId(courseId)
+                        .setCost(BigDecimal.valueOf(Long.parseLong(cost)))
+                        .build();
+                courseService.updateCost(course);
+            }
+            response.setType(CommandResponse.Type.REDIRECT);
+            response.setPagePath(PagePath.COURSE.getServletPath() + courseId);
 //            }
 //            else {
 //                session.setAttribute(SessionAttribute.ERROR_COURSE_NOT_FOUND, true);

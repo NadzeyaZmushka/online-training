@@ -12,6 +12,11 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class teacher service
+ *
+ * @author Nadzeya Zmushka
+ */
 public class TeacherServiceImpl implements TeacherService {
 
     public static final TeacherServiceImpl INSTANCE = new TeacherServiceImpl();

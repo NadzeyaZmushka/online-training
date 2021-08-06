@@ -12,6 +12,11 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class course service
+ *
+ * @author Nadzeya Zmushka
+ */
 public class CourseServiceImpl implements CourseService {
 
     public static final CourseServiceImpl INSTANCE = new CourseServiceImpl();

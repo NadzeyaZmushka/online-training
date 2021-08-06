@@ -9,8 +9,10 @@
 
     <link rel="stylesheet" href="css/signIn.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+<div class="bg">
 <c:import url="header.jsp"/>
 <div class="signIn-container">
     <form action="${pageContext.request.contextPath}/controller" method="post">
@@ -57,5 +59,6 @@
     </form>
 </div>
 <c:import url="footer.jsp"/>
+</div>
 </body>
 </html>

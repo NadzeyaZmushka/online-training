@@ -1,9 +1,13 @@
 package com.epam.jwd.training.command;
 
-public class SessionAttribute {
+/**
+ * Contains all session attributes used in system
+ *
+ * @author Nadzeya Zmushka
+ */
+public final class SessionAttribute {
 
     public static final String CURRENT_PAGE = "currentPage";
-
     public static final String ERROR_COURSE_NOT_FOUND = "errorCourseNotFound";
     public static final String ERROR_IS_NOT_VALID_COURSE_NAME = "errorIsNotValidCourseName";
     public static final String ERROR_COST = "errorCost";
@@ -22,5 +26,8 @@ public class SessionAttribute {
     public static final String ALL_USERS = "allUsers";
     public static final String USERS_ENROLLED_COURSE = "usersEnrolledCourse";
     public static final String ERROR_TEACHER_ADD = "errorTeacherAdd";
+
+    private SessionAttribute() {
+    }
 
 }
