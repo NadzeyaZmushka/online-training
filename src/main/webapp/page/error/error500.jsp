@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1>ERROR</h1>
-<h2>Ooops. Something goes wrong.</h2>
+<h2>Something goes wrong...</h2>
 <%--<br /> Exception: ${Exception}--%>
 <%--<br /> Message from exception: ${Exception }--%>
 <%--<br />--%>
@@ -21,7 +21,7 @@
 <br /> Message from exception: ${pageContext.exception.message}
 <br /> ${pageContext.exception.printStackTrace()}
 <div>
-    <form action="controller" method="post">
+    <form action="${pageContext.request.contextPath}/controller" method="get">
         <input type="submit" value="To main page">
         <input type="hidden" name="command" value="main_page">
     </form>
