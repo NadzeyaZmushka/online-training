@@ -213,8 +213,6 @@ public class UserDaoImpl implements UserDao {
         return isHaveCourse;
     }
 
-    // ???
-
     @Override
     public boolean updateUserToAdmin(User user) throws DaoException {
         boolean isUpdate;
@@ -281,39 +279,6 @@ public class UserDaoImpl implements UserDao {
         }
         return isChange;
     }
-
-    //??
-
-//    @Override
-//    public boolean blockUser(Long id) throws DaoException {
-//        boolean isBlocked;
-//        try (Connection connection = connectionPool.takeConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(BLOCK_USER_SQL)) {
-//            preparedStatement.setLong(1, id);
-//
-//            isBlocked = preparedStatement.executeUpdate() > 0;
-//        } catch (SQLException e) {
-//            LOGGER.error(e);
-//            throw new DaoException(e);
-//        }
-//        return isBlocked;
-//    }
-    //??
-
-//    @Override
-//    public boolean unblockUser(Long id) throws DaoException {
-//        boolean isUnblocked;
-//        try (Connection connection = connectionPool.takeConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(UNBLOCK_USER_SQL)) {
-//            preparedStatement.setLong(1, id);
-//
-//            isUnblocked = preparedStatement.executeUpdate() > 0;
-//        } catch (SQLException e) {
-//            LOGGER.error(e);
-//            throw new DaoException(e);
-//        }
-//        return isUnblocked;
-//    }
 
     @Override
     public boolean delete(Long id) throws DaoException {

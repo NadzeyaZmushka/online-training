@@ -19,6 +19,17 @@ public class ApplicationLifecycleListener implements ServletContextListener {
     private static final Logger LOGGER = LogManager.getLogger(ApplicationLifecycleListener.class);
 
     /**
+     * Initialize connection poll when servlet start
+     *
+     * @param sce event
+     */
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        ConcurrentConnectionPool.getInstance().init();
+        LOGGER.info("Pool is initialized");
+    }
+
+    /**
      * Destroy connection pool when servlet stops
      *
      * @param sce event

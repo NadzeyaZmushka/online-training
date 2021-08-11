@@ -47,7 +47,7 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
         poolSize = Integer.valueOf(PropertiesReader.get(POOL_SIZE_KEY));
         availableConnections = new LinkedBlockingDeque<>();
         takenConnections = new LinkedBlockingDeque<>();
-        init();
+//        init();
     }
 
     public static ConcurrentConnectionPool getInstance() {
