@@ -8,7 +8,7 @@ public class CourseValidator {
     private static final CourseValidator INSTANCE = new CourseValidator();
 
     private static final Pattern HOURS_VALIDATOR = Pattern.compile("\\d+");
-    private static final Pattern COST_VALIDATOR = Pattern.compile("\\d+");
+    private static final Pattern COST_VALIDATOR = Pattern.compile("\\d+[.]\\d{2,8}");
     private static final Pattern STRING_PATTERN = Pattern.compile("^[\\p{L}]+$");
 
     private CourseValidator() {

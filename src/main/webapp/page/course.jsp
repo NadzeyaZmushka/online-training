@@ -21,7 +21,7 @@
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="update_description">
             <input type="hidden" name="course_id" value="${courseId}">
-            <input type="text" name="description" value="${course.getDescription()}" required>
+            <input type="text" name="description" value="${course.getDescription()}" required pattern=".*[^<>]">
             <input type="submit" class="course_button" value="<fmt:message key="button.course.update_description"/>">
         </form>
     </c:if>
@@ -51,9 +51,9 @@
             <input type="hidden" name="command" value="update_teacher">
             <input type="hidden" name="course_id" value="${courseId}">
             <input type="text" name="teacher_name" value="${course.getTeacher().getName()}" required
-                   pattern="^[\p{L}]+$">
+                   pattern="^[A-za-z-]{3,16}$">
             <input type="text" name="teacher_surname" value="${course.getTeacher().getSurname()}" required
-                   pattern="^[\p{L}]+$">
+                   pattern="^[A-za-z-]{3,16}$">
             <input type="submit" class="course_button" value="<fmt:message key="button.course.update_teacher"/>">
         </form>
     </c:if>
@@ -62,13 +62,13 @@
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="update_cost">
             <input type="hidden" name="course_id" value="${courseId}">
-            <input type="text" name="cost" value="${course.getCost()}" required pattern="\d+">
+            <input type="text" name="cost" value="${course.getCost()}" required pattern="\d+[.]\d{2,8}">
             <input type="submit" class="course_button" value="<fmt:message key="button.course.update_cost"/>">
         </form>
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="course_update">
             <input type="hidden" name="course_id" value="${courseId}">
-            <input type="text" name="course_name" value="${course.getName()}" required>
+            <input type="text" name="course_name" value="${course.getName()}" required pattern=".*[^<>]">
             <input type="submit" class="course_button" value="<fmt:message key="button.main.update_course"/>">
         </form>
         <c:if test="${errorIsNotValidCourseName}">
@@ -99,7 +99,7 @@
                     <input type="hidden" name="command" value="lecture_update">
                     <input type="hidden" name="lecture_id" value="${lecture.getId()}">
                     <input type="hidden" name="course_id" value="${courseId}">
-                    <input type="text" name="lecture" value="${lecture.getName()}" required>
+                    <input type="text" name="lecture" value="${lecture.getName()}" required pattern=".*[^<>]">
                     <input type="submit" class="course_button" value="<fmt:message key="button.update_lecture"/>">
                 </form>
                 <form action="${pageContext.request.contextPath}/controller" method="post">
@@ -115,7 +115,7 @@
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="lecture_add">
             <input type="hidden" name="course_id" value="${course.getId()}">
-            <input type="text" name="message" required>
+            <input type="text" name="message" required pattern=".*[^<>]">
             <input type="submit" class="course_button" value="<fmt:message key="button.add_lecture"/>">
         </form>
     </c:if>

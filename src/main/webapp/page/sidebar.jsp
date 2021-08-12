@@ -26,22 +26,4 @@
         <input type="hidden" name="command" value="review_page">
         <input type="submit" class="header_button" value="<fmt:message key="sidebar.path.review"/>">
     </form>
-
-    <%--    <li>--%>
-    <%--        <a href="${pageContext.request.contextPath}/controller?command=profile_page">--%>
-    <%--            <fmt:message key="sidebar.path.profile"/> </a>--%>
-    <%--    </li>--%>
-    <%--    <li>--%>
-    <%--        <a href="${pageContext.request.contextPath}/controller?command=about_us_page">--%>
-    <%--            <fmt:message key="sidebar.path.aboutUs"/> </a>--%>
-    <%--    </li>--%>
-    <%--    <li>--%>
-    <%--        <a href="${pageContext.request.contextPath}/controller?command=review_page">--%>
-    <%--            <fmt:message key="sidebar.path.review"/> </a>--%>
-    <%--    </li>--%>
-    <%--    <li>--%>
-    <%--        <a href="${pageContext.request.contextPath}/controller?command=main_page"> <fmt:message--%>
-    <%--                key="sidebar.path.main"/> </a>--%>
-    <%--    </li>--%>
-    <%--</div>--%>
 </nav>

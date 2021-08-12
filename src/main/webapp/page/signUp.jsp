@@ -17,7 +17,7 @@
 <div class="signIn-container">
     <form action="${pageContext.request.contextPath}/controller" method="post">
         <input type="hidden" name="command" value="sign_up">
-        <label for="email"></label><input type="text" id="email" name="email"
+        <input type="email" id="email" name="email"
                                           placeholder="<fmt:message key="placeholder.email"/>"
                                           value="${requestScope.email}"
                                           required pattern="^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}">
@@ -28,11 +28,11 @@
         <c:if test="${requestScope.errorEmailMessageIsExist}">
             <br> <fmt:message key="error.signUp.emailIsExist"/><br>
         </c:if>
-        <label for="name"></label><input type="text" id="name" name="name" value="${requestScope.name}"
+        <input type="text" id="name" name="name" value="${requestScope.name}"
                                          placeholder="<fmt:message key="placeholder.name"/>" required
                                          pattern="^[\p{L}]+$">
         <br><br>
-        <label for="surname"></label><input type="text" id="surname" name="surname" value="${requestScope.surname}"
+        <input type="text" id="surname" name="surname" value="${requestScope.surname}"
                                             placeholder="<fmt:message key="placeholder.surname"/>" required
                                             pattern="^[\p{L}]+$">
         <br><br>
@@ -40,11 +40,11 @@
             <br> <fmt:message key="error.signUp.nameAndSurname"/><br>
         </c:if>
         <input type="password" id="password" name="password" placeholder="<fmt:message key="placeholder.password"/>"
-               required pattern="^[a-zA-Z0-9]+"
+               required pattern="^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$"
                title='<fmt:message key="input.title.password"/>'>
         <br><br>
         <input type="password" id="repeat_password" name="repeat_password"
-               placeholder="<fmt:message key="placeholder.passwordRepeat"/>" required pattern="^[a-zA-Z0-9]+"
+               placeholder="<fmt:message key="placeholder.passwordRepeat"/>" required pattern="^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$"
                title='<fmt:message key="input.title.password"/>'>
         <br><br>
         <c:if test="${requestScope.errorPasswordMessage}">

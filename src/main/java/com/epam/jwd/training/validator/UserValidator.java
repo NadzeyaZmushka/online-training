@@ -7,11 +7,11 @@ public class UserValidator {
 
     private static final UserValidator INSTANCE = new UserValidator();
 
-    private static final String EMAIL_REGEX = "\\w+@\\p{Alpha}+\\.\\p{Alpha}{2,}";
+    private static final String EMAIL_REGEX = "^.+@.+\\..{2,4}$";
     //??
-    private static final String PASSWORD_REGEX = "[a-zA-Z\\d]{1,15}";
-    //??
-    private final static String NAME_REGEX = "^[\\p{L}]+$";
+    private static final String PASSWORD_REGEX = "^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$";
+
+    private final static String NAME_REGEX = "^[A-za-z-]{3,16}$";
 
     private UserValidator() {
     }

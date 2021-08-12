@@ -14,7 +14,7 @@
 <body>
 <nav style="float: right;">
     <c:if test="${user != null}">
-        <h4><fmt:message key="hello"/>, "${user.getEmail()}"</h4>
+        <h4><fmt:message key="hello"/>, "${user.getName()}"</h4>
     </c:if>
     <c:if test="${user == null}">
         <form action="${pageContext.request.contextPath}/controller"

@@ -35,7 +35,8 @@
     <c:forEach var="course" items="${courses}">
         <tr>
             <td>
-                <div style="text-align: center"><a
+                <div style="text-align: center">
+                    <a
                         href="${pageContext.request.contextPath}/controller?command=course_page&course_id=${course.id}">
                     <p> ${course.name}</p>
                 </a></div>
@@ -47,27 +48,27 @@
             <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="course_add">
                 <input type="text" name="course_name" placeholder="<fmt:message key="course.name"/>"
-                       value="${course_name}" required>
+                       value="${course_name}" required pattern=".*[^<>]">
                 <input type="text" name="description" placeholder="<fmt:message key="course.description"/>"
-                       value="${description}" required>
+                       value="${description}" required pattern=".*[^<>]">
                 <c:if test="${errorDescriptionAdd}">
                     <fmt:message key="error.course.description"/>
                 </c:if>
                 <input type="text" name="hours" placeholder="<fmt:message key="course.number_of_hours"/>"
                        value="${hours}"
-                       required>
+                       required pattern="\d+">
                 <c:if test="${errorHoursAdd}">
                     <fmt:message key="error.course.hours"/>
                 </c:if>
                 <input type="text" name="cost" placeholder="<fmt:message key="course.cost"/>" value="${cost}"
-                       required>
+                       required pattern="\d+[.]\d{2,8}">
                 <c:if test="${errorCostAdd}">
                     <fmt:message key="error.course.cost"/>
                 </c:if>
                 <input type="text" name="name" placeholder="Teacher name" value="${name}" required
-                       pattern="^[\p{L}]+$">
+                       pattern="^[A-za-z-]{3,16}$">
                 <input type="text" name="surname" placeholder="Teacher surname" value="${surname}" required
-                       pattern="^[\p{L}]+$">
+                       pattern="^[A-za-z-]{3,16}$">
                 <c:if test="${errorNameAndSurnameAdd}">
                     <fmt:message key="error.course.name_and_surname"/>
                 </c:if>

@@ -10,7 +10,7 @@
         <div style="text-align: center">
             <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="change_language"/>
-                <fmt:message key="header.button.language"/>
+                <fmt:message key="footer.button.language"/>
                 <button class="button_language" name="language" value="en">EN</button>
                 <button class="button_language" name="language" value="ru">RU</button>
             </form>

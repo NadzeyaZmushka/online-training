@@ -43,7 +43,7 @@
             <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="review_add">
                 <label>
-                    <textarea name="message" required></textarea>
+                    <textarea name="message" required pattern=".*[^<>]"></textarea>
                 </label>
                 <input type="submit" class="header_button" value="<fmt:message key="button.review.sendReview"/>">
             </form>

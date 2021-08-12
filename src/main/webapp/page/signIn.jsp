@@ -17,7 +17,7 @@
     <div class="signIn-container">
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="sign_in">
-            <input type="text" id="email" name="email" placeholder="<fmt:message key="placeholder.email"/>"
+            <input type="email" id="email" name="email" placeholder="<fmt:message key="placeholder.email"/>"
                    value="${email}" required>
             <input type="password" id="password" name="password" placeholder="<fmt:message key="placeholder.password"/>"
                    required>

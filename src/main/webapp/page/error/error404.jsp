@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1>ERROR</h1>
-<h2>404 Not Found...</h2>
+<h2>404 Page not Found...(</h2>
 
 <br /> Status code: ${pageContext.errorData.statusCode}
 <br /> Servlet name: ${pageContext.errorData.servletName}

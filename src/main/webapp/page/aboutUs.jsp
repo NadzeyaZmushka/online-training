@@ -15,7 +15,7 @@
     <c:import url="sidebar.jsp"/>
     <div style="text-align: center">
         <h1><fmt:message key="title.about_us"/></h1>
-        <h3><fmt:message key="about_us"/></h3>
+        <h3 style="font-style: italic"><fmt:message key="about_us"/></h3>
     </div>
     <c:import url="footer.jsp"/>
 </div>
