@@ -12,76 +12,81 @@
 </head>
 <body>
 <div class="container-fluid bg_course">
-<c:import url="header.jsp"/>
-<c:import url="sidebar.jsp"/>
-<c:if test="${course != null}">
-    <h2>${course.getName()}</h2>
-    <p><fmt:message key="p.course.description"/>: ${course.getDescription()}</p>
-    <c:if test="${user.getRole().toString() eq 'ADMIN'}">
-        <form action="${pageContext.request.contextPath}/controller" method="post">
-            <input type="hidden" name="command" value="update_description">
-            <input type="hidden" name="course_id" value="${courseId}">
-            <input type="text" name="description" value="${course.getDescription()}" required pattern=".*[^<>]">
-            <input type="submit" class="course_button" value="<fmt:message key="button.course.update_description"/>">
-        </form>
-    </c:if>
-    <p><fmt:message key="p.course.hours"/>: ${course.getHours()}</p>
-    <c:if test="${user.getRole().toString() eq 'ADMIN'}">
-        <form action="${pageContext.request.contextPath}/controller" method="post">
-            <input type="hidden" name="command" value="update_hours">
-            <input type="hidden" name="course_id" value="${courseId}">
-            <input type="text" name="hours" value="${course.getHours()}" required pattern="\d+">
-            <input type="submit" class="course_button" value="<fmt:message key="button.course.update_hours"/>">
-        </form>
-    </c:if>
-    <p><fmt:message key="p.course.start_course"/>: ${course.getStartCourse()}</p>
-    <p><fmt:message key="p.course.end_course"/>: ${course.getEndCourse()}</p>
-    <c:if test="${user.getRole().toString() eq 'ADMIN'}">
-        <form action="${pageContext.request.contextPath}/controller" method="post">
-            <input type="hidden" name="command" value="update_start_end">
-            <input type="hidden" name="course_id" value="${courseId}">
-            <input type="date" name="start" value="${course.getStartCourse()}" required>
-            <input type="date" name="end" value="${course.getEndCourse()}" required>
-            <input type="submit" class="course_button" value="<fmt:message key="button.course.update_start_end"/>">
-        </form>
-    </c:if>
-    <p><fmt:message key="p.course.teacher"/>: ${course.getTeacher()}</p>
-    <c:if test="${user.getRole().toString() eq 'ADMIN'}">
-        <form action="${pageContext.request.contextPath}/controller" method="post">
-            <input type="hidden" name="command" value="update_teacher">
-            <input type="hidden" name="course_id" value="${courseId}">
-            <input type="text" name="teacher_name" value="${course.getTeacher().getName()}" required
-                   pattern="^[A-za-z-]{3,16}$">
-            <input type="text" name="teacher_surname" value="${course.getTeacher().getSurname()}" required
-                   pattern="^[A-za-z-]{3,16}$">
-            <input type="submit" class="course_button" value="<fmt:message key="button.course.update_teacher"/>">
-        </form>
-    </c:if>
-    <p><fmt:message key="p.course.cost"/>: ${course.getCost()}</p>
-    <c:if test="${user.getRole().toString() eq 'ADMIN'}">
-        <form action="${pageContext.request.contextPath}/controller" method="post">
-            <input type="hidden" name="command" value="update_cost">
-            <input type="hidden" name="course_id" value="${courseId}">
-            <input type="text" name="cost" value="${course.getCost()}" required pattern="\d+[.]\d{2,8}">
-            <input type="submit" class="course_button" value="<fmt:message key="button.course.update_cost"/>">
-        </form>
-        <form action="${pageContext.request.contextPath}/controller" method="post">
-            <input type="hidden" name="command" value="course_update">
-            <input type="hidden" name="course_id" value="${courseId}">
-            <input type="text" name="course_name" value="${course.getName()}" required pattern=".*[^<>]">
-            <input type="submit" class="course_button" value="<fmt:message key="button.main.update_course"/>">
-        </form>
-        <c:if test="${errorIsNotValidCourseName}">
-            <div class="alert alert-danger" role="alert">
-                <fmt:message key="error.main.is_not_valid_course_name"/>
-            </div>
+    <c:import url="header.jsp"/>
+    <c:import url="sidebar.jsp"/>
+    <c:if test="${course != null}">
+        <h2>${course.getName()}</h2>
+        <p><fmt:message key="p.course.description"/>: ${course.getDescription()}</p>
+        <c:if test="${user.getRole().toString() eq 'ADMIN'}">
+            <form action="${pageContext.request.contextPath}/controller" method="post">
+                <input type="hidden" name="command" value="update_description">
+                <input type="hidden" name="course_id" value="${courseId}">
+                <input type="text" name="description" value="${course.getDescription()}" required pattern=".*[^<>]">
+                <input type="submit" class="course_button"
+                       value="<fmt:message key="button.course.update_description"/>">
+            </form>
         </c:if>
-        <form action="${pageContext.request.contextPath}/controller" method="post">
-            <input type="hidden" name="command" value="course_delete">
-            <input type="hidden" name="course_id" value="${courseId}">
-            <input type="submit" class="course_button" value="<fmt:message key="button.delete_course"/>">
-        </form>
-    </c:if>
+        <p><fmt:message key="p.course.hours"/>: ${course.getHours()}</p>
+        <c:if test="${user.getRole().toString() eq 'ADMIN'}">
+            <form action="${pageContext.request.contextPath}/controller" method="post">
+                <input type="hidden" name="command" value="update_hours">
+                <input type="hidden" name="course_id" value="${courseId}">
+                <input type="text" name="hours" value="${course.getHours()}" required pattern="\\d+">
+                <input type="submit" class="course_button" value="<fmt:message key="button.course.update_hours"/>">
+            </form>
+        </c:if>
+        <p><fmt:message key="p.course.start_course"/>: ${course.getStartCourse()}</p>
+        <p><fmt:message key="p.course.end_course"/>: ${course.getEndCourse()}</p>
+        <c:if test="${user.getRole().toString() eq 'ADMIN'}">
+            <form action="${pageContext.request.contextPath}/controller" method="post">
+                <input type="hidden" name="command" value="update_start_end">
+                <input type="hidden" name="course_id" value="${courseId}">
+                <input type="date" name="start" value="${course.getStartCourse()}" required>
+                <input type="date" name="end" value="${course.getEndCourse()}" required>
+                <input type="submit" class="course_button" value="<fmt:message key="button.course.update_start_end"/>">
+            </form>
+        </c:if>
+        <p><fmt:message key="p.course.teacher"/>: ${course.getTeacher()}</p>
+        <c:if test="${user.getRole().toString() eq 'ADMIN'}">
+            <form action="${pageContext.request.contextPath}/controller" method="post">
+                <input type="hidden" name="command" value="update_teacher">
+                <input type="hidden" name="course_id" value="${courseId}">
+                <input type="text" name="teacher_name" value="${course.getTeacher().getName()}" required
+                       pattern="^[A-za-z-]{3,16}$">
+                <input type="text" name="teacher_surname" value="${course.getTeacher().getSurname()}" required
+                       pattern="^[A-za-z-]{3,16}$">
+                <input type="submit" class="course_button" value="<fmt:message key="button.course.update_teacher"/>">
+            </form>
+            <c:if test="${errorTeacherUpdate}">
+                <h3><fmt:message key="error.course.teacher_update"/></h3>
+            </c:if>
+            <c:if test="${errorTeacherNotFound}">
+                <h3><fmt:message key="error.course.teacher_not_found"/></h3>
+            </c:if>
+        </c:if>
+        <p><fmt:message key="p.course.cost"/>: ${course.getCost()}</p>
+        <c:if test="${user.getRole().toString() eq 'ADMIN'}">
+            <form action="${pageContext.request.contextPath}/controller" method="post">
+                <input type="hidden" name="command" value="update_cost">
+                <input type="hidden" name="course_id" value="${courseId}">
+                <input type="text" name="cost" value="${course.getCost()}" required pattern="\d+[.]\d{2,8}">
+                <input type="submit" class="course_button" value="<fmt:message key="button.course.update_cost"/>">
+            </form>
+            <form action="${pageContext.request.contextPath}/controller" method="post">
+                <input type="hidden" name="command" value="course_update">
+                <input type="hidden" name="course_id" value="${courseId}">
+                <input type="text" name="course_name" value="${course.getName()}" required pattern=".*[^<>]">
+                <input type="submit" class="course_button" value="<fmt:message key="button.main.update_course"/>">
+            </form>
+            <c:if test="${errorIsNotValidCourseName}">
+                <h3><fmt:message key="error.main.is_not_valid_course_name"/></h3>
+            </c:if>
+            <form action="${pageContext.request.contextPath}/controller" method="post">
+                <input type="hidden" name="command" value="course_delete">
+                <input type="hidden" name="course_id" value="${courseId}">
+                <input type="submit" class="course_button" value="<fmt:message key="button.delete_course"/>">
+            </form>
+        </c:if>
     </c:if>
     <c:if test="${user.getRole().toString() eq 'USER'}">
         <form action="${pageContext.request.contextPath}/controller" method="post">
@@ -119,13 +124,10 @@
             <input type="submit" class="course_button" value="<fmt:message key="button.add_lecture"/>">
         </form>
     </c:if>
-
-
     <c:if test="${lectures == null}">
         <h1><fmt:message key="no.lectures"/></h1>
     </c:if>
-
-<c:import url="footer.jsp"/>
+    <c:import url="footer.jsp"/>
 </div>
 </body>
 </html>

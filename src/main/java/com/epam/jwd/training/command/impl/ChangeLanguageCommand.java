@@ -32,7 +32,7 @@ public class ChangeLanguageCommand implements Command {
         }
         CommandResponse response = new CommandResponse();
         response.setPagePath(pagePath);
-        response.setType(CommandResponse.Type.REDIRECT);
+//        response.setType(CommandResponse.Type.REDIRECT);
         return response;
     }
 }

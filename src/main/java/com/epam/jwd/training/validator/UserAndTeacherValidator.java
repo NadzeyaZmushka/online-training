@@ -1,11 +1,14 @@
 package com.epam.jwd.training.validator;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+/**
+ * Class validates user name, surname, email, password
+ * and teacher name and surname
+ *
+ * @author Nadzeya Zmushka
+ */
+public class UserAndTeacherValidator {
 
-public class UserValidator {
-
-    private static final UserValidator INSTANCE = new UserValidator();
+    private static final UserAndTeacherValidator INSTANCE = new UserAndTeacherValidator();
 
     private static final String EMAIL_REGEX = "^.+@.+\\..{2,4}$";
     //??
@@ -13,37 +16,32 @@ public class UserValidator {
 
     private final static String NAME_REGEX = "^[A-za-z-]{3,16}$";
 
-    private UserValidator() {
+    private UserAndTeacherValidator() {
     }
 
     public boolean isValidNameAndSurname(String name, String surname) {
         boolean isCorrect = true;
-        Pattern pattern = Pattern.compile(NAME_REGEX);
         if (name == null || name.isBlank() || surname == null || surname.isBlank()
-                || !pattern.matcher(name).matches() || !pattern.matcher(surname).matches()) {
+                || !name.matches(NAME_REGEX) || !surname.matches(NAME_REGEX)) {
             isCorrect = false;
         }
         return isCorrect;
     }
 
     public boolean isValidEmail(String email) {
-        Pattern pattern = Pattern.compile(EMAIL_REGEX);
         if (email == null || email.isBlank()) {
             return false;
         }
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+        return email.matches(EMAIL_REGEX);
     }
 
     public boolean isValidPassword(String password, String repeatPassword) {
-        Pattern pattern = Pattern.compile(PASSWORD_REGEX);
         if (password == null || password.isBlank()
                 || repeatPassword == null || repeatPassword.isBlank()
                 || !password.equals(repeatPassword)) {
             return false;
         }
-        Matcher matcher = pattern.matcher(password);
-        return matcher.matches();
+        return password.matches(PASSWORD_REGEX);
     }
 
     public boolean isValidEmailAndPassword(String email, String password) {
@@ -54,7 +52,7 @@ public class UserValidator {
         return isCorrect;
     }
 
-    public static UserValidator getInstance() {
+    public static UserAndTeacherValidator getInstance() {
         return INSTANCE;
     }
 

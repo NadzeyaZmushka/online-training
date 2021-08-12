@@ -1,66 +1,54 @@
 package com.epam.jwd.training.validator;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+/**
+ * Class validates course details
+ *
+ * @author Nadzeya Zmushka
+ */
 public class CourseValidator {
 
     private static final CourseValidator INSTANCE = new CourseValidator();
 
-    private static final Pattern HOURS_VALIDATOR = Pattern.compile("\\d+");
-    private static final Pattern COST_VALIDATOR = Pattern.compile("\\d+[.]\\d{2,8}");
-    private static final Pattern STRING_PATTERN = Pattern.compile("^[\\p{L}]+$");
+    private static final String HOURS_REGEX = "\\d+";
+    private static final String COST_REGEX = "\\d+[.]\\d{2,3}";
+    private static final String STRING_REGEX = "[.[^<>]]{1,1000}";
 
     private CourseValidator() {
     }
 
     public boolean isValidName(String courseName) {
-        boolean isCorrect = true;
         if (courseName == null || courseName.isBlank()) {
-            isCorrect = false;
+            return false;
         }
-        return isCorrect;
+        return courseName.matches(STRING_REGEX);
     }
 
     public boolean isValidDescription(String description) {
-        boolean isCorrect = true;
         if (description == null || description.isBlank()) {
-            isCorrect = false;
+            return false;
         }
-        return isCorrect;
+        return description.matches(STRING_REGEX);
     }
 
-    public boolean isValidLecture(String message) {
-        boolean isCorrect = true;
-        if (message == null || message.isBlank()) {
-            isCorrect = false;
+    public boolean isValidLecture(String lecture) {
+        if (lecture == null || lecture.isBlank()) {
+            return false;
         }
-        return isCorrect;
+        return lecture.matches(STRING_REGEX);
     }
 
     public boolean isValidHours(String hours) {
         if (hours == null || hours.isBlank()) {
             return false;
         }
-        Matcher matcher = HOURS_VALIDATOR.matcher(hours);
-        return matcher.matches();
-    }
-
-    public boolean isValidNameAndSurname(String name, String surname) {
-        boolean isCorrect = true;
-        if (name == null || name.isBlank() || surname == null || surname.isBlank()
-                || !STRING_PATTERN.matcher(name).matches() || !STRING_PATTERN.matcher(surname).matches()) {
-            isCorrect = false;
-        }
-        return isCorrect;
+        return hours.matches(HOURS_REGEX);
     }
 
     public boolean isValidCost(String cost) {
         if (cost == null || cost.isBlank()) {
             return false;
         }
-        Matcher matcher = COST_VALIDATOR.matcher(cost);
-        return matcher.matches();
+        return cost.matches(COST_REGEX);
     }
 
     public boolean isValidDate(String startCourse, String endCourse) {

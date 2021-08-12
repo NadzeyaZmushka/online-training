@@ -8,7 +8,7 @@ package com.epam.jwd.training.command;
 public enum PagePath {
 
     INDEX("index.jsp", ""),
-    MAIN("/page/main.jsp", "controller?command=main_page"),
+    MAIN("page/main.jsp", "controller?command=main_page"),
     SIGN_IN("page/signIn.jsp", "controller?command=sign_in_page"),
     SIGN_UP("page/signUp.jsp", "controller?command=sign_up_page"),
     REVIEW("page/review.jsp", "controller?command=review_page"),
@@ -18,7 +18,7 @@ public enum PagePath {
     PROFILE("page/profile.jsp", "controller?command=profile_page"),
     SHOW_ALL_TEACHERS("", "controller?command=show_all_teachers"),
     SHOW_ALL_USERS("", "controller?command=show_all_users"),
-    ABOUT_US("page/aboutUs.jsp", "");
+    ABOUT_US("page/aboutUs.jsp", "controller?command=about_us_page");
 
     private final String directUrl;
     private final String servletPath;

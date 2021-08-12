@@ -14,6 +14,7 @@ import com.epam.jwd.training.model.service.TeacherService;
 import com.epam.jwd.training.model.service.impl.CourseServiceImpl;
 import com.epam.jwd.training.model.service.impl.TeacherServiceImpl;
 import com.epam.jwd.training.validator.CourseValidator;
+import com.epam.jwd.training.validator.UserAndTeacherValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,6 +35,7 @@ public class CourseAddCommand implements Command {
 
     private final CourseService courseService = CourseServiceImpl.getInstance();
     private final CourseValidator courseValidator = CourseValidator.getInstance();
+    private final UserAndTeacherValidator validator = UserAndTeacherValidator.getInstance();
     private final TeacherService teacherService = TeacherServiceImpl.getInstance();
 
     @Override
@@ -62,7 +64,7 @@ public class CourseAddCommand implements Command {
                 request.setAttribute(RequestAttribute.ERROR_HOURS_ADD, true);
                 isCorrectData = false;
             }
-            if (!courseValidator.isValidNameAndSurname(name, surname)) {
+            if (!validator.isValidNameAndSurname(name, surname)) {
                 request.setAttribute(RequestAttribute.ERROR_NAME_AND_SURNAME_ADD, true);
                 isCorrectData = false;
             }
@@ -91,7 +93,7 @@ public class CourseAddCommand implements Command {
                         .build();
                 courseService.save(course);
                 response.setType(CommandResponse.Type.REDIRECT);
-                response.setPagePath(PagePath.MAIN.getServletPath());
+                response.setPagePath(PagePath.COURSE.getServletPath() + course.getId());
             } else {
                 request.setAttribute(RequestAttribute.DESCRIPTION, description);
                 request.setAttribute(RequestAttribute.HOURS, hours);
@@ -100,7 +102,7 @@ public class CourseAddCommand implements Command {
                 request.setAttribute(RequestAttribute.START_COURSE, startCourse);
                 request.setAttribute(RequestAttribute.END_COURSE, endCourse);
                 request.setAttribute(RequestAttribute.COST, cost);
-                response.setPagePath(PagePath.COURSE.getServletPath());
+                response.setPagePath(PagePath.MAIN.getServletPath());
             }
         } catch (ServiceException e) {
             LOGGER.error(e);

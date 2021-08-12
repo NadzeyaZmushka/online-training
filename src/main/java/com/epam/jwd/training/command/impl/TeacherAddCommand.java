@@ -10,7 +10,7 @@ import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.model.entity.Teacher;
 import com.epam.jwd.training.model.service.TeacherService;
 import com.epam.jwd.training.model.service.impl.TeacherServiceImpl;
-import com.epam.jwd.training.validator.UserValidator;
+import com.epam.jwd.training.validator.UserAndTeacherValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,7 +28,7 @@ public class TeacherAddCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(TeacherAddCommand.class);
 
     private final TeacherService teacherService = TeacherServiceImpl.getInstance();
-    private final UserValidator teacherValidator = UserValidator.getInstance();
+    private final UserAndTeacherValidator teacherValidator = UserAndTeacherValidator.getInstance();
 
     @Override
     public CommandResponse execute(HttpServletRequest request) {

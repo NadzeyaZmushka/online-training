@@ -37,9 +37,9 @@
             <td>
                 <div style="text-align: center">
                     <a
-                        href="${pageContext.request.contextPath}/controller?command=course_page&course_id=${course.id}">
-                    <p> ${course.name}</p>
-                </a></div>
+                            href="${pageContext.request.contextPath}/controller?command=course_page&course_id=${course.id}">
+                        <p> ${course.name}</p>
+                    </a></div>
             </td>
         </tr>
     </c:forEach>
@@ -49,6 +49,12 @@
                 <input type="hidden" name="command" value="course_add">
                 <input type="text" name="course_name" placeholder="<fmt:message key="course.name"/>"
                        value="${course_name}" required pattern=".*[^<>]">
+                <c:if test="${errorIsNotValidCourseName}">
+                    <h3><fmt:message key="error.main.is_not_valid_course_name"/></h3>
+                </c:if>
+<%--                <c:if test="${errorCourseNotFound}">--%>
+<%--                    <h3><fmt:message key="error.main.course_not_found"/></h3>--%>
+<%--                </c:if>--%>
                 <input type="text" name="description" placeholder="<fmt:message key="course.description"/>"
                        value="${description}" required pattern=".*[^<>]">
                 <c:if test="${errorDescriptionAdd}">
@@ -61,7 +67,7 @@
                     <fmt:message key="error.course.hours"/>
                 </c:if>
                 <input type="text" name="cost" placeholder="<fmt:message key="course.cost"/>" value="${cost}"
-                       required pattern="\d+[.]\d{2,8}">
+                       required pattern="\d+[.]\d{2,3}">
                 <c:if test="${errorCostAdd}">
                     <fmt:message key="error.course.cost"/>
                 </c:if>
@@ -70,10 +76,10 @@
                 <input type="text" name="surname" placeholder="Teacher surname" value="${surname}" required
                        pattern="^[A-za-z-]{3,16}$">
                 <c:if test="${errorNameAndSurnameAdd}">
-                    <fmt:message key="error.course.name_and_surname"/>
+                    <h3><fmt:message key="error.course.name_and_surname"/></h3>
                 </c:if>
                 <c:if test="${errorTeacherNotFoundAdd}">
-                    <fmt:message key="error.course.teacher_not_found"/>
+                    <h3><fmt:message key="error.course.teacher_not_found"/></h3>
                 </c:if>
                 <br>
                 <fmt:message key="course.start_course"/>
@@ -83,27 +89,11 @@
                 <input type="date" name="end_course" value="${endCourse}"
                        placeholder="<fmt:message key="course.end_course"/>" required>
                 <c:if test="${errorStartAndEndCourseAdd}">
-                    <fmt:message key="error.course.start_and_end_course"/>
+                    <h3><fmt:message key="error.course.start_and_end_course"/></h3>
                 </c:if>
                 <input type="submit" class="header_button" value="<fmt:message key="button.add_course"/>">
             </form>
         </div>
-    </c:if>
-    <c:if test="${errorIsNotValidCourseName}">
-        <fmt:message key="error.main.is_not_valid_course_name"/>
-    </c:if>
-    <c:if test="${errorCourseNotFound}">
-        <fmt:message key="error.main.course_not_found"/>
-    </c:if>
-    <c:if test="${errorIsNotValidCourseName}">
-        <button type="button" class="btn btn-default" data-dismiss="modal"
-                onclick="<c:remove var="errorIsNotValidCourseName" scope="session"/>">Ок
-        </button>
-    </c:if>
-    <c:if test="${errorCourseNotFound}">
-        <button type="button" class="btn btn-default" data-dismiss="modal"
-                onclick="<c:remove var="errorCourseNotFound" scope="session"/>">Ок
-        </button>
     </c:if>
     <br>
     <c:import url="footer.jsp"/>

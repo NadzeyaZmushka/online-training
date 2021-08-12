@@ -14,6 +14,7 @@ import com.epam.jwd.training.model.service.TeacherService;
 import com.epam.jwd.training.model.service.impl.CourseServiceImpl;
 import com.epam.jwd.training.model.service.impl.TeacherServiceImpl;
 import com.epam.jwd.training.validator.CourseValidator;
+import com.epam.jwd.training.validator.UserAndTeacherValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,6 +34,7 @@ public class CourseTeacherUpdateCommand implements Command {
     private final CourseService courseService = CourseServiceImpl.getInstance();
     private final TeacherService teacherService = TeacherServiceImpl.getInstance();
     private final CourseValidator courseValidator = CourseValidator.getInstance();
+    private final UserAndTeacherValidator validator = UserAndTeacherValidator.getInstance();
 
     @Override
     public CommandResponse execute(HttpServletRequest request) {
@@ -45,7 +47,7 @@ public class CourseTeacherUpdateCommand implements Command {
         try {
             Long courseId = Long.valueOf(courseIdString);
             Optional<Teacher> teacherOptional = Optional.empty();
-            if (!courseValidator.isValidNameAndSurname(teacherName, teacherSurname)) {
+            if (!validator.isValidNameAndSurname(teacherName, teacherSurname)) {
                 session.setAttribute(SessionAttribute.ERROR_TEACHER_UPDATE, true);
                 isCorrectData = false;
             }
