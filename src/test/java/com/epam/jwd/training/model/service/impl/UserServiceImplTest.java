@@ -47,4 +47,12 @@ public class UserServiceImplTest {
 
         assertTrue(UserServiceImpl.getInstance().findByEmail(expected.getEmail()).isPresent());
     }
+
+    @Test
+    public void changeUserStatus() throws DaoException, ServiceException {
+        when(mockUserDao.changeUserStatus(expected.getId(), false))
+                .thenReturn(true);
+
+        assertTrue(UserServiceImpl.getInstance().changeUserStatus(expected.getId(),false));
+    }
 }

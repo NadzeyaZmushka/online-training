@@ -1,10 +1,9 @@
 package com.epam.jwd.training.model.service.impl;
 
-import com.epam.jwd.training.model.dao.TeacherDao;
-import com.epam.jwd.training.model.dao.impl.TeacherDaoImpl;
-import com.epam.jwd.training.model.entity.Teacher;
 import com.epam.jwd.training.exception.DaoException;
 import com.epam.jwd.training.exception.ServiceException;
+import com.epam.jwd.training.model.dao.TeacherDao;
+import com.epam.jwd.training.model.entity.Teacher;
 import com.epam.jwd.training.model.service.TeacherService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,13 +18,14 @@ import java.util.Optional;
  */
 public class TeacherServiceImpl implements TeacherService {
 
-    public static final TeacherServiceImpl INSTANCE = new TeacherServiceImpl();
+//    public static final TeacherServiceImpl INSTANCE = new TeacherServiceImpl();
 
     private static final Logger LOGGER = LogManager.getLogger(TeacherServiceImpl.class);
 
-    private final TeacherDao teacherDao = TeacherDaoImpl.getInstance();
+    private final TeacherDao teacherDao;
 
-    private TeacherServiceImpl() {
+    public TeacherServiceImpl(TeacherDao teacherDao) {
+        this.teacherDao = teacherDao;
     }
 
     @Override
@@ -88,8 +88,8 @@ public class TeacherServiceImpl implements TeacherService {
         return isSaved;
     }
 
-    public static TeacherServiceImpl getInstance() {
-        return INSTANCE;
-    }
+//    public static TeacherServiceImpl getInstance() {
+//        return INSTANCE;
+//    }
 
 }

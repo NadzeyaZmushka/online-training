@@ -20,6 +20,7 @@ public enum PagePath {
     SHOW_ALL_USERS("", "controller?command=show_all_users"),
     ABOUT_US("WEB-INF/page/aboutUs.jsp", "controller?command=about_us_page"),
     CONTACTS("WEB-INF/page/contacts.jsp","controller?command=contacts_page");
+
     private final String directUrl;
     private final String servletPath;
 

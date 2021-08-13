@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import static com.epam.jwd.training.command.RequestAttribute.ERROR_EMAIL_MESSAGE_INVALID;
@@ -41,10 +42,10 @@ public class SignUpCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest request) {
         String email = request.getParameter(EMAIL);
-        String name = request.getParameter(NAME);
-        String surname = request.getParameter(SURNAME);
-        String password = request.getParameter(PASSWORD);
-        String repeatPassword = request.getParameter(REPEAT_PASSWORD);
+        String name = new String(request.getParameter(NAME).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
+        String surname = new String(request.getParameter(SURNAME).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
+        String password = new String(request.getParameter(PASSWORD).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
+        String repeatPassword = new String(request.getParameter(REPEAT_PASSWORD).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
         CommandResponse response = new CommandResponse();
         boolean isCorrectData = true;
         try {

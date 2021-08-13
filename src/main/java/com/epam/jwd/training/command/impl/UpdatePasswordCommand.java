@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 /**
@@ -32,8 +33,8 @@ public class UpdatePasswordCommand implements Command {
 
     @Override
     public CommandResponse execute(HttpServletRequest request) {
-        String password = request.getParameter(RequestParameter.PASSWORD);
-        String repeatPassword = request.getParameter(RequestParameter.REPEAT_PASSWORD);
+        String password = new String(request.getParameter(RequestParameter.PASSWORD).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        String repeatPassword = new String(request.getParameter(RequestParameter.REPEAT_PASSWORD).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         CommandResponse response = new CommandResponse();
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(SessionAttribute.USER);

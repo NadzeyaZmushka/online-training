@@ -4,7 +4,6 @@ import com.epam.jwd.training.command.Command;
 import com.epam.jwd.training.command.CommandResponse;
 import com.epam.jwd.training.command.PagePath;
 import com.epam.jwd.training.command.RequestAttribute;
-import com.epam.jwd.training.command.RequestParameter;
 import com.epam.jwd.training.command.SessionAttribute;
 import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.model.entity.User;
@@ -16,6 +15,10 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
+
+import static com.epam.jwd.training.command.RequestParameter.NAME;
+import static com.epam.jwd.training.command.RequestParameter.SURNAME;
 
 /**
  * The command update name and surname
@@ -31,8 +34,8 @@ public class UpdateUserNameAndSurnameCommand implements Command {
 
     @Override
     public CommandResponse execute(HttpServletRequest request) {
-        String name = request.getParameter(RequestParameter.NAME);
-        String surname = request.getParameter(RequestParameter.SURNAME);
+        String name = new String(request.getParameter(NAME).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
+        String surname = new String(request.getParameter(SURNAME).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(SessionAttribute.USER);
         CommandResponse response = new CommandResponse();

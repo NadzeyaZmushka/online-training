@@ -1,74 +1,81 @@
 package com.epam.jwd.training.model.service.impl;
 
+import com.epam.jwd.training.exception.DaoException;
 import com.epam.jwd.training.exception.ServiceException;
+import com.epam.jwd.training.model.dao.TeacherDao;
+import com.epam.jwd.training.model.dao.impl.TeacherDaoImpl;
 import com.epam.jwd.training.model.entity.Teacher;
 import com.epam.jwd.training.model.service.TeacherService;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class TeacherServiceImplTest {
 
-    private final TeacherService teacherServiceTest = TeacherServiceImpl.getInstance();
+    private TeacherDao teacherDao;
+    private TeacherService teacherService;
+    private Teacher teacher1;
+    private Teacher teacher2;
+    private List<Teacher> teachers = new ArrayList<>();
 
-    private final Teacher expected = Teacher.builder()
-            .setName("Name")
-            .setSurname("Surname")
-            .build();
 
     @Before
-    public void saveTeacher() throws ServiceException {
-        teacherServiceTest.save(expected);
-    }
-
-    @After
-    public void deleteTeacher() throws ServiceException {
-        teacherServiceTest.delete(expected.getId());
-    }
-
-
-    @Test
-    public void test_FindById_returnTeacherWithSuchId() throws ServiceException {
-        Optional<Teacher> teacherOptional = teacherServiceTest.findById(expected.getId());
-
-        assertEquals(Optional.of(expected), teacherOptional);
-    }
-
-    @Test
-    public void test_delete_mustDeleteTeacher() throws ServiceException {
-        teacherServiceTest.delete(expected.getId());
-        List<Teacher> allTeachers = teacherServiceTest.findAll();
-
-        assertFalse(allTeachers.contains(expected));
+    public void setUp() {
+        teacherDao = mock(TeacherDaoImpl.class);
+        teacherService = new TeacherServiceImpl(teacherDao);
+        teacher1 = Teacher.builder()
+                .setId(1L)
+                .setName("Name")
+                .setSurname("Surname")
+                .build();
+        teacher2 = Teacher.builder()
+                .setId(2L)
+                .setName("Name2")
+                .setSurname("Surname2")
+                .build();
+        teachers.add(teacher1);
+        teachers.add(teacher2);
     }
 
     @Test
-    public void test_findById_returnOptionalEmpty_ifTeacherWasNotFound() throws ServiceException {
-        Optional<Teacher> teacher = teacherServiceTest.findById(0L);
-
-        assertTrue(teacher.isEmpty());
+    public void test_FindAllTeachers() throws DaoException, ServiceException {
+        List<Teacher> expected = teachers;
+        when(teacherDao.findAll()).thenReturn(teachers);
+        List<Teacher> actual = teacherService.findAll();
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void test_findByNameAndSurname_returnTeacherWithSuchNameSurname() throws ServiceException {
-        Optional<Teacher> actual = teacherServiceTest.findByNameAndSurname(expected.getName(), expected.getSurname());
-
-        assertEquals(Optional.of(expected), actual);
+    public void test_FindById() throws ServiceException, DaoException {
+        Optional<Teacher> expectedTeacher = Optional.of(teacher1);
+        when(teacherDao.findById(1L)).thenReturn(expectedTeacher);
+        Optional<Teacher> actual = teacherService.findById(1L);
+        assertEquals(expectedTeacher, actual);
     }
 
     @Test
-    public void test_findByNameAndSurname_returnOptionalEmpty_ifTeacherIsNotExist() throws ServiceException {
-        String name = "name1";
-        Optional<Teacher> actual = teacherServiceTest.findByNameAndSurname(name, expected.getSurname());
+    public void test_delete_mustDeleteTeacher() throws ServiceException, DaoException {
+        when(teacherDao.delete(teacher1.getId())).thenReturn(true);
+        boolean actual = teacherService.delete(teacher1.getId());
+        assertTrue(actual);
+    }
 
-        assertTrue(actual.isEmpty());
+    @Test
+    public void test_findByNameAndSurname_returnTeacherWithSuchNameSurname() throws ServiceException, DaoException {
+        Optional<Teacher> expected = Optional.of(teacher1);
+        when(teacherDao.findByNameAndSurname(teacher1.getName(),teacher1.getSurname()))
+                .thenReturn(expected);
+        Optional<Teacher> actual = teacherService.findByNameAndSurname("Name", "Surname");
+        assertEquals(expected, actual);
+
     }
 
 }

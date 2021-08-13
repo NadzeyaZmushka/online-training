@@ -7,6 +7,7 @@ import com.epam.jwd.training.command.RequestAttribute;
 import com.epam.jwd.training.command.RequestParameter;
 import com.epam.jwd.training.command.SessionAttribute;
 import com.epam.jwd.training.exception.ServiceException;
+import com.epam.jwd.training.model.dao.impl.TeacherDaoImpl;
 import com.epam.jwd.training.model.entity.Course;
 import com.epam.jwd.training.model.entity.Teacher;
 import com.epam.jwd.training.model.service.CourseService;
@@ -20,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 /**
@@ -32,15 +34,15 @@ public class CourseTeacherUpdateCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(CourseTeacherUpdateCommand.class);
 
     private final CourseService courseService = CourseServiceImpl.getInstance();
-    private final TeacherService teacherService = TeacherServiceImpl.getInstance();
+    private final TeacherService teacherService = new TeacherServiceImpl(new TeacherDaoImpl());
     private final CourseValidator courseValidator = CourseValidator.getInstance();
     private final UserAndTeacherValidator validator = UserAndTeacherValidator.getInstance();
 
     @Override
     public CommandResponse execute(HttpServletRequest request) {
         String courseIdString = request.getParameter(RequestParameter.COURSE_ID);
-        String teacherName = request.getParameter(RequestParameter.TEACHER_NAME);
-        String teacherSurname = request.getParameter(RequestParameter.TEACHER_SURNAME);
+        String teacherName = new String(request.getParameter(RequestParameter.TEACHER_NAME).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
+        String teacherSurname = new String(request.getParameter(RequestParameter.TEACHER_SURNAME).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         HttpSession session = request.getSession();
         CommandResponse response = new CommandResponse();
         boolean isCorrectData = true;

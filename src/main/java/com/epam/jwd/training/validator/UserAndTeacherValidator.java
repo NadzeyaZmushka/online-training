@@ -14,7 +14,7 @@ public class UserAndTeacherValidator {
     //??
     private static final String PASSWORD_REGEX = "^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$";
 
-    private final static String NAME_REGEX = "^[A-za-z-]{3,16}$";
+    private final static String NAME_REGEX = "^[\\p{L}]+$";
 
     private UserAndTeacherValidator() {
     }

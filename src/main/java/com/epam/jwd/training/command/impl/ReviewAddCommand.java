@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -30,12 +31,12 @@ public class ReviewAddCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(ReviewAddCommand.class);
 
     private final ReviewService reviewService = ReviewServiceImpl.getInstance();
-    //    private final Validator validator = Validator.getInstance();
     private final CourseValidator courseValidator = CourseValidator.getInstance();
 
     @Override
     public CommandResponse execute(HttpServletRequest request) {
-        String message = request.getParameter(RequestParameter.MESSAGE);
+//        String message = request.getParameter(RequestParameter.MESSAGE.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        String message = new String(request.getParameter(RequestParameter.MESSAGE).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(RequestAttribute.USER);
         CommandResponse response = new CommandResponse();

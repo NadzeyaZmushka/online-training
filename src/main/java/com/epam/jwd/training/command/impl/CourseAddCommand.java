@@ -7,6 +7,7 @@ import com.epam.jwd.training.command.RequestAttribute;
 import com.epam.jwd.training.command.RequestParameter;
 import com.epam.jwd.training.command.SessionAttribute;
 import com.epam.jwd.training.exception.ServiceException;
+import com.epam.jwd.training.model.dao.impl.TeacherDaoImpl;
 import com.epam.jwd.training.model.entity.Course;
 import com.epam.jwd.training.model.entity.Teacher;
 import com.epam.jwd.training.model.service.CourseService;
@@ -21,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.Optional;
 
@@ -36,15 +38,15 @@ public class CourseAddCommand implements Command {
     private final CourseService courseService = CourseServiceImpl.getInstance();
     private final CourseValidator courseValidator = CourseValidator.getInstance();
     private final UserAndTeacherValidator validator = UserAndTeacherValidator.getInstance();
-    private final TeacherService teacherService = TeacherServiceImpl.getInstance();
+    private final TeacherService teacherService = new TeacherServiceImpl(new TeacherDaoImpl());
 
     @Override
     public CommandResponse execute(HttpServletRequest request) {
-        String courseName = request.getParameter(RequestParameter.COURSE_NAME);
-        String description = request.getParameter(RequestParameter.DESCRIPTION);
+        String courseName = new String(request.getParameter(RequestParameter.COURSE_NAME).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        String description = new String(request.getParameter(RequestParameter.DESCRIPTION).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         String hours = request.getParameter(RequestParameter.HOURS);
-        String name = request.getParameter(RequestParameter.NAME);
-        String surname = request.getParameter(RequestParameter.SURNAME);
+        String name = new String(request.getParameter(RequestParameter.NAME).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        String surname = new String(request.getParameter(RequestParameter.SURNAME).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         String startCourse = request.getParameter(RequestParameter.START_COURSE);
         String endCourse = request.getParameter(RequestParameter.END_COURSE);
         String cost = request.getParameter(RequestParameter.COST);

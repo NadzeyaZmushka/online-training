@@ -20,7 +20,7 @@ import java.util.Optional;
 
 public class TeacherDaoImpl implements TeacherDao {
 
-    public static final TeacherDaoImpl INSTANCE = new TeacherDaoImpl();
+//    public static final TeacherDaoImpl INSTANCE = new TeacherDaoImpl();
 
     private static final Logger LOGGER = LogManager.getLogger(TeacherDaoImpl.class);
 
@@ -35,7 +35,7 @@ public class TeacherDaoImpl implements TeacherDao {
 
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
 
-    private TeacherDaoImpl() {
+    public TeacherDaoImpl() {
     }
 
     @Override
@@ -145,8 +145,8 @@ public class TeacherDaoImpl implements TeacherDao {
         return isDeleted;
     }
 
-    public static TeacherDaoImpl getInstance() {
-        return INSTANCE;
-    }
+//    public static TeacherDaoImpl getInstance() {
+//        return INSTANCE;
+//    }
 
 }

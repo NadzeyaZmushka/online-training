@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 /**
@@ -38,7 +39,7 @@ public class LectureUpdateCommand implements Command {
     public CommandResponse execute(HttpServletRequest request) {
         String courseIdString = request.getParameter(RequestParameter.COURSE_ID);
         String lectureIdString = request.getParameter(RequestParameter.LECTURE_ID);
-        String lectureName = request.getParameter(RequestParameter.LECTURE);
+        String lectureName = new String(request.getParameter(RequestParameter.LECTURE).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         HttpSession session = request.getSession();
         CommandResponse response = new CommandResponse();
         boolean isCorrectData = true;
