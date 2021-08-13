@@ -26,6 +26,7 @@ import com.epam.jwd.training.command.impl.ReviewAddCommand;
 import com.epam.jwd.training.command.impl.ReviewDeleteCommand;
 import com.epam.jwd.training.command.impl.ShowAllTeachersCommand;
 import com.epam.jwd.training.command.impl.ShowAllUsersCommand;
+import com.epam.jwd.training.command.impl.ShowContactsCommand;
 import com.epam.jwd.training.command.impl.ShowUsersEnrolledCourseCommand;
 import com.epam.jwd.training.command.impl.SignInCommand;
 import com.epam.jwd.training.command.impl.SignOutCommand;
@@ -47,6 +48,7 @@ public enum CommandType {
 
     MAIN_PAGE(new MainCommand()),
     ABOUT_US_PAGE(new AboutUsCommand()),
+    CONTACTS_PAGE(new ShowContactsCommand()),
     SIGN_IN(new SignInCommand()),
     SIGN_UP(new SignUpCommand()),
     COURSE_PAGE(new CourseCommand()),

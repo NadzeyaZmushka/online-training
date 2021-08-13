@@ -6,7 +6,7 @@
 <fmt:setBundle basename="locale"/>
 <html>
 <head>
-    <title>Title</title>
+    <title><fmt:message key="title.profile"/></title>
 
     <link rel="stylesheet" href="css/profile.css">
 </head>
@@ -19,8 +19,6 @@
     <c:if test="${user == null}">
         <h1><fmt:message key="no.profile"/></h1>
     </c:if>
-
-
     <div style="text-align: right">
         <c:if test="${user.getRole().toString() eq 'ADMIN'}">
             <c:if test="${allTeachers == null}">
@@ -37,7 +35,6 @@
                         <th><fmt:message key="table.profile.u_name"/></th>
                         <th><fmt:message key="table.profile.u_surname"/></th>
                         <th><fmt:message key="profile.delete_teacher"/></th>
-
                     </tr>
                     <c:forEach items="${allTeachers}" var="teacher">
                         <tr>
@@ -216,7 +213,6 @@
             <c:if test="${success}">
                 <h3><fmt:message key="success"/></h3>
             </c:if>
-            <%--        <br>--%>
             <h3><fmt:message key="profile.role"/> - ${user.getRole()}</h3>
             <h3><fmt:message key="button.profile.update_password"/></h3>
             <form action="${pageContext.request.contextPath}/controller" method="post">

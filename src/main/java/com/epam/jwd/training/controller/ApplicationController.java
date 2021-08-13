@@ -34,6 +34,8 @@ public class ApplicationController extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Command command = CommandFactory.defineCommand(request);
         CommandResponse commandResponse = command.execute(request);
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
         if (commandResponse.getType().equals(CommandResponse.Type.FORWARD)) {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(commandResponse.getPagePath());

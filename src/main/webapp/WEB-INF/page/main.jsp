@@ -29,7 +29,7 @@
     <%--    </c:forEach>--%>
     <table class="table">
         <tr>
-            <th>Course name</th>
+            <th><fmt:message key="main.our.courses"/> </th>
         </tr>
     </table>
     <c:forEach var="course" items="${courses}">

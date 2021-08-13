@@ -14,7 +14,6 @@
 <c:import url="header.jsp"/>
 <c:import url="sidebar.jsp"/>
 <h1 style="text-align: center"><fmt:message key="title.review"/></h1>
-<%--<div class="review-border">--%>
     <c:forEach var="review" items="${reviews}">
             <div class="review-border">${review.getUser().getName()} ${review.getUser().getSurname()} ${review.getDate().toString()}<br><br>
            "${review.getDescription()}"</div> <br/>
