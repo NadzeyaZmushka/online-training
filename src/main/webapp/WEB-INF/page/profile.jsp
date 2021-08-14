@@ -13,8 +13,8 @@
 <body>
 <div class="bg_profile">
     <ctg:currentTime/>
-    <c:import url="header.jsp"/>
-    <c:import url="sidebar.jsp"/>
+    <c:import url="fragment/header.jsp"/>
+    <c:import url="fragment/sidebar.jsp"/>
 
     <c:if test="${user == null}">
         <h1><fmt:message key="no.profile"/></h1>
@@ -232,7 +232,7 @@
             <br>
         </c:if>
     </div>
-    <c:import url="footer.jsp"/>
+    <c:import url="fragment/footer.jsp"/>
 </div>
 </body>
 </html>

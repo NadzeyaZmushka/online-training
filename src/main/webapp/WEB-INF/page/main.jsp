@@ -14,19 +14,10 @@
 <body>
 <div class="container-fluid bg">
     <ctg:currentTime/>
-    <c:import url="header.jsp"/>
-    <c:import url="sidebar.jsp"/>
+    <c:import url="fragment/header.jsp"/>
+    <c:import url="fragment/sidebar.jsp"/>
 
     <h1 style="text-align: center"><fmt:message key="main.itCourse"/></h1>
-    <%--    <c:forEach var="course" items="${courses}">--%>
-    <%--        <ul>--%>
-    <%--            <li>--%>
-    <%--                <a href="${pageContext.request.contextPath}/controller?command=course_page&course_id=${course.id}">--%>
-    <%--                    <p> ${course.name}</p>--%>
-    <%--                </a>--%>
-    <%--            </li>--%>
-    <%--        </ul>--%>
-    <%--    </c:forEach>--%>
     <table class="table">
         <tr>
             <th><fmt:message key="main.our.courses"/> </th>
@@ -96,7 +87,7 @@
         </div>
     </c:if>
     <br>
-    <c:import url="footer.jsp"/>
+    <c:import url="fragment/footer.jsp"/>
 </div>
 </body>
 </html>

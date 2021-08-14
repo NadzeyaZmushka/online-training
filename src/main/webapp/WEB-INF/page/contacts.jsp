@@ -12,13 +12,13 @@
 </head>
 <body>
 <div class="bg">
-    <c:import url="header.jsp"/>
-    <c:import url="sidebar.jsp"/>
+    <c:import url="fragment/header.jsp"/>
+    <c:import url="fragment/sidebar.jsp"/>
     <div style="text-align: left">
         <h4 style="font-style: italic"><fmt:message key="contacts.1"/></h4>
         <h4 style="font-style: italic"><fmt:message key="contacts.2"/></h4>
     </div>
-    <c:import url="footer.jsp"/>
+    <c:import url="fragment/footer.jsp"/>
 </div>
 </body>
 </html>

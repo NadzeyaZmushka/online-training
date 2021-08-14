@@ -22,7 +22,6 @@ public class ChangeLanguageCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest request) {
         String language = request.getParameter(RequestParameter.LANGUAGE);
-
         HttpSession session = request.getSession();
         String pagePath = (String) session.getAttribute(SessionAttribute.CURRENT_PAGE);
         if (EN.equals(language)) {
@@ -32,7 +31,6 @@ public class ChangeLanguageCommand implements Command {
         }
         CommandResponse response = new CommandResponse();
         response.setPagePath(pagePath);
-//        response.setType(CommandResponse.Type.REDIRECT);
         return response;
     }
 }

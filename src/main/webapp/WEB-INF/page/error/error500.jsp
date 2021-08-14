@@ -15,6 +15,7 @@
 <%--<br /> Message from exception: ${Exception }--%>
 <%--<br />--%>
 
+<br /> Request from: ${pageContext.errorData.requestURI} is failed
 <br /> Status code: ${pageContext.errorData.statusCode}
 <br /> Servlet name: ${pageContext.errorData.servletName}
 <br /> Exception: ${pageContext.exception}

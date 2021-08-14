@@ -11,8 +11,8 @@
 </head>
 <body>
 <div class="container-fluid bg">
-<c:import url="header.jsp"/>
-<c:import url="sidebar.jsp"/>
+<c:import url="fragment/header.jsp"/>
+<c:import url="fragment/sidebar.jsp"/>
 <h1 style="text-align: center"><fmt:message key="title.review"/></h1>
     <c:forEach var="review" items="${reviews}">
             <div class="review-border">${review.getUser().getName()} ${review.getUser().getSurname()} ${review.getDate().toString()}<br><br>
@@ -47,7 +47,7 @@
                 <input type="submit" class="header_button" value="<fmt:message key="button.review.sendReview"/>">
             </form>
     </c:if>
-    <c:import url="footer.jsp"/>
+    <c:import url="fragment/footer.jsp"/>
 </div>
 </body>
 </html>

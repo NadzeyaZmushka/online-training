@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="bg">
-    <c:import url="header.jsp"/>
+    <c:import url="fragment/header.jsp"/>
     <div class="signIn-container">
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="sign_in">
@@ -42,7 +42,7 @@
                     key="sidebar.path.main"/>">
         </form>
     </div>
-    <c:import url="footer.jsp"/>
+    <c:import url="fragment/footer.jsp"/>
 </div>
 </body>
 </html>

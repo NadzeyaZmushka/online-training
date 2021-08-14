@@ -12,8 +12,8 @@
 </head>
 <body>
 <div class="container-fluid bg_course">
-    <c:import url="header.jsp"/>
-    <c:import url="sidebar.jsp"/>
+    <c:import url="fragment/header.jsp"/>
+    <c:import url="fragment/sidebar.jsp"/>
     <c:if test="${course != null}">
         <h2>${course.getName()}</h2>
         <p><fmt:message key="p.course.description"/>: ${course.getDescription()}</p>
@@ -127,7 +127,7 @@
     <c:if test="${lectures == null}">
         <h1><fmt:message key="no.lectures"/></h1>
     </c:if>
-    <c:import url="footer.jsp"/>
+    <c:import url="fragment/footer.jsp"/>
 </div>
 </body>
 </html>
