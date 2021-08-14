@@ -59,6 +59,8 @@ public interface UserService {
      */
     boolean enrollOnCourse(User user, Long courseId) throws ServiceException;
 
+    boolean unEnrollOnCourse(User user, Long courseId) throws ServiceException;
+
     /**
      * @param userId   the user id
      * @param courseId the course id

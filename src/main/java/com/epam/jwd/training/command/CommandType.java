@@ -12,7 +12,7 @@ import com.epam.jwd.training.command.impl.CourseDescriptionUpdateCommand;
 import com.epam.jwd.training.command.impl.CourseHoursUpdateCommand;
 import com.epam.jwd.training.command.impl.CourseTeacherUpdateCommand;
 import com.epam.jwd.training.command.impl.CourseUpdateCommand;
-import com.epam.jwd.training.command.impl.EnrollOnCourseCommand;
+import com.epam.jwd.training.command.impl.EnrollInCourseCommand;
 import com.epam.jwd.training.command.impl.HideAllTeachersCommand;
 import com.epam.jwd.training.command.impl.HideAllUsersCommand;
 import com.epam.jwd.training.command.impl.HideUsersEnrolledCourseCommand;
@@ -34,6 +34,7 @@ import com.epam.jwd.training.command.impl.SignUpCommand;
 import com.epam.jwd.training.command.impl.TeacherAddCommand;
 import com.epam.jwd.training.command.impl.TeacherDeleteCommand;
 import com.epam.jwd.training.command.impl.ToPageCommand;
+import com.epam.jwd.training.command.impl.UnsubscribeFromCourseCommand;
 import com.epam.jwd.training.command.impl.UnblockUserCommand;
 import com.epam.jwd.training.command.impl.UpdatePasswordCommand;
 import com.epam.jwd.training.command.impl.UpdateToAdminCommand;
@@ -67,7 +68,8 @@ public enum CommandType {
     LECTURE_ADD(new LectureAddCommand()),
     LECTURE_UPDATE(new LectureUpdateCommand()),
     LECTURE_DELETE(new LectureDeleteCommand()),
-    ENROLL_COURSE(new EnrollOnCourseCommand()),
+    ENROLL_COURSE(new EnrollInCourseCommand()),
+    UNSUBSCRIBE(new UnsubscribeFromCourseCommand()),
     PROFILE_PAGE(new ProfileCommand()),
     UPDATE_USER_NAME_SURNAME(new UpdateUserNameAndSurnameCommand()),
     UPDATE_PASSWORD(new UpdatePasswordCommand()),

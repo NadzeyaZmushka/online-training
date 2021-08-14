@@ -34,6 +34,7 @@ public class UserDaoImpl implements UserDao {
     private static final String FIND_ALL_USERS_ON_COURSE_SQL = "SELECT u_id, user_email, user_name, user_surname, c_id, course_name FROM training.users_x_courses INNER JOIN training.users ON user_id = u_id INNER JOIN training.courses ON course_id = c_id";
     private static final String ENROLL_USER_ON_COURSE_SQL = "INSERT INTO training.users_x_courses (user_id, course_id) " +
             "VALUES (?, ?)";
+    private static final String UN_ENROLL_USER_ON_COURSE_SQL = "DELETE FROM training.users_x_courses WHERE user_id = ? AND course_id = ?";
     private static final String UPDATE_NAME_AND_SURNAME_SQL = "UPDATE training.users " +
             "SET user_name = ?, user_surname = ? " +
             "WHERE u_id = ?";
@@ -192,6 +193,22 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException(e);
         }
         return isEnrolled;
+    }
+
+    @Override
+    public boolean unEnrollCourse(User user, Long courseId) throws DaoException {
+        boolean result;
+        try (Connection connection = connectionPool.takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UN_ENROLL_USER_ON_COURSE_SQL)) {
+            preparedStatement.setLong(1, user.getId());
+            preparedStatement.setLong(2, courseId);
+
+            result = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DaoException(e);
+        }
+        return result;
     }
 
     @Override

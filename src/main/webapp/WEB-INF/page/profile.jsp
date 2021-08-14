@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="bg_profile">
-    <ctg:currentTime/>
+    <div style="text-align: center"><ctg:currentTime/></div>
     <c:import url="fragment/header.jsp"/>
     <c:import url="fragment/sidebar.jsp"/>
 
@@ -184,6 +184,7 @@
                     <table class="table">
                         <tr>
                             <th><fmt:message key="table.profile.th_course_name"/></th>
+                            <th></th>
                         </tr>
                         <c:forEach var="course" items="${userEnrolledByCourse}">
                             <tr>
@@ -191,6 +192,13 @@
                                     <a href="${pageContext.request.contextPath}/controller?command=course_page&course_id=${course.getId()}">
                                             ${course.getName()}
                                     </a>
+                                </td>
+                                <td>
+                                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                                        <input type="hidden" name="command" value="unsubscribe">
+                                        <input type="hidden" name="course_id" value="${course.getId()}">
+                                        <input type="submit" value="<fmt:message key="button.delete_course"/> ">
+                                    </form>
                                 </td>
                             </tr>
                         </c:forEach>

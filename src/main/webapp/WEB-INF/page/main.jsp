@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container-fluid bg">
-    <ctg:currentTime/>
+    <div style="text-align: center"><ctg:currentTime/></div>
     <c:import url="fragment/header.jsp"/>
     <c:import url="fragment/sidebar.jsp"/>
 
@@ -63,9 +63,9 @@
                     <fmt:message key="error.course.cost"/>
                 </c:if>
                 <input type="text" name="name" placeholder="Teacher name" value="${name}" required
-                       pattern="^[A-za-z-]{3,16}$">
+                       pattern=".*[^<>]">
                 <input type="text" name="surname" placeholder="Teacher surname" value="${surname}" required
-                       pattern="^[A-za-z-]{3,16}$">
+                       pattern=".*[^<>]">
                 <c:if test="${errorNameAndSurnameAdd}">
                     <h3><fmt:message key="error.course.name_and_surname"/></h3>
                 </c:if>

@@ -35,7 +35,7 @@ public class ReviewAddCommand implements Command {
 
     @Override
     public CommandResponse execute(HttpServletRequest request) {
-//        String message = request.getParameter(RequestParameter.MESSAGE.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+//        String message = request.getParameter(RequestParameter.MESSAGE);
         String message = new String(request.getParameter(RequestParameter.MESSAGE).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(RequestAttribute.USER);
@@ -66,4 +66,5 @@ public class ReviewAddCommand implements Command {
         }
         return response;
     }
+
 }

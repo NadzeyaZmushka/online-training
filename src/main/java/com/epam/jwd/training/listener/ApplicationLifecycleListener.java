@@ -9,7 +9,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 /**
- * Listener for destroy connection pool
+ * Listener for initialize and destroy connection pool
  *
  * @author Nadzeya Zmushka
  */
@@ -39,4 +39,5 @@ public class ApplicationLifecycleListener implements ServletContextListener {
         ConcurrentConnectionPool.getInstance().destroy();
         LOGGER.info("Pool is destroyed");
     }
+    
 }

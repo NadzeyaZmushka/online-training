@@ -31,4 +31,5 @@ public class UserSessionListener implements HttpSessionListener {
     public void sessionDestroyed(HttpSessionEvent se) {
         LOGGER.debug("Session destroyed");
     }
+
 }

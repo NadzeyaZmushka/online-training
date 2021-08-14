@@ -25,9 +25,9 @@ import java.util.Optional;
  *
  * @author Nadzeya Zmushka
  */
-public class EnrollOnCourseCommand implements Command {
+public class EnrollInCourseCommand implements Command {
 
-    public static final Logger LOGGER = LogManager.getLogger(EnrollOnCourseCommand.class);
+    public static final Logger LOGGER = LogManager.getLogger(EnrollInCourseCommand.class);
 
     private final CourseService courseService = CourseServiceImpl.getInstance();
     private final UserService userService = UserServiceImpl.getInstance();

@@ -117,6 +117,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean unEnrollOnCourse(User user, Long courseId) throws ServiceException {
+        boolean result;
+        try {
+            result = userDao.unEnrollCourse(user, courseId);
+        } catch (DaoException e) {
+            LOGGER.error(e);
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    @Override
     public boolean isHaveCourse(Long userId, Long courseId) throws ServiceException {
         boolean isHaveCourse;
         try {

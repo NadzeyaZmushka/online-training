@@ -65,6 +65,15 @@ public interface UserDao extends BaseDao<User> {
     boolean enrollCourse(User user, Long courseId) throws DaoException;
 
     /**
+     *
+     * @param user
+     * @param courseId
+     * @return
+     * @throws DaoException
+     */
+    boolean unEnrollCourse(User user, Long courseId) throws DaoException;
+
+    /**
      * @param userId   the user id
      * @param courseId the course id
      * @return true if user already has this course

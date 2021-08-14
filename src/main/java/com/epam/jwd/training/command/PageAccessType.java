@@ -27,6 +27,7 @@ public enum PageAccessType {
             CommandType.COURSE_PAGE,
             CommandType.SIGN_OUT,
             CommandType.ENROLL_COURSE,
+            CommandType.UNSUBSCRIBE,
             CommandType.CHANGE_LANGUAGE,
             CommandType.PROFILE_PAGE,
             CommandType.UPDATE_USER_NAME_SURNAME,

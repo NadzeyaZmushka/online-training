@@ -6,7 +6,7 @@
 <fmt:setBundle basename="locale"/>
 <footer>
     <link rel="stylesheet" href="css/footer.css">
-<%--    <link rel="stylesheet" href="css/header.css">--%>
+    <%--    <link rel="stylesheet" href="css/header.css">--%>
     <div style="align-content: end">
         <div style="text-align: center">
             <form action="${pageContext.request.contextPath}/controller" method="get">
@@ -20,9 +20,6 @@
                 <input type="submit" class="cont_button" value="<fmt:message key="contacts" />"/>
             </form>
             <ctg:footerTag/>
-        </div>
-        <div style="display: flex; justify-content: space-around">
-
         </div>
     </div>
 </footer>

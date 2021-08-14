@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="ctg" uri="customTag" %>
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="locale"/>
 <html>
@@ -13,6 +14,7 @@
 </head>
 <body>
 <div class="bg">
+    <div style="text-align: center"><ctg:currentTime/></div>
     <c:import url="fragment/header.jsp"/>
     <div class="signIn-container">
         <form action="${pageContext.request.contextPath}/controller" method="post">
