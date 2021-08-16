@@ -7,6 +7,7 @@ import com.epam.jwd.training.command.RequestAttribute;
 import com.epam.jwd.training.command.RequestParameter;
 import com.epam.jwd.training.command.SessionAttribute;
 import com.epam.jwd.training.exception.ServiceException;
+import com.epam.jwd.training.model.dao.impl.ReviewDaoImpl;
 import com.epam.jwd.training.model.entity.Review;
 import com.epam.jwd.training.model.entity.User;
 import com.epam.jwd.training.model.service.ReviewService;
@@ -30,7 +31,7 @@ public class ReviewAddCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(ReviewAddCommand.class);
 
-    private final ReviewService reviewService = ReviewServiceImpl.getInstance();
+    private final ReviewService reviewService = new ReviewServiceImpl(new ReviewDaoImpl());
     private final CourseValidator courseValidator = CourseValidator.getInstance();
 
     @Override

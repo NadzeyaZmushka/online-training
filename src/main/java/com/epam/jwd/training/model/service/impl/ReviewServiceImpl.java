@@ -3,7 +3,6 @@ package com.epam.jwd.training.model.service.impl;
 import com.epam.jwd.training.exception.DaoException;
 import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.model.dao.ReviewDao;
-import com.epam.jwd.training.model.dao.impl.ReviewDaoImpl;
 import com.epam.jwd.training.model.entity.Review;
 import com.epam.jwd.training.model.service.ReviewService;
 import org.apache.logging.log4j.LogManager;
@@ -19,13 +18,12 @@ import java.util.Optional;
  */
 public class ReviewServiceImpl implements ReviewService {
 
-    public static final ReviewServiceImpl INSTANCE = new ReviewServiceImpl();
-
     private static final Logger LOGGER = LogManager.getLogger(ReviewServiceImpl.class);
 
-    private final ReviewDao reviewDao = ReviewDaoImpl.getInstance();
+    private final ReviewDao reviewDao;
 
-    private ReviewServiceImpl() {
+    public ReviewServiceImpl(ReviewDao reviewDao) {
+        this.reviewDao = reviewDao;
     }
 
     @Override
@@ -98,10 +96,6 @@ public class ReviewServiceImpl implements ReviewService {
             throw new ServiceException(e);
         }
         return isHas;
-    }
-
-    public static ReviewServiceImpl getInstance() {
-        return INSTANCE;
     }
 
 }

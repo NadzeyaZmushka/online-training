@@ -66,6 +66,6 @@ public interface LectureService {
      * @return Optional<Lecture>
      * @throws ServiceException the service exception
      */
-    Optional<Lecture> findLectureByIdAndCourseId(Long id, Long courseId) throws ServiceException;
+    Optional<Lecture> findLectureByIdAndCourseId(Long lectureId, Long courseId) throws ServiceException;
 
 }

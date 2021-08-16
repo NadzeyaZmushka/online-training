@@ -3,7 +3,6 @@ package com.epam.jwd.training.model.service.impl;
 import com.epam.jwd.training.exception.DaoException;
 import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.model.dao.LectureDao;
-import com.epam.jwd.training.model.dao.impl.LectureDaoImpl;
 import com.epam.jwd.training.model.entity.Lecture;
 import com.epam.jwd.training.model.service.LectureService;
 import org.apache.logging.log4j.LogManager;
@@ -19,13 +18,12 @@ import java.util.Optional;
  */
 public class LectureServiceImpl implements LectureService {
 
-    public static final LectureServiceImpl INSTANCE = new LectureServiceImpl();
-
     private static final Logger LOGGER = LogManager.getLogger(LectureServiceImpl.class);
 
-    private final LectureDao lectureDao = LectureDaoImpl.getInstance();
+    private final LectureDao lectureDao;
 
-    private LectureServiceImpl() {
+    public LectureServiceImpl(LectureDao lectureDao) {
+        this.lectureDao = lectureDao;
     }
 
     @Override
@@ -101,19 +99,15 @@ public class LectureServiceImpl implements LectureService {
     }
 
     @Override
-    public Optional<Lecture> findLectureByIdAndCourseId(Long id, Long courseId) throws ServiceException {
+    public Optional<Lecture> findLectureByIdAndCourseId(Long lectureId, Long courseId) throws ServiceException {
         Optional<Lecture> lectureOptional;
         try {
-            lectureOptional = lectureDao.findLectureByIdAndCourseId(id, courseId);
+            lectureOptional = lectureDao.findLectureByIdAndCourseId(lectureId, courseId);
         } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
         return lectureOptional;
-    }
-
-    public static LectureServiceImpl getInstance() {
-        return INSTANCE;
     }
 
 }

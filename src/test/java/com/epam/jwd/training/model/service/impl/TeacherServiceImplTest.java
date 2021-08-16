@@ -15,6 +15,8 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -42,7 +44,6 @@ public class TeacherServiceImplTest {
                 .setSurname("Surname2")
                 .build();
         teachers.add(teacher1);
-        teachers.add(teacher2);
     }
 
     @Test
@@ -54,15 +55,15 @@ public class TeacherServiceImplTest {
 
     @Test
     public void test_FindById() throws ServiceException, DaoException {
-        Optional<Teacher> expectedTeacher = Optional.of(teacher2);
-        when(teacherDao.findById(2L)).thenReturn(expectedTeacher);
-        Optional<Teacher> actual = teacherService.findById(2L);
+        Optional<Teacher> expectedTeacher = Optional.of(teacher1);
+        when(teacherDao.findById(1L)).thenReturn(expectedTeacher);
+        Optional<Teacher> actual = teacherService.findById(1L);
         assertEquals(expectedTeacher, actual);
     }
 
     @Test
     public void test_delete_mustDeleteTeacher() throws ServiceException, DaoException {
-        when(teacherDao.delete(teacher1.getId())).thenReturn(true);
+        when(teacherDao.delete(anyLong())).thenReturn(true);
         boolean actual = teacherService.delete(teacher1.getId());
         assertTrue(actual);
     }
@@ -75,6 +76,13 @@ public class TeacherServiceImplTest {
         Optional<Teacher> actual = teacherService.findByNameAndSurname("Name", "Surname");
         assertEquals(expected, actual);
 
+    }
+
+    @Test
+    public void test_addTeacher() throws DaoException, ServiceException {
+        when(teacherDao.addTeacher(any(Teacher.class))).thenReturn(true);
+        boolean actual = teacherService.addTeacher(teacher2);
+        assertTrue(actual);
     }
 
 }

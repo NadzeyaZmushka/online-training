@@ -22,8 +22,6 @@ import java.util.Optional;
 
 public class ReviewDaoImpl implements ReviewDao {
 
-    public static final ReviewDaoImpl INSTANCE = new ReviewDaoImpl();
-
     private static final Logger LOGGER = LogManager.getLogger(ReviewDaoImpl.class);
 
     private static final String FIND_ALL_REVIEWS_SQL = "SELECT r_id, description, date_review, user_id, user_name, user_surname, user_email, role, enabled " +
@@ -41,7 +39,7 @@ public class ReviewDaoImpl implements ReviewDao {
 
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
 
-    private ReviewDaoImpl() {
+    public ReviewDaoImpl() {
     }
 
     @Override
@@ -157,10 +155,6 @@ public class ReviewDaoImpl implements ReviewDao {
             throw new DaoException(e);
         }
         return isDeleted;
-    }
-
-    public static ReviewDaoImpl getInstance() {
-        return INSTANCE;
     }
 
 }

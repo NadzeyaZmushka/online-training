@@ -8,7 +8,6 @@ import com.epam.jwd.training.model.entity.Course;
 import com.epam.jwd.training.model.service.CourseService;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -19,6 +18,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -54,7 +54,6 @@ public class CourseServiceImplTest {
                 .setCost(BigDecimal.valueOf(888.99))
                 .build();
         courses.add(course1);
-        courses.add(course2);
     }
 
     @Test
@@ -66,9 +65,10 @@ public class CourseServiceImplTest {
 
     @Test
     public void test_findById_returnCourseWithSuchId() throws ServiceException, DaoException {
-        when(courseDao.findById(course1.getId())).thenReturn(Optional.of(course1));
+        Optional<Course> expected = Optional.of(course1);
+        when(courseDao.findById(course1.getId())).thenReturn(expected);
         Optional<Course> actual = courseService.findById(1L);
-        assertEquals(Optional.of(course1), actual);
+        assertEquals(expected, actual);
     }
 
 
@@ -81,15 +81,15 @@ public class CourseServiceImplTest {
 
     @Test
     public void test_updateCourseName() throws DaoException, ServiceException {
-        when(courseDao.updateCourseName(course1))
+        when(courseDao.updateCourseName(any(Course.class)))
                 .thenReturn(true);
         boolean actual = courseService.updateCourseName(course1);
         assertTrue(actual);
     }
 
     @Test
-    public void test_deleteCourse() throws DaoException, ServiceException  {
-        when(courseDao.delete(Mockito.anyLong()))
+    public void test_deleteCourse() throws DaoException, ServiceException {
+        when(courseDao.delete(anyLong()))
                 .thenReturn(true);
         boolean actual = courseService.delete(1L);
         assertTrue(actual);
@@ -97,8 +97,16 @@ public class CourseServiceImplTest {
 
     @Test
     public void test_updateHours() throws ServiceException, DaoException {
-        when(courseDao.updateHours(course2)).thenReturn(true);
-        boolean actual = courseService.updateHours(course2);
+        when(courseDao.updateHours(any(Course.class))).thenReturn(true);
+        boolean actual = courseService.updateHours(course1);
         assertTrue(actual);
     }
+
+    @Test
+    public void test_addCourse() throws DaoException, ServiceException {
+        when(courseDao.addCourse(any(Course.class))).thenReturn(true);
+        boolean actual = courseService.addCourse(course2);
+        assertTrue(actual);
+    }
+
 }

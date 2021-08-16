@@ -18,6 +18,7 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -57,7 +58,6 @@ public class UserServiceImplTest {
                 .setEnabled(true)
                 .build();
         users.add(user1);
-        users.add(user2);
     }
 
     @Test
@@ -77,9 +77,9 @@ public class UserServiceImplTest {
 
     @Test
     public void test_findByEmail_returnOptionalOfUserWithSuchEmail() throws DaoException, ServiceException {
-        Optional<User> expected = Optional.of(user2);
-        when(userDao.findByEmail(user2.getEmail())).thenReturn(expected);
-        Optional<User> actual = userService.findByEmail("email2");
+        Optional<User> expected = Optional.of(user1);
+        when(userDao.findByEmail(user1.getEmail())).thenReturn(expected);
+        Optional<User> actual = userService.findByEmail("email");
         assertEquals(expected, actual);
     }
 
@@ -92,8 +92,8 @@ public class UserServiceImplTest {
 
     @Test
     public void test_isHaveCourse_returnFalseWhenUserHasNotTheCourse() throws DaoException, ServiceException {
-        when(userDao.isHaveCourse(user2.getId(), 2L)).thenReturn(false);
-        boolean actual = userService.isHaveCourse(2L, 2L);
+        when(userDao.isHaveCourse(user1.getId(), 1L)).thenReturn(false);
+        boolean actual = userService.isHaveCourse(1L, 1L);
         assertFalse(actual);
     }
 
@@ -107,23 +107,24 @@ public class UserServiceImplTest {
     //??
     @Test
     public void test_findByEmailAndPassword() throws DaoException, ServiceException {
-        when(userDao.findByEmailAndPassword(anyString(), anyString())).thenReturn(Optional.of(user1));
+        Optional<User> expected = Optional.of(user1);
+        when(userDao.findByEmailAndPassword(anyString(), anyString())).thenReturn(expected);
         Optional<User> actual = userService.findByEmailAndPassword("email", "password");
-        assertEquals(Optional.of(user1), actual);
+        assertEquals(expected, actual);
     }
 
     //??
     @Test
     public void test_addUser() throws DaoException, ServiceException {
-        when(userDao.addUser(anyObject(), anyString())).thenReturn(true);
-        boolean actual = userService.addUser(new User(), "password");
+        when(userDao.addUser(any(User.class), anyString())).thenReturn(true);
+        boolean actual = userService.addUser(user2, "password");
         assertTrue(actual);
     }
 
     @Test
     public void enrollOnCourse() throws DaoException, ServiceException {
-        when(userDao.enrollCourse(user2, 2L)).thenReturn(true);
-        boolean actual = userService.enrollOnCourse(user2, 2L);
+        when(userDao.enrollCourse(user1, 1L)).thenReturn(true);
+        boolean actual = userService.enrollOnCourse(user1, 1L);
         assertTrue(actual);
     }
 

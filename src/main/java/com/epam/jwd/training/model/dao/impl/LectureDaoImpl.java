@@ -20,8 +20,6 @@ import java.util.Optional;
 
 public class LectureDaoImpl implements LectureDao {
 
-    public static final LectureDaoImpl INSTANCE = new LectureDaoImpl();
-
     private static final Logger LOGGER = LogManager.getLogger(LectureDaoImpl.class);
 
     private static final String FIND_ALL_TASKS_SQL = "SELECT l_id, lecture_name, course_id, course_name  " +
@@ -43,7 +41,7 @@ public class LectureDaoImpl implements LectureDao {
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
 
 
-    private LectureDaoImpl() {
+    public LectureDaoImpl() {
     }
 
     @Override
@@ -167,10 +165,6 @@ public class LectureDaoImpl implements LectureDao {
             throw new DaoException(e);
         }
         return isDeleted;
-    }
-
-    public static LectureDaoImpl getInstance() {
-        return INSTANCE;
     }
 
     private Lecture buildLecture(ResultSet resultSet) throws SQLException {
