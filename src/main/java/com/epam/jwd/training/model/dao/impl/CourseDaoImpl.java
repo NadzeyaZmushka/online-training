@@ -21,8 +21,6 @@ import java.util.Optional;
 
 public class CourseDaoImpl implements CourseDao {
 
-    public static final CourseDaoImpl INSTANCE = new CourseDaoImpl();
-
     private static final Logger LOGGER = LogManager.getLogger(CourseDaoImpl.class);
 
     private static final String FIND_ALL_COURSES_SQL = "SELECT c_id, course_name, c_description, hours, " +
@@ -55,26 +53,26 @@ public class CourseDaoImpl implements CourseDao {
 
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
 
-    private CourseDaoImpl() {
+    public CourseDaoImpl() {
     }
 
-    @Override
-    public List<Course> findAllCoursesByTeacherId(Long teacherId) throws DaoException {
-        List<Course> courses = new ArrayList<>();
-        try (Connection connection = connectionPool.takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_COURSES_BY_TEACHER_ID_SQL)) {
-            preparedStatement.setLong(1, teacherId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Course course = buildCourse(resultSet);
-                courses.add(course);
-            }
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
-            throw new DaoException(e);
-        }
-        return courses;
-    }
+//    @Override
+//    public List<Course> findAllCoursesByTeacherId(Long teacherId) throws DaoException {
+//        List<Course> courses = new ArrayList<>();
+//        try (Connection connection = connectionPool.takeConnection();
+//             PreparedStatement preparedStatement = connection.prepareStatement(FIND_COURSES_BY_TEACHER_ID_SQL)) {
+//            preparedStatement.setLong(1, teacherId);
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            while (resultSet.next()) {
+//                Course course = buildCourse(resultSet);
+//                courses.add(course);
+//            }
+//        } catch (SQLException e) {
+//            LOGGER.error(e.getMessage());
+//            throw new DaoException(e);
+//        }
+//        return courses;
+//    }
 
     @Override
     public List<Course> findUserEnrolledByCourse(Long userId) throws DaoException {
@@ -272,10 +270,6 @@ public class CourseDaoImpl implements CourseDao {
             throw new DaoException(e);
         }
         return isDeleted;
-    }
-
-    public static CourseDaoImpl getInstance() {
-        return INSTANCE;
     }
 
     private Course buildCourse(ResultSet resultSet) throws SQLException {

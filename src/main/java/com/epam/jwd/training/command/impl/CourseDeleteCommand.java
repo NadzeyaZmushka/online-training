@@ -6,6 +6,7 @@ import com.epam.jwd.training.command.PagePath;
 import com.epam.jwd.training.command.RequestAttribute;
 import com.epam.jwd.training.command.RequestParameter;
 import com.epam.jwd.training.exception.ServiceException;
+import com.epam.jwd.training.model.dao.impl.CourseDaoImpl;
 import com.epam.jwd.training.model.service.CourseService;
 import com.epam.jwd.training.model.service.impl.CourseServiceImpl;
 import org.apache.logging.log4j.LogManager;
@@ -23,8 +24,7 @@ public class CourseDeleteCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(CourseDeleteCommand.class);
 
-    private final CourseService courseService = CourseServiceImpl.getInstance();
-
+    private final CourseService courseService = new CourseServiceImpl(new CourseDaoImpl());
     @Override
     public CommandResponse execute(HttpServletRequest request) {
         String courseIdString = request.getParameter(RequestParameter.COURSE_ID);

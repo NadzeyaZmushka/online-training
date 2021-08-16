@@ -15,7 +15,7 @@ public class UserAndTeacherValidatorTest {
     private String password;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         validator = UserAndTeacherValidator.getInstance();
         name = "Name";
         surname = "Surname";

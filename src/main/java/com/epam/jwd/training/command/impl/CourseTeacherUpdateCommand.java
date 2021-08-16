@@ -7,6 +7,7 @@ import com.epam.jwd.training.command.RequestAttribute;
 import com.epam.jwd.training.command.RequestParameter;
 import com.epam.jwd.training.command.SessionAttribute;
 import com.epam.jwd.training.exception.ServiceException;
+import com.epam.jwd.training.model.dao.impl.CourseDaoImpl;
 import com.epam.jwd.training.model.dao.impl.TeacherDaoImpl;
 import com.epam.jwd.training.model.entity.Course;
 import com.epam.jwd.training.model.entity.Teacher;
@@ -14,7 +15,6 @@ import com.epam.jwd.training.model.service.CourseService;
 import com.epam.jwd.training.model.service.TeacherService;
 import com.epam.jwd.training.model.service.impl.CourseServiceImpl;
 import com.epam.jwd.training.model.service.impl.TeacherServiceImpl;
-import com.epam.jwd.training.validator.CourseValidator;
 import com.epam.jwd.training.validator.UserAndTeacherValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,9 +33,8 @@ public class CourseTeacherUpdateCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(CourseTeacherUpdateCommand.class);
 
-    private final CourseService courseService = CourseServiceImpl.getInstance();
+    private final CourseService courseService = new CourseServiceImpl(new CourseDaoImpl());
     private final TeacherService teacherService = new TeacherServiceImpl(new TeacherDaoImpl());
-    private final CourseValidator courseValidator = CourseValidator.getInstance();
     private final UserAndTeacherValidator validator = UserAndTeacherValidator.getInstance();
 
     @Override

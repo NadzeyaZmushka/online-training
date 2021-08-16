@@ -20,7 +20,7 @@ public interface CourseDao extends BaseDao<Course> {
      * @return List of courses
      * @throws DaoException the dao exception
      */
-    List<Course> findAllCoursesByTeacherId(Long teacherId) throws DaoException;
+//    List<Course> findAllCoursesByTeacherId(Long teacherId) throws DaoException;
 
     /**
      * Connect with database.

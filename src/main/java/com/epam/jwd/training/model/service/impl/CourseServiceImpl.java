@@ -3,7 +3,6 @@ package com.epam.jwd.training.model.service.impl;
 import com.epam.jwd.training.exception.DaoException;
 import com.epam.jwd.training.exception.ServiceException;
 import com.epam.jwd.training.model.dao.CourseDao;
-import com.epam.jwd.training.model.dao.impl.CourseDaoImpl;
 import com.epam.jwd.training.model.entity.Course;
 import com.epam.jwd.training.model.service.CourseService;
 import org.apache.logging.log4j.LogManager;
@@ -19,13 +18,12 @@ import java.util.Optional;
  */
 public class CourseServiceImpl implements CourseService {
 
-    public static final CourseServiceImpl INSTANCE = new CourseServiceImpl();
-
     private static final Logger LOGGER = LogManager.getLogger(CourseServiceImpl.class);
 
-    private final CourseDao courseDao = CourseDaoImpl.getInstance();
+    private final CourseDao courseDao;
 
-    private CourseServiceImpl() {
+    public CourseServiceImpl(CourseDao courseDao) {
+        this.courseDao = courseDao;
     }
 
     @Override
@@ -38,18 +36,6 @@ public class CourseServiceImpl implements CourseService {
             throw new ServiceException(e);
         }
         return courses;
-//        try {
-//            return courseDao.findAll().stream()
-//                    .map(course -> new CourseDto(course.getId(),
-//                            course.getName(),
-//                            String.format("%s, %s, %s", course.getDescription(), course.getHours(), course.getCost())
-//                    ))
-//                    .collect(Collectors.toList());
-//        } catch (DaoException e) {
-//            e.printStackTrace();
-//            throw new ServiceException(e);
-//        }
-
     }
 
     @Override
@@ -76,17 +62,17 @@ public class CourseServiceImpl implements CourseService {
         return isDeleted;
     }
 
-    @Override
-    public List<Course> findAllCoursesByTeacherId(Long teacherId) throws ServiceException {
-        List<Course> courses;
-        try {
-            courses = courseDao.findAllCoursesByTeacherId(teacherId);
-        } catch (DaoException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
-        }
-        return courses;
-    }
+//    @Override
+//    public List<Course> findAllCoursesByTeacherId(Long teacherId) throws ServiceException {
+//        List<Course> courses;
+//        try {
+//            courses = courseDao.findAllCoursesByTeacherId(teacherId);
+//        } catch (DaoException e) {
+//            LOGGER.error(e);
+//            throw new ServiceException(e);
+//        }
+//        return courses;
+//    }
 
     @Override
     public List<Course> findUserEnrolledByCourse(Long userId) throws ServiceException {
@@ -183,10 +169,6 @@ public class CourseServiceImpl implements CourseService {
             throw new ServiceException(e);
         }
         return isSave;
-    }
-
-    public static CourseServiceImpl getInstance() {
-        return INSTANCE;
     }
 
 }

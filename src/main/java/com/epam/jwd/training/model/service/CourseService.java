@@ -35,12 +35,12 @@ public interface CourseService {
      */
     boolean delete(Long id) throws ServiceException;
 
-    /**
-     * @param id the teacher id
-     * @return List of courses by teacher
-     * @throws ServiceException the service exception
-     */
-    List<Course> findAllCoursesByTeacherId(Long id) throws ServiceException;
+//    /**
+//     * @param id the teacher id
+//     * @return List of courses by teacher
+//     * @throws ServiceException the service exception
+//     */
+//    List<Course> findAllCoursesByTeacherId(Long id) throws ServiceException;
 
     /**
      * @param userId the user id

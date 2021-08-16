@@ -16,7 +16,7 @@ public class CourseValidatorTest {
     String cost;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         validator = CourseValidator.getInstance();
         name = "Course";
         description = "Course description!";
