@@ -65,10 +65,10 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public boolean save(Review review) throws ServiceException {
+    public boolean addReview(Review review) throws ServiceException {
         boolean isSaved;
         try {
-            isSaved = reviewDao.save(review);
+            isSaved = reviewDao.addReview(review);
         } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

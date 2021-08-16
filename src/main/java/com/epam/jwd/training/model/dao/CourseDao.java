@@ -100,6 +100,6 @@ public interface CourseDao extends BaseDao<Course> {
      * @return true if the action was successful
      * @throws DaoException the dao exception
      */
-    boolean save(Course course) throws DaoException;
+    boolean addCourse(Course course) throws DaoException;
 
 }

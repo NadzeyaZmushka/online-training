@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
 
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
 
-    private UserDaoImpl() {
+    public UserDaoImpl() {
     }
 
     @Override

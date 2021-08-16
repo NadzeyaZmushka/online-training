@@ -54,7 +54,7 @@ public class TeacherAddCommand implements Command {
                     Teacher teacher = Teacher.builder()
                             .setName(name)
                             .setSurname(surname).build();
-                    teacherService.save(teacher);
+                    teacherService.addTeacher(teacher);
                 }
                 response.setType(CommandResponse.Type.REDIRECT);
                 response.setPagePath(PagePath.SHOW_ALL_TEACHERS.getServletPath());

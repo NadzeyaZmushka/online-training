@@ -77,7 +77,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public boolean save(Teacher teacher) throws ServiceException {
+    public boolean addTeacher(Teacher teacher) throws ServiceException {
         boolean isSaved;
         try {
             isSaved = teacherDao.addTeacher(teacher);

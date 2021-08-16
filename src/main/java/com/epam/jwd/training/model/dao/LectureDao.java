@@ -41,7 +41,7 @@ public interface LectureDao extends BaseDao<Lecture> {
      * @return true if the action was successful
      * @throws DaoException the dao exception
      */
-    boolean save(Lecture lecture) throws DaoException;
+    boolean addLecture(Lecture lecture) throws DaoException;
 
     /**
      * Connect with database.

@@ -20,8 +20,6 @@ import java.util.Optional;
 
 public class TeacherDaoImpl implements TeacherDao {
 
-//    public static final TeacherDaoImpl INSTANCE = new TeacherDaoImpl();
-
     private static final Logger LOGGER = LogManager.getLogger(TeacherDaoImpl.class);
 
     private static final String FIND_ALL_TEACHERS_SQL = "SELECT t_id, teacher_name, teacher_surname " +
@@ -144,9 +142,5 @@ public class TeacherDaoImpl implements TeacherDao {
         }
         return isDeleted;
     }
-
-//    public static TeacherDaoImpl getInstance() {
-//        return INSTANCE;
-//    }
 
 }

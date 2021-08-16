@@ -55,7 +55,7 @@ public class ReviewAddCommand implements Command {
                         .setDescription(message)
                         .setDate(Date.valueOf(LocalDate.now()))
                         .build();
-                reviewService.save(review);
+                reviewService.addReview(review);
             }
             response.setType(CommandResponse.Type.REDIRECT);
             response.setPagePath(PagePath.REVIEW.getServletPath());

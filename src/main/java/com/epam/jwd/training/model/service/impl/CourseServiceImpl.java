@@ -174,10 +174,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public boolean save(Course course) throws ServiceException {
+    public boolean addCourse(Course course) throws ServiceException {
         boolean isSave;
         try {
-            isSave = courseDao.save(course);
+            isSave = courseDao.addCourse(course);
         } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

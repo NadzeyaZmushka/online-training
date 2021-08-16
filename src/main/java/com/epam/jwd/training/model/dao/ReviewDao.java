@@ -20,7 +20,7 @@ public interface ReviewDao extends BaseDao<Review> {
      * @return true if the action was successful
      * @throws DaoException the dao exception
      */
-    boolean save(Review review) throws DaoException;
+    boolean addReview(Review review) throws DaoException;
 
     /**
      * Connect with database.

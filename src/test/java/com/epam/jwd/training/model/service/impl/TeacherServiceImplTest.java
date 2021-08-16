@@ -24,7 +24,7 @@ public class TeacherServiceImplTest {
     private TeacherService teacherService;
     private Teacher teacher1;
     private Teacher teacher2;
-    private List<Teacher> teachers = new ArrayList<>();
+    private final List<Teacher> teachers = new ArrayList<>();
 
 
     @Before
@@ -47,17 +47,16 @@ public class TeacherServiceImplTest {
 
     @Test
     public void test_FindAllTeachers() throws DaoException, ServiceException {
-        List<Teacher> expected = teachers;
         when(teacherDao.findAll()).thenReturn(teachers);
         List<Teacher> actual = teacherService.findAll();
-        assertEquals(expected, actual);
+        assertEquals(teachers, actual);
     }
 
     @Test
     public void test_FindById() throws ServiceException, DaoException {
-        Optional<Teacher> expectedTeacher = Optional.of(teacher1);
-        when(teacherDao.findById(1L)).thenReturn(expectedTeacher);
-        Optional<Teacher> actual = teacherService.findById(1L);
+        Optional<Teacher> expectedTeacher = Optional.of(teacher2);
+        when(teacherDao.findById(2L)).thenReturn(expectedTeacher);
+        Optional<Teacher> actual = teacherService.findById(2L);
         assertEquals(expectedTeacher, actual);
     }
 

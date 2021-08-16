@@ -58,7 +58,7 @@ public interface LectureService {
      * @return boolean result
      * @throws ServiceException the service exception
      */
-    boolean save(Lecture lecture) throws ServiceException;
+    boolean addLecture(Lecture lecture) throws ServiceException;
 
     /**
      * @param id       the lecture id

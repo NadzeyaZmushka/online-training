@@ -45,7 +45,7 @@ public class ReviewDaoImpl implements ReviewDao {
     }
 
     @Override
-    public boolean save(Review review) throws DaoException {
+    public boolean addReview(Review review) throws DaoException {
         boolean isSaved;
         long savedReviewId;
         try (Connection connection = connectionPool.takeConnection();

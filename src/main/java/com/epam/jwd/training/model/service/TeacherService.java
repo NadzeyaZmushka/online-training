@@ -50,6 +50,6 @@ public interface TeacherService {
      * @return boolean result
      * @throws ServiceException Optional<Teacher>
      */
-    boolean save(Teacher teacher) throws ServiceException;
+    boolean addTeacher(Teacher teacher) throws ServiceException;
 
 }

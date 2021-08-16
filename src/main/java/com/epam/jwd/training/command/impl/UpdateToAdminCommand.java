@@ -6,6 +6,7 @@ import com.epam.jwd.training.command.PagePath;
 import com.epam.jwd.training.command.RequestAttribute;
 import com.epam.jwd.training.command.RequestParameter;
 import com.epam.jwd.training.exception.ServiceException;
+import com.epam.jwd.training.model.dao.impl.UserDaoImpl;
 import com.epam.jwd.training.model.entity.RoleType;
 import com.epam.jwd.training.model.entity.User;
 import com.epam.jwd.training.model.service.UserService;
@@ -24,7 +25,7 @@ public class UpdateToAdminCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(UpdateToAdminCommand.class);
 
-    private final UserService userService = UserServiceImpl.getInstance();
+    private final UserService userService = new UserServiceImpl(new UserDaoImpl());
 
     @Override
     public CommandResponse execute(HttpServletRequest request) {

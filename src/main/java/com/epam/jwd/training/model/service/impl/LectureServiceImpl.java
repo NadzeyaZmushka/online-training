@@ -89,10 +89,10 @@ public class LectureServiceImpl implements LectureService {
     }
 
     @Override
-    public boolean save(Lecture lecture) throws ServiceException {
+    public boolean addLecture(Lecture lecture) throws ServiceException {
         boolean isSaved;
         try {
-            isSaved = lectureDao.save(lecture);
+            isSaved = lectureDao.addLecture(lecture);
         } catch (DaoException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

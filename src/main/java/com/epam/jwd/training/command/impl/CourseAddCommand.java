@@ -93,7 +93,7 @@ public class CourseAddCommand implements Command {
                         .setCost(BigDecimal.valueOf(Double.parseDouble(cost)))
                         .setTeacher(teacherOptional.get())
                         .build();
-                courseService.save(course);
+                courseService.addCourse(course);
                 response.setType(CommandResponse.Type.REDIRECT);
                 response.setPagePath(PagePath.COURSE.getServletPath() + course.getId());
             } else {

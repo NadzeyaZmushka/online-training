@@ -58,7 +58,7 @@ public class LectureAddCommand implements Command {
                             .setName(message)
                             .setCourse(course)
                             .build();
-                    lectureService.save(lecture);
+                    lectureService.addLecture(lecture);
                 }
                 response.setType(CommandResponse.Type.REDIRECT);
                 response.setPagePath(PagePath.COURSE.getServletPath() + courseId);

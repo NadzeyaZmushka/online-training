@@ -7,6 +7,7 @@ import com.epam.jwd.training.command.RequestAttribute;
 import com.epam.jwd.training.command.RequestParameter;
 import com.epam.jwd.training.command.SessionAttribute;
 import com.epam.jwd.training.exception.ServiceException;
+import com.epam.jwd.training.model.dao.impl.UserDaoImpl;
 import com.epam.jwd.training.model.entity.Course;
 import com.epam.jwd.training.model.entity.User;
 import com.epam.jwd.training.model.service.CourseService;
@@ -30,7 +31,7 @@ public class EnrollInCourseCommand implements Command {
     public static final Logger LOGGER = LogManager.getLogger(EnrollInCourseCommand.class);
 
     private final CourseService courseService = CourseServiceImpl.getInstance();
-    private final UserService userService = UserServiceImpl.getInstance();
+    private final UserService userService = new UserServiceImpl(new UserDaoImpl());
 
     @Override
     public CommandResponse execute(HttpServletRequest request) {

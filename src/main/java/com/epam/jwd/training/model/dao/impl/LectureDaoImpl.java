@@ -82,7 +82,7 @@ public class LectureDaoImpl implements LectureDao {
     }
 
     @Override
-    public boolean save(Lecture lecture) throws DaoException {
+    public boolean addLecture(Lecture lecture) throws DaoException {
         boolean isSaved;
         try (Connection connection = connectionPool.takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_LECTURE_SQL)) {

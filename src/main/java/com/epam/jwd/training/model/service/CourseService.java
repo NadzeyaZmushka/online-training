@@ -110,6 +110,6 @@ public interface CourseService {
      * @return boolean result
      * @throws ServiceException the service exception
      */
-    boolean save(Course course) throws ServiceException;
+    boolean addCourse(Course course) throws ServiceException;
 
 }

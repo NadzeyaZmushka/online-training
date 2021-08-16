@@ -44,7 +44,7 @@ public interface ReviewService {
      * @return boolean result
      * @throws ServiceException the service exception
      */
-    boolean save(Review review) throws ServiceException;
+    boolean addReview(Review review) throws ServiceException;
 
     /**
      * Find review from user

@@ -234,7 +234,7 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public boolean save(Course course) throws DaoException {
+    public boolean addCourse(Course course) throws DaoException {
         boolean isSaved;
         long savedCourseId;
         try (Connection connection = connectionPool.takeConnection();

@@ -6,6 +6,7 @@ import com.epam.jwd.training.command.PagePath;
 import com.epam.jwd.training.command.RequestAttribute;
 import com.epam.jwd.training.command.RequestParameter;
 import com.epam.jwd.training.exception.ServiceException;
+import com.epam.jwd.training.model.dao.impl.UserDaoImpl;
 import com.epam.jwd.training.model.service.UserService;
 import com.epam.jwd.training.model.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +23,7 @@ public class BlockUserCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(BlockUserCommand.class);
 
-    private final UserService userService = UserServiceImpl.getInstance();
+    private final UserService userService = new UserServiceImpl(new UserDaoImpl());
 
     @Override
     public CommandResponse execute(HttpServletRequest request) {
