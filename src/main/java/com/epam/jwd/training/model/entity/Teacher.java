@@ -15,11 +15,6 @@ public class Teacher extends BaseEntity {
     public Teacher() {
     }
 
-//    public Teacher(String name, String surname) {
-//        this.name = name;
-//        this.surname = surname;
-//    }
-
     /**
      * Instantiates a new Teacher.
      *

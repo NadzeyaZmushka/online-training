@@ -43,10 +43,10 @@ public class SignUpCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest request) {
         String email = request.getParameter(EMAIL);
-        String name = new String(request.getParameter(NAME).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
-        String surname = new String(request.getParameter(SURNAME).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
-        String password = new String(request.getParameter(PASSWORD).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
-        String repeatPassword = new String(request.getParameter(REPEAT_PASSWORD).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
+        String name = new String(request.getParameter(NAME).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        String surname = new String(request.getParameter(SURNAME).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        String password = new String(request.getParameter(PASSWORD).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        String repeatPassword = new String(request.getParameter(REPEAT_PASSWORD).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         CommandResponse response = new CommandResponse();
         boolean isCorrectData = true;
         try {
@@ -87,4 +87,5 @@ public class SignUpCommand implements Command {
         }
         return response;
     }
+
 }

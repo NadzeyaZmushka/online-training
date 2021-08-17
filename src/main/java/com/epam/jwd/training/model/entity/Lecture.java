@@ -15,11 +15,6 @@ public class Lecture extends BaseEntity {
     public Lecture() {
     }
 
-//    public Lecture(String name, Course course) {
-//        this.name = name;
-//        this.course = course;
-//    }
-
     /**
      * Instantiates a new Lecture.
      *

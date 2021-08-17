@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="ctg" uri="customTag" %>
+<%@ taglib prefix="fma" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="locale"/>
 <html>
@@ -62,9 +63,9 @@
                 <c:if test="${errorCostAdd}">
                     <fmt:message key="error.course.cost"/>
                 </c:if>
-                <input type="text" name="name" placeholder="Teacher name" value="${name}" required
+                <input type="text" name="name" placeholder="<fmt:message key="course.teacher_name"/> " value="${name}" required
                        pattern=".*[^<>]">
-                <input type="text" name="surname" placeholder="Teacher surname" value="${surname}" required
+                <input type="text" name="surname" placeholder="<fma:message key="course.teacher_surname"/> " value="${surname}" required
                        pattern=".*[^<>]">
                 <c:if test="${errorNameAndSurnameAdd}">
                     <h3><fmt:message key="error.course.name_and_surname"/></h3>

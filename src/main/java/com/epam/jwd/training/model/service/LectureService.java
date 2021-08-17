@@ -30,7 +30,7 @@ public interface LectureService {
      * Delete lecture with such id
      *
      * @param id the lecture id
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean delete(Long id) throws ServiceException;
@@ -46,7 +46,7 @@ public interface LectureService {
      * Update lecture name
      *
      * @param lecture {@link Lecture}
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean update(Lecture lecture) throws ServiceException;
@@ -55,13 +55,13 @@ public interface LectureService {
      * Add new lecture
      *
      * @param lecture {@link Lecture}
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean addLecture(Lecture lecture) throws ServiceException;
 
     /**
-     * @param id       the lecture id
+     * @param lectureId       the lecture id
      * @param courseId the course id
      * @return Optional<Lecture>
      * @throws ServiceException the service exception

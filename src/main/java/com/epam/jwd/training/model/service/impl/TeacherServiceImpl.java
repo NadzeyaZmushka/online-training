@@ -18,8 +18,6 @@ import java.util.Optional;
  */
 public class TeacherServiceImpl implements TeacherService {
 
-//    public static final TeacherServiceImpl INSTANCE = new TeacherServiceImpl();
-
     private static final Logger LOGGER = LogManager.getLogger(TeacherServiceImpl.class);
 
     private final TeacherDao teacherDao;
@@ -87,9 +85,5 @@ public class TeacherServiceImpl implements TeacherService {
         }
         return isSaved;
     }
-
-//    public static TeacherServiceImpl getInstance() {
-//        return INSTANCE;
-//    }
 
 }

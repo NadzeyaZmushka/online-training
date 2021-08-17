@@ -32,7 +32,7 @@ public interface ReviewService {
      * Delete review
      *
      * @param id the review id
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean delete(Long id) throws ServiceException;
@@ -41,7 +41,7 @@ public interface ReviewService {
      * Add new review
      *
      * @param review {@link Review}
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean addReview(Review review) throws ServiceException;
@@ -60,8 +60,9 @@ public interface ReviewService {
      *
      * @param reviewId the review id
      * @param userId   the user id
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean isUserHasReview(Long reviewId, Long userId) throws ServiceException;
+
 }

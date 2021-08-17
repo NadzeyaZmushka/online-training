@@ -62,4 +62,5 @@ public class LectureDeleteCommand implements Command {
         }
         return response;
     }
+
 }

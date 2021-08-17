@@ -21,6 +21,7 @@ public class PropertiesReader {
 
     private static final Properties PROPERTIES = new Properties();
     private static final String FILE_NAME = "database.properties";
+    private static final String ERROR_READING = "Error reading file";
 
     static {
         loadProperties();
@@ -31,7 +32,7 @@ public class PropertiesReader {
             PROPERTIES.load(stream);
         } catch (IOException e) {
             LOGGER.error(e);
-            throw new CouldNotReadPropertiesException("Error reading file");
+            throw new CouldNotReadPropertiesException(ERROR_READING);
         }
     }
 

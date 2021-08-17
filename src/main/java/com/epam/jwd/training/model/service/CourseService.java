@@ -30,17 +30,10 @@ public interface CourseService {
      * Delete course
      *
      * @param id the course id
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean delete(Long id) throws ServiceException;
-
-//    /**
-//     * @param id the teacher id
-//     * @return List of courses by teacher
-//     * @throws ServiceException the service exception
-//     */
-//    List<Course> findAllCoursesByTeacherId(Long id) throws ServiceException;
 
     /**
      * @param userId the user id
@@ -53,7 +46,7 @@ public interface CourseService {
      * Update course hours
      *
      * @param course {@link Course}
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean updateHours(Course course) throws ServiceException;
@@ -62,7 +55,7 @@ public interface CourseService {
      * Update course name
      *
      * @param course {@link Course}
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean updateCourseName(Course course) throws ServiceException;
@@ -71,7 +64,7 @@ public interface CourseService {
      * Update course description
      *
      * @param course {@link Course}
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean updateDescription(Course course) throws ServiceException;
@@ -80,7 +73,7 @@ public interface CourseService {
      * Update course cost
      *
      * @param course {@link Course}
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean updateCost(Course course) throws ServiceException;
@@ -89,7 +82,7 @@ public interface CourseService {
      * Update start and end of course
      *
      * @param course {@link Course}
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean updateDate(Course course) throws ServiceException;
@@ -98,7 +91,7 @@ public interface CourseService {
      * Update teacher on course
      *
      * @param course {@link Course}
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean updateTeacher(Course course) throws ServiceException;
@@ -107,7 +100,7 @@ public interface CourseService {
      * Add new course
      *
      * @param course {@link Course}
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean addCourse(Course course) throws ServiceException;

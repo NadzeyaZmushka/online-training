@@ -39,4 +39,5 @@ public class UnsubscribeFromCourseCommand implements Command {
         }
         return response;
     }
+
 }

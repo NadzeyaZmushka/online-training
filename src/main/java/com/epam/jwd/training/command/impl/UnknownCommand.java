@@ -12,10 +12,12 @@ import javax.servlet.http.HttpServletRequest;
  * @author Nadzeya Zmushka
  */
 public class UnknownCommand implements Command {
+
     @Override
     public CommandResponse execute(HttpServletRequest request) {
         CommandResponse response = new CommandResponse();
         response.setPagePath(PagePath.ERROR_404.getDirectUrl());
         return response;
     }
+
 }

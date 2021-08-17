@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
  * @author Nadzeya Zmushka
  */
 public class HideUsersEnrolledCourseCommand implements Command {
+
     @Override
     public CommandResponse execute(HttpServletRequest request) {
         CommandResponse response = new CommandResponse();
@@ -23,4 +24,5 @@ public class HideUsersEnrolledCourseCommand implements Command {
         response.setPagePath(PagePath.PROFILE.getServletPath());
         return response;
     }
+
 }

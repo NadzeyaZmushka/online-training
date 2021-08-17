@@ -35,8 +35,8 @@ public class UpdateUserNameAndSurnameCommand implements Command {
 
     @Override
     public CommandResponse execute(HttpServletRequest request) {
-        String name = new String(request.getParameter(NAME).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
-        String surname = new String(request.getParameter(SURNAME).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
+        String name = new String(request.getParameter(NAME).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        String surname = new String(request.getParameter(SURNAME).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(SessionAttribute.USER);
         CommandResponse response = new CommandResponse();

@@ -46,7 +46,7 @@ public interface UserService {
     /**
      * @param user     the User
      * @param password the user password
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean addUser(User user, String password) throws ServiceException;
@@ -54,24 +54,31 @@ public interface UserService {
     /**
      * @param user     User
      * @param courseId the course id
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean enrollOnCourse(User user, Long courseId) throws ServiceException;
 
+    /**
+     *
+     * @param user user
+     * @param courseId the course id
+     * @return true if the action was successful
+     * @throws ServiceException the service exception
+     */
     boolean unEnrollOnCourse(User user, Long courseId) throws ServiceException;
 
     /**
      * @param userId   the user id
      * @param courseId the course id
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean isHaveCourse(Long userId, Long courseId) throws ServiceException;
 
     /**
      * @param user User
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean updateUserToAdmin(User user) throws ServiceException;
@@ -79,7 +86,7 @@ public interface UserService {
     /**
      * @param password the user password
      * @param user     User
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean updatePassword(String password, User user) throws ServiceException;
@@ -88,7 +95,7 @@ public interface UserService {
      * @param name    the user name
      * @param surname thr user surname
      * @param id      the user id
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean updateNameAndSurname(String name, String surname, Long id) throws ServiceException;
@@ -96,7 +103,7 @@ public interface UserService {
     /**
      * @param id        the user id
      * @param isEnabled the user enabled
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean changeUserStatus(Long id, boolean isEnabled) throws ServiceException;

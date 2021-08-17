@@ -18,4 +18,5 @@ public class FooterTag extends TagSupport {
         }
         return SKIP_BODY;
     }
+
 }

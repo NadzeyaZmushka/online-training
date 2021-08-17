@@ -1,11 +1,11 @@
 package com.epam.jwd.training.model.dao.impl;
 
+import com.epam.jwd.training.exception.DaoException;
 import com.epam.jwd.training.model.dao.ColumnName;
 import com.epam.jwd.training.model.dao.ReviewDao;
 import com.epam.jwd.training.model.entity.Review;
 import com.epam.jwd.training.model.entity.RoleType;
 import com.epam.jwd.training.model.entity.User;
-import com.epam.jwd.training.exception.DaoException;
 import com.epam.jwd.training.pool.ConcurrentConnectionPool;
 import com.epam.jwd.training.pool.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -136,9 +136,8 @@ public class ReviewDaoImpl implements ReviewDao {
         return reviews;
     }
 
-    //??
     @Override
-    public Optional<Review> findById(Long id) throws DaoException {
+    public Optional<Review> findById(Long id) {
         throw new UnsupportedOperationException();
     }
 

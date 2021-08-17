@@ -1,7 +1,7 @@
 package com.epam.jwd.training.model.dao;
 
-import com.epam.jwd.training.model.entity.User;
 import com.epam.jwd.training.exception.DaoException;
+import com.epam.jwd.training.model.entity.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -65,11 +65,10 @@ public interface UserDao extends BaseDao<User> {
     boolean enrollCourse(User user, Long courseId) throws DaoException;
 
     /**
-     *
-     * @param user
-     * @param courseId
-     * @return
-     * @throws DaoException
+     * @param user     user
+     * @param courseId the course id
+     * @return true if the action was successful
+     * @throws DaoException the dao exception
      */
     boolean unEnrollCourse(User user, Long courseId) throws DaoException;
 

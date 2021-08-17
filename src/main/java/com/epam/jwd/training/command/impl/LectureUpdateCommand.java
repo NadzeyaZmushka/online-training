@@ -82,4 +82,5 @@ public class LectureUpdateCommand implements Command {
         }
         return response;
     }
+
 }

@@ -30,7 +30,7 @@ public interface TeacherService {
      * Delete teacher
      *
      * @param id the teacher id
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException the service exception
      */
     boolean delete(Long id) throws ServiceException;
@@ -47,7 +47,7 @@ public interface TeacherService {
      * Save new teacher
      *
      * @param teacher Teacher
-     * @return boolean result
+     * @return true if the action was successful
      * @throws ServiceException Optional<Teacher>
      */
     boolean addTeacher(Teacher teacher) throws ServiceException;

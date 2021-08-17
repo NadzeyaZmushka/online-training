@@ -28,16 +28,14 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
 
     private static final Logger LOGGER = LogManager.getLogger(ConcurrentConnectionPool.class);
 
-    private static final Lock lock = new ReentrantLock();
-
     private static final String URL_KEY = "db.url";
     private static final String USER_KEY = "db.user";
     private static final String PASSWORD_KEY = "db.password";
     private static final String POOL_SIZE_KEY = "poolSize";
+    private static final int DEFAULT_POOL_SIZE = 10;
+    private static final Lock lock = new ReentrantLock();
 
     private final Integer poolSize;
-    private static final int DEFAULT_POOL_SIZE = 10;
-
     private final AtomicBoolean initialized;
     private final BlockingQueue<ProxyConnection> availableConnections;
     private final BlockingQueue<ProxyConnection> takenConnections;
@@ -47,7 +45,6 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
         poolSize = Integer.valueOf(PropertiesReader.get(POOL_SIZE_KEY));
         availableConnections = new LinkedBlockingDeque<>();
         takenConnections = new LinkedBlockingDeque<>();
-//        init();
     }
 
     public static ConcurrentConnectionPool getInstance() {

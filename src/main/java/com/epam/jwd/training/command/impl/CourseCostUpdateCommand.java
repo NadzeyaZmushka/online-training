@@ -40,8 +40,6 @@ public class CourseCostUpdateCommand implements Command {
         boolean isCorrectData = true;
         try {
             Long courseId = Long.valueOf(courseIdString);
-//            Optional<Course> courseOptional = courseService.findById(courseId);
-//            if (courseOptional.isPresent()) {
             if (!courseValidator.isValidCost(cost)) {
                 session.setAttribute(SessionAttribute.ERROR_COST, true);
                 isCorrectData = false;
@@ -55,12 +53,6 @@ public class CourseCostUpdateCommand implements Command {
             }
             response.setType(CommandResponse.Type.REDIRECT);
             response.setPagePath(PagePath.COURSE.getServletPath() + courseId);
-//            }
-//            else {
-//                session.setAttribute(SessionAttribute.ERROR_COURSE_NOT_FOUND, true);
-//                response.setType(CommandResponse.Type.REDIRECT);
-//                response.setPagePath(PagePath.MAIN.getServletPath());
-//            }
         } catch (ServiceException e) {
             LOGGER.error(e);
             response.setPagePath(PagePath.ERROR_500.getDirectUrl());
@@ -68,4 +60,5 @@ public class CourseCostUpdateCommand implements Command {
         }
         return response;
     }
+
 }

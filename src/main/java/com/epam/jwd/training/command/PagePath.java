@@ -42,4 +42,5 @@ public enum PagePath {
     public String getServletPath() {
         return servletPath;
     }
+
 }

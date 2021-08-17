@@ -28,9 +28,7 @@ public class BlockUserCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest request) {
         String userIdString = request.getParameter(RequestParameter.USER_ID);
-//        HttpSession session = request.getSession();
         CommandResponse response = new CommandResponse();
-//        boolean isBlocked = false;
         try {
             Long userId = Long.valueOf(userIdString);
             userService.changeUserStatus(userId, false);

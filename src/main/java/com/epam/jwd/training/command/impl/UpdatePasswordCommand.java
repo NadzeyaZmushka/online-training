@@ -66,4 +66,5 @@ public class UpdatePasswordCommand implements Command {
         }
         return response;
     }
+
 }

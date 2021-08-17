@@ -23,4 +23,5 @@ public class ToPageCommand implements Command {
         response.setPagePath(page);
         return response;
     }
+
 }

@@ -17,12 +17,6 @@ public class Review extends BaseEntity {
     public Review() {
     }
 
-//    public Review(String description, Date date, User user) {
-//        this.description = description;
-//        this.date = date;
-//        this.user = user;
-//    }
-
     /**
      * Instantiates a new Review.
      *

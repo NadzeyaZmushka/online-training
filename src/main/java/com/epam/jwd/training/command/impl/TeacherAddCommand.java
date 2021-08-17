@@ -35,7 +35,7 @@ public class TeacherAddCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest request) {
         String name = new String(request.getParameter(RequestParameter.TEACHER_NAME).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-        String surname = new String(request.getParameter(RequestParameter.TEACHER_SURNAME).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
+        String surname = new String(request.getParameter(RequestParameter.TEACHER_SURNAME).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         HttpSession session = request.getSession();
         CommandResponse response = new CommandResponse();
         boolean isCorrectData = true;
@@ -66,4 +66,5 @@ public class TeacherAddCommand implements Command {
         }
         return response;
     }
+
 }

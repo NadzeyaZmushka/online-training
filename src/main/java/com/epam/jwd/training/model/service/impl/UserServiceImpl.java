@@ -88,7 +88,6 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    //??
     @Override
     public boolean addUser(User user, String password) throws ServiceException {
         boolean isAdd;
@@ -150,7 +149,6 @@ public class UserServiceImpl implements UserService {
         return isUpdate;
     }
 
-    //??
     @Override
     public boolean updatePassword(String password, User user) throws ServiceException {
         boolean isUpdate;

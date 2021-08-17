@@ -28,7 +28,6 @@ public class CourseDaoImpl implements CourseDao {
             "FROM training.courses " +
             "INNER JOIN training.teachers " +
             "ON teacher_id=t_id";
-    private static final String FIND_COURSES_BY_TEACHER_ID_SQL = FIND_ALL_COURSES_SQL + " WHERE teacher_id = ?";
     private static final String FIND_COURSE_BY_ID_SQL = FIND_ALL_COURSES_SQL + " WHERE c_id = ?";
     private static final String FIND_USER_ENROLLED_BY_COURSE_SQL = "SELECT c_id, course_name, c_description, hours, cost_course " +
             "FROM training.users " +
@@ -55,24 +54,6 @@ public class CourseDaoImpl implements CourseDao {
 
     public CourseDaoImpl() {
     }
-
-//    @Override
-//    public List<Course> findAllCoursesByTeacherId(Long teacherId) throws DaoException {
-//        List<Course> courses = new ArrayList<>();
-//        try (Connection connection = connectionPool.takeConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(FIND_COURSES_BY_TEACHER_ID_SQL)) {
-//            preparedStatement.setLong(1, teacherId);
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            while (resultSet.next()) {
-//                Course course = buildCourse(resultSet);
-//                courses.add(course);
-//            }
-//        } catch (SQLException e) {
-//            LOGGER.error(e.getMessage());
-//            throw new DaoException(e);
-//        }
-//        return courses;
-//    }
 
     @Override
     public List<Course> findUserEnrolledByCourse(Long userId) throws DaoException {
@@ -162,7 +143,6 @@ public class CourseDaoImpl implements CourseDao {
         return isUpdate;
     }
 
-    //???
     @Override
     public boolean updateDate(Course course) throws DaoException {
         boolean isUpdate;

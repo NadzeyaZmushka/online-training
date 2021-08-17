@@ -40,7 +40,7 @@ public class CourseTeacherUpdateCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest request) {
         String courseIdString = request.getParameter(RequestParameter.COURSE_ID);
-        String teacherName = new String(request.getParameter(RequestParameter.TEACHER_NAME).getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
+        String teacherName = new String(request.getParameter(RequestParameter.TEACHER_NAME).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         String teacherSurname = new String(request.getParameter(RequestParameter.TEACHER_SURNAME).getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         HttpSession session = request.getSession();
         CommandResponse response = new CommandResponse();
@@ -75,4 +75,5 @@ public class CourseTeacherUpdateCommand implements Command {
         }
         return response;
     }
+
 }

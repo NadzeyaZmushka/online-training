@@ -33,4 +33,5 @@ public class ChangeLanguageCommand implements Command {
         response.setPagePath(pagePath);
         return response;
     }
+
 }

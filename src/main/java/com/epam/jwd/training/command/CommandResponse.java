@@ -57,4 +57,5 @@ public class CommandResponse {
     public void setType(Type type) {
         this.type = type;
     }
+
 }

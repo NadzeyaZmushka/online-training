@@ -306,4 +306,5 @@ public class ProxyConnection implements Connection {
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
         return actualConnection.isWrapperFor(iface);
     }
+
 }

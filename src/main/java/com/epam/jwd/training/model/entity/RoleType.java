@@ -41,7 +41,6 @@ public enum RoleType {
                 return roleType;
             }
         }
-        //???
         throw new IllegalArgumentException("Role with this id was not found");
     }
 

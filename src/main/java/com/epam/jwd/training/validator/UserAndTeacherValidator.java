@@ -11,7 +11,7 @@ public class UserAndTeacherValidator {
     private static final UserAndTeacherValidator INSTANCE = new UserAndTeacherValidator();
 
     private static final String EMAIL_REGEX = "^.+@.+\\..{2,4}$";
-    //??
+
     private static final String PASSWORD_REGEX = "^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$";
 
     private final static String NAME_REGEX = "^[\\p{L}]+$";

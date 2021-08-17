@@ -86,4 +86,5 @@ public enum PageAccessType {
     public Set<CommandType> getCommands() {
         return commands;
     }
+
 }

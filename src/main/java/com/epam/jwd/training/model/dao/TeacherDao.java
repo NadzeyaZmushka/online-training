@@ -13,7 +13,8 @@ public interface TeacherDao extends BaseDao<Teacher> {
     /**
      * Connect with database.
      * Find teacher with such name and surname
-     * @param name the teacher name
+     *
+     * @param name    the teacher name
      * @param surname the teacher surname
      * @return {@link Optional} with teacher
      * @throws DaoException the dao exception
@@ -23,6 +24,7 @@ public interface TeacherDao extends BaseDao<Teacher> {
     /**
      * Connect with database.
      * Add new teacher
+     *
      * @param teacher teacher
      * @return true if the action was successful
      * @throws DaoException the dao exception

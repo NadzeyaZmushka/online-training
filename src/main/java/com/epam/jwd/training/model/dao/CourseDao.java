@@ -14,16 +14,6 @@ public interface CourseDao extends BaseDao<Course> {
 
     /**
      * Connect with database.
-     * Find all courses by teacher
-     *
-     * @param teacherId the teacher id
-     * @return List of courses
-     * @throws DaoException the dao exception
-     */
-//    List<Course> findAllCoursesByTeacherId(Long teacherId) throws DaoException;
-
-    /**
-     * Connect with database.
      * Find user enrolled by course
      *
      * @param userId the user id

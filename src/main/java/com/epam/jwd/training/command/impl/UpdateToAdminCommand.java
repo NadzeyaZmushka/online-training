@@ -38,7 +38,6 @@ public class UpdateToAdminCommand implements Command {
                     .setRole(RoleType.ADMIN)
                     .build();
             userService.updateUserToAdmin(user);
-//            response.setType(CommandResponse.Type.REDIRECT);
             response.setPagePath(PagePath.SHOW_ALL_USERS.getServletPath());
         } catch (ServiceException e) {
             LOGGER.error(e);
@@ -47,4 +46,5 @@ public class UpdateToAdminCommand implements Command {
         }
         return response;
     }
+
 }

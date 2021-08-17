@@ -35,7 +35,6 @@ public class OpenReviewCommand implements Command {
         try {
             List<Review> reviews = reviewService.findAll();
             request.setAttribute(RequestAttribute.REVIEWS, reviews);
-//            response.setType(CommandResponse.Type.REDIRECT);
             response.setPagePath(PagePath.REVIEW.getDirectUrl());
             session.setAttribute(SessionAttribute.CURRENT_PAGE, PagePath.REVIEW.getServletPath());
         } catch (ServiceException e) {
@@ -45,4 +44,5 @@ public class OpenReviewCommand implements Command {
         }
         return response;
     }
+
 }
