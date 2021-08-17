@@ -18,6 +18,9 @@ public class ApplicationLifecycleListener implements ServletContextListener {
 
     private static final Logger LOGGER = LogManager.getLogger(ApplicationLifecycleListener.class);
 
+    private static final String POOL_INIT = "Pool is initialized";
+    private static final String POOL_DESTROY = "Pool is destroyed";
+
     /**
      * Initialize connection poll when servlet start
      *
@@ -26,7 +29,7 @@ public class ApplicationLifecycleListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ConcurrentConnectionPool.getInstance().init();
-        LOGGER.info("Pool is initialized");
+        LOGGER.info(POOL_INIT);
     }
 
     /**
@@ -37,7 +40,7 @@ public class ApplicationLifecycleListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         ConcurrentConnectionPool.getInstance().destroy();
-        LOGGER.info("Pool is destroyed");
+        LOGGER.info(POOL_DESTROY);
     }
     
 }

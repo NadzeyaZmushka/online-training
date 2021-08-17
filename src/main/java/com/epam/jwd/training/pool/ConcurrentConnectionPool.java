@@ -35,6 +35,12 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
     private static final int DEFAULT_POOL_SIZE = 10;
     private static final Lock lock = new ReentrantLock();
 
+    private static final String NOT_RECEIVED = "The connection is not received";
+    private static final String NOT_RELEASE = "Connection wasn't release";
+    private static final String CONNECTION_FAILED = "Connection failed";
+    private static final String DRIVER_REGISTRATION_FAILED = "Driver registration failed";
+    private static final String UNREGISTERING_DRIVER_FAILED = "Unregistering drivers failed ";
+
     private final Integer poolSize;
     private final AtomicBoolean initialized;
     private final BlockingQueue<ProxyConnection> availableConnections;
@@ -65,7 +71,7 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
             takenConnections.add(connection);
         } catch (InterruptedException e) {
             LOGGER.error(e);
-            throw new CouldNotInitializeConnectionPoolException("The connection is not received ", e);
+            throw new CouldNotInitializeConnectionPoolException(NOT_RECEIVED, e);
         }
         return connection;
     }
@@ -78,7 +84,7 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
                     availableConnections.put((ProxyConnection) connection);
                 } catch (InterruptedException e) {
                     LOGGER.error(e);
-                    throw new CouldNotInitializeConnectionPoolException("Connection wasn't release", e);
+                    throw new CouldNotInitializeConnectionPoolException(NOT_RELEASE, e);
                 }
             }
         }
@@ -99,7 +105,7 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
             } catch (SQLException e) {
                 LOGGER.fatal(e.getMessage());
                 initialized.set(false);
-                throw new CouldNotInitializeConnectionPoolException("Connection failed...", e);
+                throw new CouldNotInitializeConnectionPoolException(CONNECTION_FAILED, e);
             }
         }
     }
@@ -123,7 +129,7 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
         } catch (SQLException e) {
             LOGGER.error(e);
             initialized.set(false);
-            throw new CouldNotInitializeConnectionPoolException("driver registration failed", e);
+            throw new CouldNotInitializeConnectionPoolException(DRIVER_REGISTRATION_FAILED, e);
         }
     }
 
@@ -133,7 +139,7 @@ public final class ConcurrentConnectionPool implements ConnectionPool {
             try {
                 DriverManager.deregisterDriver(drivers.nextElement());
             } catch (SQLException e) {
-                LOGGER.error("unregistering drivers failed " + e.getMessage());
+                LOGGER.error(UNREGISTERING_DRIVER_FAILED + e.getMessage());
             }
         }
     }

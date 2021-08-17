@@ -62,18 +62,6 @@ public class CourseServiceImpl implements CourseService {
         return isDeleted;
     }
 
-//    @Override
-//    public List<Course> findAllCoursesByTeacherId(Long teacherId) throws ServiceException {
-//        List<Course> courses;
-//        try {
-//            courses = courseDao.findAllCoursesByTeacherId(teacherId);
-//        } catch (DaoException e) {
-//            LOGGER.error(e);
-//            throw new ServiceException(e);
-//        }
-//        return courses;
-//    }
-
     @Override
     public List<Course> findUserEnrolledByCourse(Long userId) throws ServiceException {
         List<Course> courses;
@@ -134,7 +122,6 @@ public class CourseServiceImpl implements CourseService {
         return isUpdate;
     }
 
-    //???
     @Override
     public boolean updateDate(Course course) throws ServiceException {
         boolean isUpdate;

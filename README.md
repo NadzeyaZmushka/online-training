@@ -49,3 +49,5 @@ Functional for **administrator**:
 * Change role
 * View all users enrolled in courses
 
+###Database tables:
+![](database\training-final.png)

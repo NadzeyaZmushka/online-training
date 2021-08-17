@@ -31,13 +31,15 @@ public class RoleAccessFilter implements Filter {
 
     private static final Logger LOGGER = LogManager.getLogger(RoleAccessFilter.class);
 
+    private static final String ERROR_NO_COMMAND = "Command name isn't exist";
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession();
         String commandName = request.getParameter(RequestParameter.COMMAND);
         if (commandName == null) {
-            LOGGER.error("Command name isn't exist");
+            LOGGER.error(ERROR_NO_COMMAND);
             request.getRequestDispatcher(PagePath.ERROR_404.getDirectUrl());
             return;
         }
@@ -73,7 +75,7 @@ public class RoleAccessFilter implements Filter {
         if (isHaveCommand) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            LOGGER.error("Command name isn't exist");
+            LOGGER.error(ERROR_NO_COMMAND);
             request.getRequestDispatcher(PagePath.ERROR_404.getDirectUrl());
         }
     }

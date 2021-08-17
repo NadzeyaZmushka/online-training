@@ -36,13 +36,9 @@ public class LectureDaoImpl implements LectureDao {
             "VALUES (?, ?)";
     private static final String DELETE_TASK_SQL = "DELETE FROM training.lectures " +
             "WHERE l_id = ?";
-    private static final String FIND_LECTURE_BY_ID_AND_COURSE_ID = "SELECT l_id, lecture_name, course_id, course_name FROM training.lectures INNER JOIN training.courses ON course_id = c_id WHERE l_id = ? AND course_id = ?";
+    private static final String FIND_LECTURE_BY_ID_AND_COURSE_ID_SQL = "SELECT l_id, lecture_name, course_id, course_name FROM training.lectures INNER JOIN training.courses ON course_id = c_id WHERE l_id = ? AND course_id = ?";
 
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
-
-
-    public LectureDaoImpl() {
-    }
 
     @Override
     public List<Lecture> findAllLecturesByCourseId(Long courseId) throws DaoException {
@@ -69,9 +65,7 @@ public class LectureDaoImpl implements LectureDao {
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_TASK_SQL)) {
             preparedStatement.setString(1, lecture.getName());
             preparedStatement.setLong(2, lecture.getId());
-
             isUpdate = preparedStatement.executeUpdate() > 0;
-
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
@@ -86,9 +80,7 @@ public class LectureDaoImpl implements LectureDao {
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_LECTURE_SQL)) {
             preparedStatement.setString(1, lecture.getName());
             preparedStatement.setLong(2, lecture.getCourse().getId());
-
             isSaved = preparedStatement.executeUpdate() > 0;
-
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
@@ -99,9 +91,8 @@ public class LectureDaoImpl implements LectureDao {
     @Override
     public Optional<Lecture> findLectureByIdAndCourseId(Long lectureId, Long courseId) throws DaoException {
         Optional<Lecture> lectureOptional = Optional.empty();
-
         try (Connection connection = connectionPool.takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_LECTURE_BY_ID_AND_COURSE_ID)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_LECTURE_BY_ID_AND_COURSE_ID_SQL)) {
             preparedStatement.setLong(1, lectureId);
             preparedStatement.setLong(2, courseId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -157,9 +148,7 @@ public class LectureDaoImpl implements LectureDao {
         try (Connection connection = connectionPool.takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_TASK_SQL)) {
             preparedStatement.setLong(1, id);
-
             isDeleted = preparedStatement.executeUpdate() > 0;
-
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);

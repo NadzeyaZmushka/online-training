@@ -22,15 +22,13 @@ import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
 
-    public static final UserDaoImpl INSTANCE = new UserDaoImpl();
-
     private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
 
     private static final String FIND_ALL_USERS_SQL = "SELECT u_id, user_name, user_surname, user_email, role, enabled " +
             "FROM training.users";
     private static final String FIND_USER_BY_ID_SQL = FIND_ALL_USERS_SQL + " WHERE u_id = ?";
     private static final String FIND_USER_BY_EMAIL_SQL = FIND_ALL_USERS_SQL + " WHERE user_email = ?";
-    private static final String FIND_USER_BY_EMAIL_AND_PASSWORD = FIND_ALL_USERS_SQL + " WHERE user_email = ? AND password = ?";
+    private static final String FIND_USER_BY_EMAIL_AND_PASSWORD_SQL = FIND_ALL_USERS_SQL + " WHERE user_email = ? AND password = ?";
     private static final String FIND_ALL_USERS_ON_COURSE_SQL = "SELECT u_id, user_email, user_name, user_surname, c_id, course_name FROM training.users_x_courses INNER JOIN training.users ON user_id = u_id INNER JOIN training.courses ON course_id = c_id";
     private static final String ENROLL_USER_ON_COURSE_SQL = "INSERT INTO training.users_x_courses (user_id, course_id) " +
             "VALUES (?, ?)";
@@ -50,9 +48,6 @@ public class UserDaoImpl implements UserDao {
     private static final String USER_ENROLL_COURSE_SQL = "SELECT user_id, course_id FROM training.users_x_courses WHERE user_id = ? AND course_id = ?";
 
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
-
-    public UserDaoImpl() {
-    }
 
     @Override
     public List<User> findAllUsersOnCourse() throws DaoException {
@@ -138,7 +133,7 @@ public class UserDaoImpl implements UserDao {
     public Optional<User> findByEmailAndPassword(String email, String password) throws DaoException {
         Optional<User> userOptional = Optional.empty();
         try (Connection connection = connectionPool.takeConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_EMAIL_AND_PASSWORD)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_EMAIL_AND_PASSWORD_SQL)) {
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -165,7 +160,6 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(4, password);
             preparedStatement.setLong(5, user.getRole().getId());
             preparedStatement.setBoolean(6, user.isEnabled());
-
             isAdded = preparedStatement.executeUpdate() > 0;
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             generatedKeys.first();
@@ -186,7 +180,6 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement preparedStatement = connection.prepareStatement(ENROLL_USER_ON_COURSE_SQL)) {
             preparedStatement.setLong(1, user.getId());
             preparedStatement.setLong(2, courseId);
-
             isEnrolled = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -202,7 +195,6 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement preparedStatement = connection.prepareStatement(UN_ENROLL_USER_ON_COURSE_SQL)) {
             preparedStatement.setLong(1, user.getId());
             preparedStatement.setLong(2, courseId);
-
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -218,7 +210,6 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement preparedStatement = connection.prepareStatement(USER_ENROLL_COURSE_SQL)) {
             preparedStatement.setLong(1, userId);
             preparedStatement.setLong(2, courseId);
-
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 isHaveCourse = true;
@@ -237,9 +228,7 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_ROLE_SQL)) {
             preparedStatement.setLong(1, user.getRole().getId());
             preparedStatement.setLong(2, user.getId());
-
             isUpdate = preparedStatement.executeUpdate() > 0;
-
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
@@ -254,9 +243,7 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_PASSWORD_SQL)) {
             preparedStatement.setString(1, password);
             preparedStatement.setLong(2, userId);
-
             isUpdate = preparedStatement.executeUpdate() > 0;
-
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
@@ -272,7 +259,6 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setLong(3, user.getId());
-
             isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -288,7 +274,6 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement preparedStatement = connection.prepareStatement(CHANGE_USER_STATUS_SQL)) {
             preparedStatement.setBoolean(1, isEnabled);
             preparedStatement.setLong(2, id);
-
             isChange = preparedStatement.executeUpdate() > 1;
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -303,18 +288,12 @@ public class UserDaoImpl implements UserDao {
         try (Connection connection = connectionPool.takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_SQL)) {
             preparedStatement.setLong(1, id);
-
             isDeleted = preparedStatement.executeUpdate() > 0;
-
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
         }
         return isDeleted;
-    }
-
-    public static UserDaoImpl getInstance() {
-        return INSTANCE;
     }
 
     private User buildUser(ResultSet resultSet) throws SQLException {

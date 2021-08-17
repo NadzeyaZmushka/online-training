@@ -20,16 +20,19 @@ public class UserSessionListener implements HttpSessionListener {
 
     private static final Logger LOGGER = LogManager.getLogger(UserSessionListener.class);
 
+    private static final String SESSION_CREATE = "Session created";
+    private static final String SESSION_DESTROY = "Session destroyed";
+
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         HttpSession session = se.getSession();
         session.setAttribute(SessionAttribute.CURRENT_PAGE, PagePath.INDEX.getDirectUrl());
-        LOGGER.info("Session created");
+        LOGGER.debug(SESSION_CREATE);
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        LOGGER.debug("Session destroyed");
+        LOGGER.debug(SESSION_DESTROY);
     }
 
 }

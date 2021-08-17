@@ -33,9 +33,6 @@ public class TeacherDaoImpl implements TeacherDao {
 
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
 
-    public TeacherDaoImpl() {
-    }
-
     @Override
     public Optional<Teacher> findByNameAndSurname(String name, String surname) throws DaoException {
         Optional<Teacher> teacherOptional = Optional.empty();
@@ -112,9 +109,7 @@ public class TeacherDaoImpl implements TeacherDao {
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_TEACHER_SQL, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, teacher.getName());
             preparedStatement.setString(2, teacher.getSurname());
-
             isSaved = preparedStatement.executeUpdate() > 0;
-
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             generatedKeys.first();
             savedTeacherId = generatedKeys.getLong(ColumnName.GENERATED_KEY);
@@ -133,9 +128,7 @@ public class TeacherDaoImpl implements TeacherDao {
         try (Connection connection = connectionPool.takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_TEACHER_SQL)) {
             preparedStatement.setLong(1, id);
-
             isDeleted = preparedStatement.executeUpdate() > 0;
-
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException(e);

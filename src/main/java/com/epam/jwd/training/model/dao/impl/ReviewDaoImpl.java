@@ -39,9 +39,6 @@ public class ReviewDaoImpl implements ReviewDao {
 
     private final ConnectionPool connectionPool = ConcurrentConnectionPool.getInstance();
 
-    public ReviewDaoImpl() {
-    }
-
     @Override
     public boolean addReview(Review review) throws DaoException {
         boolean isSaved;
@@ -51,14 +48,11 @@ public class ReviewDaoImpl implements ReviewDao {
             preparedStatement.setString(1, review.getDescription());
             preparedStatement.setDate(2, review.getDate());
             preparedStatement.setLong(3, review.getUser().getId());
-
             isSaved = preparedStatement.executeUpdate() > 0;
-
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             generatedKeys.first();
             savedReviewId = generatedKeys.getLong(ColumnName.GENERATED_KEY);
             review.setId(savedReviewId);
-
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DaoException(e);
