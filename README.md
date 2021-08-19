@@ -50,4 +50,5 @@ Functional for **administrator**:
 * View all users enrolled in courses
 
 ###Database tables:
+
 ![](https://github.com/NadzeyaZmushka/online-training/blob/master/database/training-final.png)
