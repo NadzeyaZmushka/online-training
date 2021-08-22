@@ -13,12 +13,14 @@
 <body>
 <div class="container-fluid bg">
     <div style="text-align: center"><ctg:currentTime/></div>
-<c:import url="fragment/header.jsp"/>
-<c:import url="fragment/sidebar.jsp"/>
-<h1 style="text-align: center"><fmt:message key="title.review"/></h1>
+    <c:import url="fragment/header.jsp"/>
+    <c:import url="fragment/sidebar.jsp"/>
+    <h1 style="text-align: center"><fmt:message key="title.review"/></h1>
     <c:forEach var="review" items="${reviews}">
-            <div class="review-border">${review.getUser().getName()} ${review.getUser().getSurname()} ${review.getDate().toString()}<br><br>
-           "${review.getDescription()}"</div> <br/>
+        <div class="review-border">${review.getUser().getName()} ${review.getUser().getSurname()} ${review.getDate().toString()}<br><br>
+            "${review.getDescription()}"
+        </div>
+        <br/>
         <c:if test="${user.getRole().toString() eq 'ADMIN'}">
             <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="review_delete">
@@ -40,14 +42,14 @@
         <h1><fmt:message key="text.review"/></h1>
     </c:if>
     <c:if test="${user.getRole().toString() eq 'USER'}">
-            <h1><fmt:message key="review.add"/></h1>
-            <form action="${pageContext.request.contextPath}/controller" method="post">
-                <input type="hidden" name="command" value="review_add">
-                <label>
-                    <textarea name="message" required pattern=".*[^<>]"></textarea>
-                </label>
-                <input type="submit" class="header_button" value="<fmt:message key="button.review.sendReview"/>">
-            </form>
+        <h1><fmt:message key="review.add"/></h1>
+        <form action="${pageContext.request.contextPath}/controller" method="post">
+            <input type="hidden" name="command" value="review_add">
+            <label>
+                <textarea name="message" required pattern=".*[^<>]"></textarea>
+            </label>
+            <input type="submit" class="header_button" value="<fmt:message key="button.review.sendReview"/>">
+        </form>
     </c:if>
     <c:import url="fragment/footer.jsp"/>
 </div>

@@ -60,8 +60,7 @@ public interface UserService {
     boolean enrollOnCourse(User user, Long courseId) throws ServiceException;
 
     /**
-     *
-     * @param user user
+     * @param user     user
      * @param courseId the course id
      * @return true if the action was successful
      * @throws ServiceException the service exception

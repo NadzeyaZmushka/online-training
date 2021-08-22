@@ -90,4 +90,5 @@ public class ReviewServiceImplTest {
         boolean actual = reviewService.isUserHasReview(1L, 2L);
         assertTrue(actual);
     }
+
 }

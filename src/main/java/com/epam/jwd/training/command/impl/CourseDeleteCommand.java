@@ -25,6 +25,7 @@ public class CourseDeleteCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(CourseDeleteCommand.class);
 
     private final CourseService courseService = new CourseServiceImpl(new CourseDaoImpl());
+
     @Override
     public CommandResponse execute(HttpServletRequest request) {
         String courseIdString = request.getParameter(RequestParameter.COURSE_ID);

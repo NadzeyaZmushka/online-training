@@ -7,7 +7,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title><fmt:message key="title.contacts"/> </title>
+    <title><fmt:message key="title.contacts"/></title>
 
     <link rel="stylesheet" href="css/main.css">
 </head>

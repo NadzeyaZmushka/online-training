@@ -100,4 +100,5 @@ public class LectureServiceImplTest {
         Optional<Lecture> actual = lectureService.findLectureByIdAndCourseId(1L, 1L);
         assertEquals(expected, actual);
     }
+    
 }

@@ -14,7 +14,6 @@ public interface Command {
      * @param request the request {@link HttpServletRequest}
      * @return {@link CommandResponse}
      */
-
     CommandResponse execute(HttpServletRequest request);
 
 }

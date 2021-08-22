@@ -13,4 +13,5 @@ public class PropertiesReaderTest {
 
         Assert.assertEquals(expected, actual);
     }
+
 }

@@ -34,10 +34,6 @@
         <c:if test="${requestScope.errorUserMessageIsNotExist}">
             <fmt:message key="error.signIn.emailAndPasswordIsIncorrect"/>
         </c:if>
-        <%--    <form action="${pageContext.request.contextPath}/controller" method="get">--%>
-        <%--        <input type="hidden" name="command" value="forgot_password_page">--%>
-        <%--        <input type="submit" class="header_button" value="<fmt:message key="button.signIn.forgotPassword"/>">--%>
-        <%--    </form>--%>
         <form action="${pageContext.request.contextPath}/controller" method="get">
             <input type="hidden" name="command" value="main_page">
             <input type="submit" class="header_button" value="<fmt:message

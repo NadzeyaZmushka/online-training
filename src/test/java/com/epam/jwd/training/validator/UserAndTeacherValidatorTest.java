@@ -66,4 +66,5 @@ public class UserAndTeacherValidatorTest {
 
         assertFalse(actual);
     }
+
 }

@@ -21,7 +21,7 @@
     <h1 style="text-align: center"><fmt:message key="main.itCourse"/></h1>
     <table class="table">
         <tr>
-            <th><fmt:message key="main.our.courses"/> </th>
+            <th><fmt:message key="main.our.courses"/></th>
         </tr>
     </table>
     <c:forEach var="course" items="${courses}">
@@ -44,9 +44,6 @@
                 <c:if test="${errorIsNotValidCourseName}">
                     <h3><fmt:message key="error.main.is_not_valid_course_name"/></h3>
                 </c:if>
-<%--                <c:if test="${errorCourseNotFound}">--%>
-<%--                    <h3><fmt:message key="error.main.course_not_found"/></h3>--%>
-<%--                </c:if>--%>
                 <input type="text" name="description" placeholder="<fmt:message key="course.description"/>"
                        value="${description}" required pattern=".*[^<>]">
                 <c:if test="${errorDescriptionAdd}">
@@ -63,9 +60,11 @@
                 <c:if test="${errorCostAdd}">
                     <fmt:message key="error.course.cost"/>
                 </c:if>
-                <input type="text" name="name" placeholder="<fmt:message key="course.teacher_name"/> " value="${name}" required
+                <input type="text" name="name" placeholder="<fmt:message key="course.teacher_name"/> " value="${name}"
+                       required
                        pattern=".*[^<>]">
-                <input type="text" name="surname" placeholder="<fma:message key="course.teacher_surname"/> " value="${surname}" required
+                <input type="text" name="surname" placeholder="<fma:message key="course.teacher_surname"/> "
+                       value="${surname}" required
                        pattern=".*[^<>]">
                 <c:if test="${errorNameAndSurnameAdd}">
                     <h3><fmt:message key="error.course.name_and_surname"/></h3>

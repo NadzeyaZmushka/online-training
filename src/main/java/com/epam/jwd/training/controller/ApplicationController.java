@@ -18,7 +18,7 @@ import java.io.IOException;
  *
  * @author Nadzeya Zmushka
  */
-@WebServlet(urlPatterns = {"/controller", "*.do"})
+@WebServlet(urlPatterns = {"/controller"})
 public class ApplicationController extends HttpServlet {
 
     @Override

@@ -1,9 +1,9 @@
 package com.epam.jwd.training.model.dao.impl;
 
+import com.epam.jwd.training.exception.DaoException;
 import com.epam.jwd.training.model.dao.ColumnName;
 import com.epam.jwd.training.model.dao.TeacherDao;
 import com.epam.jwd.training.model.entity.Teacher;
-import com.epam.jwd.training.exception.DaoException;
 import com.epam.jwd.training.pool.ConcurrentConnectionPool;
 import com.epam.jwd.training.pool.ConnectionPool;
 import org.apache.logging.log4j.LogManager;

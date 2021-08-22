@@ -31,6 +31,7 @@ public class CourseValidatorTest {
 
         assertTrue(actual);
     }
+
     @Test
     public void test_isValidName_returnFalse_whenNameIsNotValid() {
         String wrongName = "<>name</>";
@@ -38,6 +39,7 @@ public class CourseValidatorTest {
 
         assertFalse(actual);
     }
+
     @Test
     public void test_isValidDescription_returnTrue_whenDescriptionIsValid() {
         boolean actual = validator.isValidDescription(description);
@@ -108,4 +110,5 @@ public class CourseValidatorTest {
 
         assertFalse(actual);
     }
+
 }

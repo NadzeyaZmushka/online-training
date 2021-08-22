@@ -1,7 +1,7 @@
 package com.epam.jwd.training.model.dao;
 
-import com.epam.jwd.training.model.entity.Lecture;
 import com.epam.jwd.training.exception.DaoException;
+import com.epam.jwd.training.model.entity.Lecture;
 
 import java.util.List;
 import java.util.Optional;

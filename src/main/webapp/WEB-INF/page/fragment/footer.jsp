@@ -6,7 +6,6 @@
 <fmt:setBundle basename="locale"/>
 <footer>
     <link rel="stylesheet" href="css/footer.css">
-    <%--    <link rel="stylesheet" href="css/header.css">--%>
     <div style="align-content: end">
         <div style="text-align: center">
             <form action="${pageContext.request.contextPath}/controller" method="get">

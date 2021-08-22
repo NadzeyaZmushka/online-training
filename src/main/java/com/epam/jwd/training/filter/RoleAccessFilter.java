@@ -38,20 +38,17 @@ public class RoleAccessFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession();
         String commandName = request.getParameter(RequestParameter.COMMAND);
+        RoleType role = RoleType.GUEST;
+        User user = (User) session.getAttribute(RequestAttribute.USER);
         if (commandName == null) {
             LOGGER.error(ERROR_NO_COMMAND);
             request.getRequestDispatcher(PagePath.ERROR_404.getDirectUrl());
             return;
         }
-
-        RoleType role = RoleType.GUEST;
-        Set<CommandType> commandTypes;
-        User user = (User) session.getAttribute(RequestAttribute.USER);
-
         if (user != null) {
             role = user.getRole();
         }
-
+        Set<CommandType> commandTypes;
         switch (role) {
             case ADMIN:
                 commandTypes = PageAccessType.ADMIN.getCommands();
@@ -63,7 +60,6 @@ public class RoleAccessFilter implements Filter {
                 commandTypes = PageAccessType.GUEST.getCommands();
                 break;
         }
-
         commandName = commandName.toUpperCase();
         boolean isHaveCommand = false;
         for (CommandType commandType : commandTypes) {

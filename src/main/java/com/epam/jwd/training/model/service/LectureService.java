@@ -61,8 +61,8 @@ public interface LectureService {
     boolean addLecture(Lecture lecture) throws ServiceException;
 
     /**
-     * @param lectureId       the lecture id
-     * @param courseId the course id
+     * @param lectureId the lecture id
+     * @param courseId  the course id
      * @return Optional<Lecture>
      * @throws ServiceException the service exception
      */
