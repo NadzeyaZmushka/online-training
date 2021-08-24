@@ -32,7 +32,7 @@ public class TeacherServiceImpl implements TeacherService {
         try {
             teachers = teacherDao.findAll();
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return teachers;
@@ -44,7 +44,7 @@ public class TeacherServiceImpl implements TeacherService {
         try {
             teacherOptional = teacherDao.findById(id);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return teacherOptional;
@@ -56,7 +56,7 @@ public class TeacherServiceImpl implements TeacherService {
         try {
             isDeleted = teacherDao.delete(id);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isDeleted;
@@ -68,7 +68,7 @@ public class TeacherServiceImpl implements TeacherService {
         try {
             teacherOptional = teacherDao.findByNameAndSurname(name, surname);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return teacherOptional;
@@ -80,7 +80,7 @@ public class TeacherServiceImpl implements TeacherService {
         try {
             isSaved = teacherDao.addTeacher(teacher);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isSaved;

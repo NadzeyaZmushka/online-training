@@ -87,14 +87,14 @@ public class UserDaoImpl implements UserDao {
                 users.add(user);
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return users;
     }
 
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<User> findById(Long id) throws DaoException {
         Optional<User> userOptional = Optional.empty();
         try (Connection connection = connectionPool.takeConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_ID_SQL);
@@ -107,6 +107,7 @@ public class UserDaoImpl implements UserDao {
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
+            throw new DaoException(e);
         }
         return userOptional;
     }
@@ -123,7 +124,7 @@ public class UserDaoImpl implements UserDao {
                 userOptional = Optional.of(user);
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return userOptional;
@@ -142,7 +143,7 @@ public class UserDaoImpl implements UserDao {
                 userOptional = Optional.of(user);
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return userOptional;
@@ -167,7 +168,7 @@ public class UserDaoImpl implements UserDao {
             user.setId(savedUserId);
 
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isAdded;
@@ -182,7 +183,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setLong(2, courseId);
             isEnrolled = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isEnrolled;
@@ -197,7 +198,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setLong(2, courseId);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return result;
@@ -215,7 +216,7 @@ public class UserDaoImpl implements UserDao {
                 isHaveCourse = true;
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isHaveCourse;
@@ -230,7 +231,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setLong(2, user.getId());
             isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isUpdate;
@@ -245,7 +246,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setLong(2, userId);
             isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isUpdate;
@@ -261,7 +262,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setLong(3, user.getId());
             isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isUpdate;
@@ -276,7 +277,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setLong(2, id);
             isChange = preparedStatement.executeUpdate() > 1;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isChange;
@@ -290,7 +291,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setLong(1, id);
             isDeleted = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isDeleted;

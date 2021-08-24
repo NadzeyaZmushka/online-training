@@ -27,7 +27,7 @@ public class ReviewDaoImpl implements ReviewDao {
     private static final String FIND_ALL_REVIEWS_SQL = "SELECT r_id, description, date_review, user_id, user_name, user_surname, user_email, role, enabled " +
             "FROM training.reviews " +
             "INNER JOIN users ON user_id = u_id " +
-            "ORDER BY date_review";
+            "ORDER BY date_review DESC";
     private static final String ADD_REVIEW_SQL = "INSERT INTO training.reviews (description, date_review, user_id) " +
             "VALUES (?, ?, ?)";
     private static final String DELETE_REVIEW_SQL = "DELETE FROM training.reviews " +
@@ -54,7 +54,7 @@ public class ReviewDaoImpl implements ReviewDao {
             savedReviewId = generatedKeys.getLong(ColumnName.GENERATED_KEY);
             review.setId(savedReviewId);
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isSaved;
@@ -76,7 +76,7 @@ public class ReviewDaoImpl implements ReviewDao {
                 reviewOptional = Optional.of(review);
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return reviewOptional;
@@ -94,7 +94,7 @@ public class ReviewDaoImpl implements ReviewDao {
                 isHas = true;
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isHas;
@@ -124,7 +124,7 @@ public class ReviewDaoImpl implements ReviewDao {
                 reviews.add(review);
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return reviews;
@@ -144,7 +144,7 @@ public class ReviewDaoImpl implements ReviewDao {
 
             isDeleted = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isDeleted;

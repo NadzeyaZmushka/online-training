@@ -44,7 +44,7 @@ public class ProfileCommand implements Command {
             response.setPagePath(PagePath.PROFILE.getDirectUrl());
             session.setAttribute(SessionAttribute.CURRENT_PAGE, PagePath.PROFILE.getServletPath());
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             response.setPagePath(PagePath.ERROR_500.getDirectUrl());
             request.setAttribute(RequestAttribute.EXCEPTION, e.getMessage());
         }

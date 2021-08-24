@@ -32,7 +32,7 @@ public class LectureServiceImpl implements LectureService {
         try {
             lectures = lectureDao.findAll();
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return lectures;
@@ -44,7 +44,7 @@ public class LectureServiceImpl implements LectureService {
         try {
             taskOptional = lectureDao.findById(id);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return taskOptional;
@@ -56,7 +56,7 @@ public class LectureServiceImpl implements LectureService {
         try {
             isDeleted = lectureDao.delete(id);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isDeleted;
@@ -68,7 +68,7 @@ public class LectureServiceImpl implements LectureService {
         try {
             lectures = lectureDao.findAllLecturesByCourseId(courseId);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return lectures;
@@ -80,7 +80,7 @@ public class LectureServiceImpl implements LectureService {
         try {
             isUpdate = lectureDao.update(lecture);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isUpdate;
@@ -92,7 +92,7 @@ public class LectureServiceImpl implements LectureService {
         try {
             isSaved = lectureDao.addLecture(lecture);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isSaved;
@@ -104,7 +104,7 @@ public class LectureServiceImpl implements LectureService {
         try {
             lectureOptional = lectureDao.findLectureByIdAndCourseId(lectureId, courseId);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return lectureOptional;

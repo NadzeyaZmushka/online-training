@@ -60,7 +60,7 @@ public class TeacherAddCommand implements Command {
                 response.setPagePath(PagePath.SHOW_ALL_TEACHERS.getServletPath());
             }
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             response.setPagePath(PagePath.ERROR_500.getDirectUrl());
             request.setAttribute(RequestAttribute.EXCEPTION, e);
         }

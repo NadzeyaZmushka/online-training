@@ -32,7 +32,7 @@ public class ReviewServiceImpl implements ReviewService {
         try {
             reviews = reviewDao.findAll();
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return reviews;
@@ -44,7 +44,7 @@ public class ReviewServiceImpl implements ReviewService {
         try {
             reviewOptional = reviewDao.findById(id);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return reviewOptional;
@@ -56,7 +56,7 @@ public class ReviewServiceImpl implements ReviewService {
         try {
             isDeleted = reviewDao.delete(id);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isDeleted;
@@ -68,7 +68,7 @@ public class ReviewServiceImpl implements ReviewService {
         try {
             isSaved = reviewDao.addReview(review);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isSaved;
@@ -80,7 +80,7 @@ public class ReviewServiceImpl implements ReviewService {
         try {
             reviewOptional = reviewDao.findReviewByUserId(id);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return reviewOptional;
@@ -92,7 +92,7 @@ public class ReviewServiceImpl implements ReviewService {
         try {
             isHas = reviewDao.isUserHasReview(reviewId, userId);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isHas;

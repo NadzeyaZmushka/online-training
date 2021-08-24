@@ -32,7 +32,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             courses = courseDao.findAll();
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return courses;
@@ -44,7 +44,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             courseOptional = courseDao.findById(id);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return courseOptional;
@@ -56,7 +56,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             isDeleted = courseDao.delete(id);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isDeleted;
@@ -68,7 +68,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             courses = courseDao.findUserEnrolledByCourse(userId);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return courses;
@@ -80,7 +80,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             isUpdate = courseDao.updateHours(course);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isUpdate;
@@ -92,7 +92,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             isUpdate = courseDao.updateCourseName(course);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isUpdate;
@@ -104,7 +104,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             isUpdate = courseDao.updateDescription(course);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isUpdate;
@@ -116,7 +116,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             isUpdate = courseDao.updateCost(course);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isUpdate;
@@ -128,7 +128,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             isUpdate = courseDao.updateDate(course);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isUpdate;
@@ -140,7 +140,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             isUpdate = courseDao.updateTeacher(course);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isUpdate;
@@ -152,7 +152,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             isSave = courseDao.addCourse(course);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isSave;

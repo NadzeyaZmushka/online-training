@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
         try {
             users = userDao.findAll();
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return users;
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         try {
             user = userDao.findById(userId);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return user;
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
         try {
             users = userDao.findAllUsersOnCourse();
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return users;
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
         try {
             user = userDao.findByEmail(email);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return user;
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
             String encryptedPassword = Base64.getEncoder().encodeToString(password.getBytes());
             user = userDao.findByEmailAndPassword(email, encryptedPassword);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return user;
@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
             String encryptedPassword = Base64.getEncoder().encodeToString(password.getBytes());
             isAdd = userDao.addUser(user, encryptedPassword);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isAdd;
@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
         try {
             isEnrolled = userDao.enrollCourse(user, courseId);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isEnrolled;
@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
         try {
             result = userDao.unEnrollCourse(user, courseId);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return result;
@@ -131,7 +131,7 @@ public class UserServiceImpl implements UserService {
         try {
             isHaveCourse = userDao.isHaveCourse(userId, courseId);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isHaveCourse;
@@ -143,7 +143,7 @@ public class UserServiceImpl implements UserService {
         try {
             isUpdate = userDao.updateUserToAdmin(user);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isUpdate;
@@ -156,7 +156,7 @@ public class UserServiceImpl implements UserService {
             String encryptedPassword = Base64.getEncoder().encodeToString(password.getBytes());
             isUpdate = userDao.updatePassword(encryptedPassword, user.getId());
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isUpdate;
@@ -173,7 +173,7 @@ public class UserServiceImpl implements UserService {
                     .build();
             isUpdate = userDao.updateNameAndSurname(user);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isUpdate;
@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
         try {
             isChanged = userDao.changeUserStatus(id, isEnabled);
         } catch (DaoException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new ServiceException(e);
         }
         return isChanged;

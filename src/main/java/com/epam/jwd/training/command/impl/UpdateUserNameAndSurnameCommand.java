@@ -56,7 +56,7 @@ public class UpdateUserNameAndSurnameCommand implements Command {
                 response.setPagePath(PagePath.PROFILE.getServletPath());
             }
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             response.setPagePath(PagePath.ERROR_500.getDirectUrl());
             request.setAttribute(RequestAttribute.EXCEPTION, e.getMessage());
         }

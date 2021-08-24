@@ -57,7 +57,7 @@ public class CourseDateUpdateCommand implements Command {
             response.setType(CommandResponse.Type.REDIRECT);
             response.setPagePath(PagePath.COURSE.getServletPath() + courseId);
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             response.setPagePath(PagePath.ERROR_500.getDirectUrl());
             request.setAttribute(RequestAttribute.EXCEPTION, e.getMessage());
         }

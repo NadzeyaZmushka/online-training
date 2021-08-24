@@ -50,7 +50,7 @@ public class TeacherDaoImpl implements TeacherDao {
                 teacherOptional = Optional.of(teacher);
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return teacherOptional;

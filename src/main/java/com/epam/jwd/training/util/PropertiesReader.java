@@ -31,7 +31,7 @@ public class PropertiesReader {
         try (InputStream stream = PropertiesReader.class.getClassLoader().getResourceAsStream(FILE_NAME)) {
             PROPERTIES.load(stream);
         } catch (IOException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new CouldNotReadPropertiesException(ERROR_READING);
         }
     }

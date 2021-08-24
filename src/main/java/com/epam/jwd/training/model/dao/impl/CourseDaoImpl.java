@@ -70,7 +70,7 @@ public class CourseDaoImpl implements CourseDao {
                 courses.add(course);
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return courses;
@@ -85,7 +85,7 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.setLong(2, course.getId());
             isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isUpdate;
@@ -100,7 +100,7 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.setLong(2, course.getId());
             isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isUpdate;
@@ -115,7 +115,7 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.setLong(2, course.getId());
             isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isUpdate;
@@ -130,7 +130,7 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.setLong(2, course.getId());
             isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isUpdate;
@@ -146,7 +146,7 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.setLong(3, course.getId());
             isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isUpdate;
@@ -161,7 +161,7 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.setLong(2, course.getId());
             isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isUpdate;

@@ -31,7 +31,7 @@ public class CommandFactory {
             return type.getCommand();
 
         } catch (IllegalArgumentException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             return new UnknownCommand();
         }
     }

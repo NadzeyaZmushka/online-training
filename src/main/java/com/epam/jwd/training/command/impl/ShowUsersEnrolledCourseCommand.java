@@ -38,7 +38,7 @@ public class ShowUsersEnrolledCourseCommand implements Command {
             response.setType(CommandResponse.Type.REDIRECT);
             response.setPagePath(PagePath.PROFILE.getServletPath());
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             response.setPagePath(PagePath.ERROR_500.getServletPath());
             request.setAttribute(RequestAttribute.EXCEPTION, e.getMessage());
         }

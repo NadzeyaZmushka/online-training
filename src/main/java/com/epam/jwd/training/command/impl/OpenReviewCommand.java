@@ -38,7 +38,7 @@ public class OpenReviewCommand implements Command {
             response.setPagePath(PagePath.REVIEW.getDirectUrl());
             session.setAttribute(SessionAttribute.CURRENT_PAGE, PagePath.REVIEW.getServletPath());
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             response.setPagePath(PagePath.ERROR_500.getDirectUrl());
             request.setAttribute(RequestAttribute.EXCEPTION, e.getMessage());
         }

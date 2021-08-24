@@ -60,7 +60,7 @@ public class UpdatePasswordCommand implements Command {
                 }
             }
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             response.setPagePath(PagePath.ERROR_500.getDirectUrl());
             request.setAttribute(RequestAttribute.EXCEPTION, e.getMessage());
         }

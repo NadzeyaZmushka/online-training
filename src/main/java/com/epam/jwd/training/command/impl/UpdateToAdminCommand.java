@@ -40,7 +40,7 @@ public class UpdateToAdminCommand implements Command {
             userService.updateUserToAdmin(user);
             response.setPagePath(PagePath.SHOW_ALL_USERS.getServletPath());
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             response.setPagePath(PagePath.ERROR_500.getDirectUrl());
             request.setAttribute(RequestAttribute.EXCEPTION, e.getMessage());
         }

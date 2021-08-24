@@ -38,7 +38,7 @@ public class MainCommand implements Command {
             commandResponse.setPagePath(PagePath.MAIN.getDirectUrl());
             session.setAttribute(SessionAttribute.CURRENT_PAGE, PagePath.MAIN.getServletPath());
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             commandResponse.setPagePath(PagePath.ERROR_500.getDirectUrl());
             request.setAttribute(RequestAttribute.EXCEPTION, e.getMessage());
         }

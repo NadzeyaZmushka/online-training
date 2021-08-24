@@ -81,7 +81,7 @@ public class SignUpCommand implements Command {
                 request.setAttribute(SURNAME, surname);
             }
         } catch (ServiceException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             response.setPagePath(PagePath.ERROR_500.getDirectUrl());
             request.setAttribute(EXCEPTION, e.getMessage());
         }

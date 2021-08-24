@@ -52,7 +52,7 @@ public class LectureDaoImpl implements LectureDao {
                 lectures.add(lecture);
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return lectures;
@@ -67,7 +67,7 @@ public class LectureDaoImpl implements LectureDao {
             preparedStatement.setLong(2, lecture.getId());
             isUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isUpdate;
@@ -82,7 +82,7 @@ public class LectureDaoImpl implements LectureDao {
             preparedStatement.setLong(2, lecture.getCourse().getId());
             isSaved = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isSaved;
@@ -101,7 +101,7 @@ public class LectureDaoImpl implements LectureDao {
                 lectureOptional = Optional.of(lecture);
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return lectureOptional;
@@ -118,7 +118,7 @@ public class LectureDaoImpl implements LectureDao {
                 lectures.add(lecture);
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return lectures;
@@ -136,7 +136,7 @@ public class LectureDaoImpl implements LectureDao {
                 taskOptional = Optional.of(lecture);
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return taskOptional;
@@ -150,7 +150,7 @@ public class LectureDaoImpl implements LectureDao {
             preparedStatement.setLong(1, id);
             isDeleted = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
             throw new DaoException(e);
         }
         return isDeleted;
