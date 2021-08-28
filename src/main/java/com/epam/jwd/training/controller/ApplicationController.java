@@ -3,7 +3,6 @@ package com.epam.jwd.training.controller;
 import com.epam.jwd.training.command.Command;
 import com.epam.jwd.training.command.CommandFactory;
 import com.epam.jwd.training.command.CommandResponse;
-import com.epam.jwd.training.pool.ConcurrentConnectionPool;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,11 +40,6 @@ public class ApplicationController extends HttpServlet {
         } else {
             response.sendRedirect(commandResponse.getPagePath());
         }
-    }
-
-    @Override
-    public void destroy() {
-        ConcurrentConnectionPool.getInstance().destroy();
     }
 
 }
